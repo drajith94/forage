@@ -31,7 +31,7 @@ body{
   padding-bottom:calc(72px + env(safe-area-inset-bottom));
 }
 .wrap{max-width:720px;margin:0 auto;padding:0 16px;}
-
+ 
 /* HEADER */
 header{
   background:var(--card);border-bottom:1px solid var(--line);
@@ -41,7 +41,7 @@ header{
 }
 h1{font-family:'Fraunces',serif;font-weight:900;font-size:30px;letter-spacing:-.02em;margin:0;line-height:1;}
 .tagline{font-family:'Fraunces',serif;font-style:italic;font-size:13.5px;color:var(--terra-deep);margin:0;}
-
+ 
 /* LOCATION STRIP */
 .loc-strip{
   background:var(--card);border-bottom:1px solid var(--line);
@@ -57,17 +57,17 @@ input.loc-in{width:100%;font:inherit;font-size:13.5px;padding:9px 10px 9px 30px;
   border:1.5px solid var(--line);background:var(--paper);color:var(--ink);outline:none;}
 .loc-hint{font-size:12px;color:var(--ink-soft);padding:6px 16px 0;display:flex;align-items:center;gap:6px;}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--olive);flex-shrink:0;}
-
+ 
 /* SECTIONS */
 .sec{padding-top:14px;}
-
+ 
 /* PANEL */
 .panel{background:var(--card);border:1px solid var(--line);border-radius:20px;
   padding:16px;box-shadow:0 16px 36px -26px rgba(33,27,21,.4);margin:0 0 2px;}
 label.fld{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
   color:var(--ink-soft);display:block;margin-bottom:7px;}
 .row{display:flex;gap:7px;flex-wrap:wrap;}
-
+ 
 /* CHIPS */
 .chip{font-size:13px;font-weight:600;padding:8px 13px;border-radius:99px;cursor:pointer;
   white-space:nowrap;border:1.5px solid var(--line);background:transparent;color:var(--ink-soft);
@@ -75,16 +75,16 @@ label.fld{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:u
 .chip.on{border-color:var(--terra);background:var(--terra);color:#fff;}
 .chip.olive.on{border-color:var(--olive);background:var(--olive);color:#fff;}
 .chip.gold.on{border-color:var(--gold);background:var(--gold);color:#fff;}
-
+ 
 select{width:100%;font:inherit;font-size:14px;font-weight:600;padding:10px 11px;border-radius:11px;
   border:1.5px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer;}
 input[type=range]{-webkit-appearance:none;width:100%;height:4px;border-radius:99px;background:var(--line);outline:none;margin-top:10px;}
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;
   background:var(--terra);cursor:pointer;border:3px solid var(--card);box-shadow:0 2px 6px rgba(0,0,0,.18);}
-
+ 
 .more-btn{margin-top:14px;display:inline-flex;align-items:center;gap:6px;background:none;border:none;
   cursor:pointer;font:inherit;font-weight:600;font-size:13px;color:var(--terra-deep);padding:0;}
-
+ 
 /* GO ROW */
 .go-row{display:flex;gap:9px;margin-top:16px;}
 .btn-go{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;font:inherit;
@@ -101,17 +101,17 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
   box-shadow:0 12px 24px -12px rgba(79,78,42,.65);}
 .btn-plain:disabled{opacity:.8;cursor:default;}
 .err{font-size:13px;color:var(--terra-deep);font-weight:600;margin-top:10px;}
-
+ 
 /* SUB TABS */
 .sub-tabs{display:flex;gap:5px;margin-top:16px;background:var(--paper-deep);padding:4px;border-radius:13px;}
 .stab{flex:1;text-align:center;font-weight:700;font-size:13px;padding:9px;border-radius:9px;
   cursor:pointer;color:var(--ink-soft);border:none;background:transparent;}
 .stab.on{background:var(--card);color:var(--ink);box-shadow:0 2px 7px -3px rgba(0,0,0,.28);}
-
+ 
 /* RESULTS */
 .results{margin-top:2px;}
 .sec-title{font-family:'Fraunces',serif;font-weight:700;font-size:22px;margin:14px 0 0;}
-
+ 
 /* CARDS */
 .card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:18px;
   padding:17px 17px 15px;margin-top:13px;box-shadow:0 14px 30px -24px rgba(33,27,21,.48);
@@ -140,10 +140,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .actions{display:flex;gap:7px;margin-top:13px;flex-wrap:wrap;}
 .act{display:inline-flex;align-items:center;gap:5px;font:inherit;font-weight:600;font-size:13px;
   text-decoration:none;padding:9px 13px;border-radius:10px;cursor:pointer;border:none;}
-
+ 
 /* MAP */
 .mapbox{height:400px;border-radius:16px;margin-top:13px;border:1px solid var(--line);overflow:hidden;z-index:0;}
-
+ 
 /* SKELETON */
 .skel{height:90px;border-radius:16px;margin-top:12px;
   background:linear-gradient(90deg,var(--paper-deep) 25%,var(--paper) 37%,var(--paper-deep) 63%);
@@ -152,7 +152,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .loading-msg{font-family:'Fraunces',serif;font-style:italic;font-size:15px;color:var(--ink-soft);
   display:flex;align-items:center;gap:8px;margin-top:18px;}
 @keyframes pulse{0%,100%{opacity:.3;transform:scale(.8);}50%{opacity:1;transform:scale(1);}}
-
+ 
 /* REDDIT BUZZ */
 .buzz-wrap{margin-top:18px;}
 .buzz-title{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
@@ -167,14 +167,14 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
   display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
 .buzz-score{font-size:11px;color:var(--ink-soft);margin-top:6px;}
 .buzz-matched{background:rgba(188,75,43,.08);border-color:var(--terra);}
-
+ 
 /* SWITCH */
 .switch-row{display:flex;justify-content:space-between;align-items:center;margin-top:14px;}
 .track{width:40px;height:22px;border-radius:99px;background:var(--line);position:relative;cursor:pointer;transition:.2s;flex-shrink:0;}
 .track.on{background:var(--olive);}
 .knob{position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:.2s;}
 .track.on .knob{left:21px;}
-
+ 
 /* SAVED */
 .taste-card{background:var(--green-bg);border:1px solid rgba(107,106,58,.3);border-radius:14px;
   padding:13px 14px;margin-top:14px;font-size:13px;color:#4a4a1e;display:flex;gap:10px;}
@@ -183,7 +183,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .mode-food{color:var(--terra-deep);background:rgba(188,75,43,.10);}
 .mode-parks{color:var(--olive);background:rgba(107,106,58,.12);}
 .mode-play{color:#5a3a8a;background:rgba(90,58,138,.10);}
-
+ 
 /* BOTTOM NAV */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);
   border-top:1px solid var(--line);display:flex;z-index:200;
@@ -193,7 +193,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
   font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;transition:color .15s;}
 .nav-btn .ic{font-size:21px;line-height:1;}
 .nav-btn.on{color:var(--terra);}
-
+ 
 /* TOAST */
 .toast{position:fixed;left:50%;bottom:calc(80px + env(safe-area-inset-bottom));
   transform:translateX(-50%);background:var(--ink);color:#fff;font-size:13px;font-weight:600;
@@ -202,7 +202,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .toast.show{opacity:1;transform:translateX(-50%) translateY(-3px);}
 .foot{font-size:11.5px;color:var(--ink-soft);margin:20px 0 10px;text-align:center;line-height:1.5;}
 .empty-state{text-align:center;padding:40px 0 20px;}
-
+ 
 /* --- FRIEND REC MODAL & CARDS --- */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.52);z-index:500;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s;}
 .overlay.show{opacity:1;pointer-events:all;}
@@ -227,13 +227,13 @@ textarea.finput{resize:vertical;min-height:72px;line-height:1.5;}
 </style>
 </head>
 <body>
-
+ 
 <!-- HEADER -->
 <header>
   <h1>Forage</h1><span style="font-size:22px;">🍽️</span>
   <span class="tagline" style="margin-left:4px;">Your go-to for food &amp; fun nearby.</span>
 </header>
-
+ 
 <!-- SHARED LOCATION -->
 <div class="loc-strip">
   <button id="locBtn" class="btn-loc"><span id="locIcon">◎</span> <span id="locLabel">My location</span></button>
@@ -243,15 +243,15 @@ textarea.finput{resize:vertical;min-height:72px;line-height:1.5;}
   </div>
 </div>
 <p id="locHint" class="loc-hint" style="display:none;"></p>
-
+ 
 <!-- ============================================================ FOOD SECTION -->
 <div class="sec" id="sec-food">
 <div class="wrap">
-
+ 
   <div class="panel">
     <label class="fld">Meal</label>
     <div class="row" id="food-meals"></div>
-
+ 
     <div class="row" style="margin-top:14px;gap:12px;">
       <div style="flex:1;min-width:140px;">
         <label class="fld">Cuisine</label>
@@ -262,7 +262,7 @@ textarea.finput{resize:vertical;min-height:72px;line-height:1.5;}
         <div class="row" id="food-prices"></div>
       </div>
     </div>
-
+ 
     <button class="more-btn" id="food-more-btn">⚙ More options</button>
     <div id="food-more" style="display:none;margin-top:13px;">
       <div style="display:flex;justify-content:space-between;align-items:baseline;">
@@ -270,10 +270,10 @@ textarea.finput{resize:vertical;min-height:72px;line-height:1.5;}
         <span id="food-rad-label" style="font-size:12px;font-weight:700;color:var(--terra-deep);">within 3 mi</span>
       </div>
       <input id="food-radius" type="range" min="0.5" max="10" step="0.5" value="3"/>
-
+ 
       <label class="fld" style="margin-top:14px;">🌿 Dietary</label>
       <div class="row" id="food-dietary"></div>
-
+ 
       <div class="row" style="margin-top:14px;gap:12px;">
         <div>
           <label class="fld">Hours</label>
@@ -284,7 +284,7 @@ textarea.finput{resize:vertical;min-height:72px;line-height:1.5;}
           <div class="row" id="food-sorts"></div>
         </div>
       </div>
-
+ 
       <div class="switch-row">
         <div>
           <label class="fld" style="margin-bottom:2px;">Learn from my favorites</label>
@@ -293,7 +293,7 @@ textarea.finput{resize:vertical;min-height:72px;line-height:1.5;}
         <div class="track on" id="food-learn-track"><div class="knob"></div></div>
       </div>
     </div>
-
+ 
     <div class="go-row">
       <button class="btn-go" id="food-go">🔍 Find top 10</button>
       <button class="btn-surprise" id="food-surprise">🎲 Surprise me</button>
@@ -301,7 +301,7 @@ textarea.finput{resize:vertical;min-height:72px;line-height:1.5;}
     <p class="err" id="food-err" style="display:none;"></p>
     <button class="add-rec-btn" onclick="openModal('food')">&#x2795; Add a recommended restaurant</button>
   </div>
-
+ 
   <div id="food-loading" style="display:none;">
     <div class="loading-msg">
       <span style="display:inline-flex;gap:3px;">
@@ -313,7 +313,7 @@ textarea.finput{resize:vertical;min-height:72px;line-height:1.5;}
     </div>
     <div class="skel"></div><div class="skel"></div><div class="skel"></div>
   </div>
-
+ 
   <div class="sub-tabs" id="food-tabs" style="display:none;">
     <button class="stab on" id="food-tab-list">📋 List</button>
     <button class="stab" id="food-tab-map">🗺 Map</button>
@@ -322,18 +322,18 @@ textarea.finput{resize:vertical;min-height:72px;line-height:1.5;}
   <div class="results" id="food-results"></div>
   <div id="food-map" class="mapbox" style="display:none;"></div>
   <div id="food-buzz"></div>
-
+ 
 </div>
 </div>
-
+ 
 <!-- ============================================================ PARKS SECTION -->
 <div class="sec" id="sec-parks" style="display:none;">
 <div class="wrap">
-
+ 
   <div class="panel">
     <label class="fld">Park type</label>
     <div class="row" id="parks-types"></div>
-
+ 
     <button class="more-btn" id="parks-more-btn">⚙ More options</button>
     <div id="parks-more" style="display:none;margin-top:13px;">
       <div style="display:flex;justify-content:space-between;align-items:baseline;">
@@ -348,14 +348,14 @@ textarea.finput{resize:vertical;min-height:72px;line-height:1.5;}
       <label class="fld" style="margin-top:14px;">Rank by</label>
       <div class="row" id="parks-sorts"></div>
     </div>
-
+ 
     <div class="go-row" style="margin-top:16px;">
       <button class="btn-plain" id="parks-go">🌳 Find parks</button>
     </div>
     <p class="err" id="parks-err" style="display:none;"></p>
     <button class="add-rec-btn" onclick="openModal('parks')">&#x2795; Add a recommended park</button>
   </div>
-
+ 
   <div id="parks-loading" style="display:none;">
     <div class="loading-msg">
       <span style="display:inline-flex;gap:3px;">
@@ -367,7 +367,7 @@ textarea.finput{resize:vertical;min-height:72px;line-height:1.5;}
     </div>
     <div class="skel"></div><div class="skel"></div><div class="skel"></div>
   </div>
-
+ 
   <div class="sub-tabs" id="parks-tabs" style="display:none;">
     <button class="stab on" id="parks-tab-list">📋 List</button>
     <button class="stab" id="parks-tab-map">🗺 Map</button>
@@ -375,29 +375,29 @@ textarea.finput{resize:vertical;min-height:72px;line-height:1.5;}
   <div class="results" id="parks-results"></div>
   <div id="parks-map" class="mapbox" style="display:none;"></div>
   <div id="parks-buzz"></div>
-
+ 
 </div>
 </div>
-
+ 
 <!-- ============================================================ PLAY SECTION -->
 <div class="sec" id="sec-play" style="display:none;">
 <div class="wrap">
-
+ 
   <div class="panel">
     <label class="fld">What are you in the mood for?</label>
     <div class="row" id="play-cats"></div>
-
+ 
     <button class="more-btn" id="play-more-btn">⚙ More options</button>
     <div id="play-more" style="display:none;margin-top:13px;">
       <label class="fld">Price</label>
       <div class="row" id="play-prices"></div>
-
+ 
       <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:14px;">
         <label class="fld" style="margin-bottom:0;">Distance</label>
         <span id="play-rad-label" style="font-size:12px;font-weight:700;color:#5a3a8a;">within 5 mi</span>
       </div>
       <input id="play-radius" type="range" min="0.5" max="15" step="0.5" value="5"/>
-
+ 
       <div style="margin-top:14px;display:flex;gap:8px;align-items:center;">
         <label class="fld" style="margin-bottom:0;">Hours</label>
         <button class="chip on" id="play-open">Open now</button>
@@ -405,14 +405,14 @@ textarea.finput{resize:vertical;min-height:72px;line-height:1.5;}
       <label class="fld" style="margin-top:14px;">Rank by</label>
       <div class="row" id="play-sorts"></div>
     </div>
-
+ 
     <div class="go-row" style="margin-top:16px;">
       <button class="btn-go" id="play-go" style="background:linear-gradient(180deg,#7b4ab8,#5a3a8a);box-shadow:0 12px 24px -12px rgba(90,58,138,.6);">🎮 Find entertainment</button>
     </div>
     <p class="err" id="play-err" style="display:none;"></p>
     <button class="add-rec-btn" onclick="openModal('play')">&#x2795; Add a recommended entertainment spot</button>
   </div>
-
+ 
   <div id="play-loading" style="display:none;">
     <div class="loading-msg">
       <span style="display:inline-flex;gap:3px;">
@@ -424,7 +424,7 @@ textarea.finput{resize:vertical;min-height:72px;line-height:1.5;}
     </div>
     <div class="skel"></div><div class="skel"></div><div class="skel"></div>
   </div>
-
+ 
   <div class="sub-tabs" id="play-tabs" style="display:none;">
     <button class="stab on" id="play-tab-list">📋 List</button>
     <button class="stab" id="play-tab-map">🗺 Map</button>
@@ -432,17 +432,17 @@ textarea.finput{resize:vertical;min-height:72px;line-height:1.5;}
   <div class="results" id="play-results"></div>
   <div id="play-map" class="mapbox" style="display:none;"></div>
   <div id="play-buzz"></div>
-
+ 
 </div>
 </div>
-
+ 
 <!-- ============================================================ SAVED SECTION -->
 <div class="sec" id="sec-saved" style="display:none;">
 <div class="wrap">
   <div id="saved-content" style="padding-bottom:20px;"></div>
 </div>
 </div>
-
+ 
 <!-- ADD RECOMMENDATION MODAL -->
 <div class="overlay" id="add-overlay">
   <div class="sheet" id="add-sheet">
@@ -484,7 +484,7 @@ textarea.finput{resize:vertical;min-height:72px;line-height:1.5;}
     <button class="btn-sheet-save" onclick="saveCustomPlace()">&#x2705; Save recommendation</button>
   </div>
 </div>
-
+ 
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav">
   <button class="nav-btn on" id="nav-food" onclick="switchSec('food')"><span class="ic">🍽️</span>Food</button>
@@ -492,14 +492,14 @@ textarea.finput{resize:vertical;min-height:72px;line-height:1.5;}
   <button class="nav-btn" id="nav-play" onclick="switchSec('play')"><span class="ic">🎮</span>Play</button>
   <button class="nav-btn" id="nav-saved" onclick="switchSec('saved')"><span class="ic">♥</span><span id="nav-saved-ct">Saved</span></button>
 </nav>
-
+ 
 <div id="toast" class="toast"></div>
-
+ 
 <script>
 /* ====================================================
    FORAGE — unified food / parks / entertainment finder
    ==================================================== */
-
+ 
 const API = "/api/search";
 const FAV_KEY = "forage_v3";
 const CUSTOM_KEY = "forage_custom_v1";
@@ -509,7 +509,7 @@ const LOAD_MSGS = {
   parks: ["Finding parks nearby…","Checking trail reviews…","Scanning hidden gems…"],
   play: ["Scouting entertainment…","Checking opening hours…","Ranking your options…"],
 };
-
+ 
 // ──────────── DATA CONSTANTS ────────────
 const CUISINES = ["Any","Italian","Japanese","Mexican","Thai","Indian","Chinese","Korean","Vietnamese","Mediterranean","American","French","BBQ","Seafood","Pizza","Sushi","Ramen","Burgers","Steakhouse","Middle Eastern","Greek","Spanish","Ethiopian","Brunch"];
 const MEALS = [["Breakfast","🍳"],["Lunch","🥗"],["Dinner","🍽️"],["Cafe","☕"],["Matcha","🍵"]];
@@ -517,10 +517,10 @@ const DIETARY = ["Vegetarian","Vegan","Gluten-free","Halal"];
 const SORTS = [["match","Best match"],["rating","Top rated"],["distance","Closest"],["value","Best value"]];
 const PARK_TYPES = ["Any","Hiking","Dog Park","Playground","Sports","Garden","Beach","Nature Reserve"];
 const PLAY_CATS = ["Any","Arcade","Bowling","Movies","Mini Golf","Escape Room","Live Music","Laser Tag","Go-Kart","Comedy","Trampoline","Karaoke"];
-
+ 
 // ──────────── SHARED LOCATION STATE ────────────
 const loc = { coords: null, status: "idle" };
-
+ 
 // ──────────── PER-SECTION STATE ────────────
 const S = {
   food:  { meal:"Dinner", cuisine:"Any", prices:[1,2], dietary:[], radius:3,  openNow:true,  sort:"match", learn:true,  view:"list", results:[], buzz:[] },
@@ -530,7 +530,7 @@ const S = {
 let curSec = "food";
 const leafletMaps = {};
 const leafletMarkers = {};
-
+ 
 // ──────────── FAVORITES ────────────
 function loadFavs(){ try{ return JSON.parse(localStorage.getItem(FAV_KEY)||"[]"); }catch{ return []; } }
 function saveFavs(f){ localStorage.setItem(FAV_KEY,JSON.stringify(f)); updateSavedCount(); }
@@ -545,15 +545,15 @@ function updateSavedCount(){
   const n=loadFavs().length;
   document.getElementById("nav-saved-ct").textContent = n>0?"Saved ("+n+")":"Saved";
 }
-
-
+ 
+ 
 // ------------ CUSTOM / FRIEND RECOMMENDATIONS ------------
 function loadCustom(){ try{ return JSON.parse(localStorage.getItem(CUSTOM_KEY)||"[]"); }catch{ return []; } }
 function saveCustom(arr){ localStorage.setItem(CUSTOM_KEY,JSON.stringify(arr)); }
 function deleteCustom(id){ saveCustom(loadCustom().filter(function(x){ return x.id!==id; })); }
-
+ 
 var _mmode = "food";
-
+ 
 function openModal(sec){
   _mmode = sec||curSec||"food";
   document.querySelectorAll("#modal-modes .chip").forEach(function(b){ b.classList.toggle("on",b.dataset.mode===_mmode); });
@@ -655,7 +655,7 @@ function removeCustom(id,sec){
   var container=document.getElementById(sec+"-results");
   if(container){ var old=container.querySelector(".friend-section"); if(old) old.remove(); renderFriendRecs(sec); }
 }
-
+ 
 // ──────────── TASTE PROFILE ────────────
 function tasteProfile(){
   const f=loadFavs().filter(x=>x.mode==="food");
@@ -676,7 +676,7 @@ function tasteBoost(place,prof){
   if(prof.favPrice&&place.priceLevel===prof.favPrice) b+=0.4;
   return b;
 }
-
+ 
 // ──────────── HELPERS ────────────
 function miles(a,b,c,d){const R=3958.8,t=x=>x*Math.PI/180;const dLat=t(c-a),dLon=t(d-b);const h=Math.sin(dLat/2)**2+Math.cos(t(a))*Math.cos(t(c))*Math.sin(dLon/2)**2;return R*2*Math.atan2(Math.sqrt(h),Math.sqrt(1-h));}
 function stars(v){v=Math.max(0,Math.min(5,+v||0));let s="";for(let i=0;i<5;i++){const f=Math.max(0,Math.min(1,v-i));s+=`<span style="position:relative;display:inline-block;width:14px;color:var(--line);">★<span style="position:absolute;left:0;top:0;width:${f*100}%;overflow:hidden;color:var(--gold);">★</span></span>`;}return s;}
@@ -686,7 +686,7 @@ function priceStr(n){return n?"$".repeat(Math.max(1,Math.min(4,n))):""}
 function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("show"),2000);}
 function showErr(sec,msg){const e=document.getElementById(sec+"-err");e.textContent=msg;e.style.display="block";}
 function hideErr(sec){document.getElementById(sec+"-err").style.display="none";}
-
+ 
 // ──────────── LOCATION ────────────
 function setupLocation(){
   document.getElementById("locBtn").onclick=()=>{
@@ -709,7 +709,7 @@ function setupLocation(){
   };
   document.getElementById("place").oninput=()=>{if(document.getElementById("place").value.trim()) document.getElementById("locHint").style.display="none";};
 }
-
+ 
 // ──────────── BUILD CONTROLS ────────────
 function buildFoodControls(){
   // meals
@@ -738,7 +738,7 @@ function buildFoodControls(){
   document.getElementById("food-tab-list").onclick=()=>switchView("food","list");
   document.getElementById("food-tab-map").onclick=()=>switchView("food","map");
 }
-
+ 
 function buildParksControls(){
   const te=document.getElementById("parks-types");
   PARK_TYPES.forEach(t=>{const b=document.createElement("button");b.className="chip olive"+(t==="Any"?" on":"");b.textContent=t;b.onclick=()=>{S.parks.type=t;[...te.children].forEach(c=>c.classList.remove("on"));b.classList.add("on");};te.appendChild(b);});
@@ -750,7 +750,7 @@ function buildParksControls(){
   document.getElementById("parks-tab-list").onclick=()=>switchView("parks","list");
   document.getElementById("parks-tab-map").onclick=()=>switchView("parks","map");
 }
-
+ 
 function buildPlayControls(){
   const ce=document.getElementById("play-cats");
   PLAY_CATS.forEach(c=>{const b=document.createElement("button");b.className="chip"+(c==="Any"?" on":"");b.style.cssText=c==="Any"&&"border-color:var(--terra);background:var(--terra);color:#fff;";b.className="chip"+(c==="Any"?" on":"");b.textContent=c;b.onclick=()=>{S.play.category=c;[...ce.children].forEach(x=>x.classList.remove("on"));b.classList.add("on");};ce.appendChild(b);});
@@ -763,7 +763,7 @@ function buildPlayControls(){
   document.getElementById("play-tab-list").onclick=()=>switchView("play","list");
   document.getElementById("play-tab-map").onclick=()=>switchView("play","map");
 }
-
+ 
 // ──────────── SECTION NAV ────────────
 function switchSec(name){
   curSec=name;
@@ -773,7 +773,7 @@ function switchSec(name){
   window.scrollTo(0,0);
   if(name==="saved") renderSaved();
 }
-
+ 
 function switchView(sec,view){
   S[sec].view=view;
   document.getElementById(sec+"-tab-list").classList.toggle("on",view==="list");
@@ -784,14 +784,14 @@ function switchView(sec,view){
   if(view==="map") renderMap(sec);
   else { renderList(sec); refreshLearnNote(); }
 }
-
+ 
 // ──────────── SEARCH ────────────
 let loadTimers = {};
 async function doSearch(sec){
   hideErr(sec);
   if(location.protocol!=="http:"&&location.protocol!=="https:"){showErr(sec,"Open the app from your https://…vercel.app URL, not a local file.");return;}
   if(!loc.coords&&!document.getElementById("place").value.trim()){showErr(sec,"Set your location first — tap 'My location' or type a place.");return;}
-
+ 
   const loadEl=document.getElementById(sec+"-loading");
   const tabsEl=document.getElementById(sec+"-tabs");
   document.getElementById(sec+"-results").innerHTML="";
@@ -805,7 +805,7 @@ async function doSearch(sec){
   const msgs=LOAD_MSGS[sec];
   let mi=0;document.getElementById(sec+"-load-line").textContent=msgs[0];
   loadTimers[sec]=setInterval(()=>{mi=(mi+1)%msgs.length;document.getElementById(sec+"-load-line").textContent=msgs[mi];},1700);
-
+ 
   try{
     const endpoint=new URL(API,location.origin).href;
     const s=S[sec];
@@ -818,19 +818,19 @@ async function doSearch(sec){
     if(sec==="food"){ body.meal=s.meal; body.cuisine=s.cuisine; body.prices=s.prices; body.dietary=s.dietary; }
     else if(sec==="parks"){ body.parkType=s.type; }
     else{ body.playCategory=s.category; body.prices=s.prices; }
-
+ 
     const res=await fetch(endpoint,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
     let data; const raw=await res.text();
     try{ data=JSON.parse(raw); }
     catch{ throw new Error(res.status===404?"Backend not found (404). Check that api/search.js is deployed and vercel.json is in your repo root.":"Unexpected server response. Try again in a moment."); }
     if(!res.ok) throw new Error(data.error||"Request failed ("+res.status+").");
-
+ 
     S[sec].results=(data.results||[]).map(x=>{
       if(loc.coords&&x.lat&&x.lng) x._d=miles(loc.coords.lat,loc.coords.lng,x.lat,x.lng);
       x.mode=sec; return x;
     });
     S[sec].buzz=data.buzz||[];
-
+ 
     if(!S[sec].results.length){ document.getElementById(sec+"-results").innerHTML='<p class="foot">No matches — try widening distance or adjusting filters.</p>'; }
     else{ tabsEl.style.display="flex"; switchView(sec,"list"); }
     if(S[sec].buzz.length) renderBuzz(sec);
@@ -843,7 +843,7 @@ async function doSearch(sec){
     if(goBtn) goBtn.disabled=false;
   }
 }
-
+ 
 // ──────────── RANKING ────────────
 function ranked(sec){
   const s=S[sec]; const prof=sec==="food"?tasteProfile():null;
@@ -860,7 +860,7 @@ function ranked(sec){
   }
   return r.slice(0,10);
 }
-
+ 
 // ──────────── CARD HTML ────────────
 function cardHTML(x,i,sec){
   const isFirst=i===0;
@@ -896,7 +896,7 @@ function cardHTML(x,i,sec){
       ${x.website?`<a class="act" href="${x.website}" target="_blank" rel="noreferrer" style="border:1.5px solid var(--line);color:var(--ink);">🌐 Site</a>`:""}
     </div>`;
 }
-
+ 
 function wireHearts(container){
   container.querySelectorAll(".heart").forEach(btn=>{
     btn.onclick=()=>{
@@ -906,7 +906,7 @@ function wireHearts(container){
     };
   });
 }
-
+ 
 // ──────────── RENDER LIST ────────────
 function renderList(sec){
   const el=document.getElementById(sec+"-results");
@@ -925,28 +925,28 @@ function renderList(sec){
   wireHearts(el);
   renderFriendRecs(sec);
 }
-
+ 
 // ──────────── RENDER MAP ────────────
 function renderMap(sec){
   const mapEl=document.getElementById(sec+"-map");
   mapEl.style.display="block";
   const r=ranked(sec);
-
+ 
   if(leafletMaps[sec]){
     leafletMaps[sec].remove();
     delete leafletMaps[sec];
     leafletMarkers[sec]=[];
   }
-
+ 
   const m=L.map(sec+"-map",{scrollWheelZoom:false});
   L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",{attribution:"© OpenStreetMap contributors, © CARTO",maxZoom:19}).addTo(m);
   leafletMaps[sec]=m;
   leafletMarkers[sec]=[];
-
+ 
   const pts=[];
   const colors={"food":"#9C3A1F","parks":"#6B6A3A","play":"#7b4ab8"};
   const col=colors[sec]||"#9C3A1F";
-
+ 
   r.forEach((x,i)=>{
     if(x.lat==null||x.lng==null) return;
     const isFirst=i===0;
@@ -969,7 +969,7 @@ function renderMap(sec){
   if(pts.length) m.fitBounds(pts,{padding:[40,40],maxZoom:15});
   setTimeout(()=>m.invalidateSize(),150);
 }
-
+ 
 // ──────────── REDDIT BUZZ ────────────
 function renderBuzz(sec){
   const buzz=S[sec].buzz;
@@ -989,7 +989,7 @@ function renderBuzz(sec){
     scroll.appendChild(a);
   });
 }
-
+ 
 // ──────────── LEARN NOTE (food only) ────────────
 function refreshLearnNote(){
   const note=document.getElementById("food-learn-note"); if(!note) return;
@@ -1001,7 +1001,7 @@ function refreshLearnNote(){
     note.innerHTML=`<div class="taste-card">🧠 <div><b>Tuned to your taste.</b> Leaning toward ${prof.topCuisines.slice(0,2).join(" & ")}${prof.favPrice?" and "+"$".repeat(prof.favPrice):""} from your ${prof.count} saved favorites.</div></div>`;
   }
 }
-
+ 
 // ──────────── SURPRISE ME (food) ────────────
 function surpriseMe(){
   const prof=tasteProfile();
@@ -1017,7 +1017,7 @@ function surpriseMe(){
   toast("🎲 "+cuisine+" "+meal+"!");
   doSearch("food");
 }
-
+ 
 // ------------ RENDER SAVED ------------
 function renderSaved(){
   var el=document.getElementById("saved-content"); el.innerHTML="";
@@ -1090,7 +1090,7 @@ function renderSaved(){
   el.appendChild(starSec);
   wireHearts(el);
 }
-
+ 
 // ──────────── INIT ────────────
 setupLocation();
 buildFoodControls();
