@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
+<title>Forage — find your next great meal</title>
+<meta name="theme-color" content="#9C3A1F" />
+
+<link rel="manifest" href="/manifest.json" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Forage" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+
+<!-- Leaflet (free maps, no key needed) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<style>
+  :root{
+    --paper:#F7F1E6; --paper-deep:#EFE6D4; --ink:#211B15; --ink-soft:#5C5046;
+    --terra:#BC4B2B; --terra-deep:#9C3A1F; --olive:#6B6A3A; --gold:#C8962B;
+    --line:#D9CDB6; --card:#FFFCF6;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'DM Sans',sans-serif; color:var(--ink); background:var(--paper);
+    background-image:
+      radial-gradient(900px 500px at 100% -8%, rgba(188,75,43,.10), transparent 60%),
+      radial-gradient(800px 500px at -10% 12%, rgba(107,106,58,.10), transparent 55%);
+    min-height:100vh; padding-bottom:env(safe-area-inset-bottom);
+  }
+  .wrap{max-width:720px; margin:0 auto; padding:0 18px;}
+  header{padding-top:calc(30px + env(safe-area-inset-top)); padding-bottom:6px;}
+  h1{font-family:'Fraunces',serif; font-weight:900; font-size:44px; letter-spacing:-.02em; margin:0; line-height:.95;}
+  .tag{font-family:'Fraunces',serif; font-style:italic; font-size:16px; color:var(--terra-deep); margin:6px 0 0;}
+  .panel{background:var(--card); border:1px solid var(--line); border-radius:22px; padding:18px; box-shadow:0 18px 40px -28px rgba(33,27,21,.45); margin-top:14px;}
+  label.fld{font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft); display:block;}
+  .row{display:flex; gap:8px; flex-wrap:wrap;}
+  .chip{font-size:13.5px; font-weight:600; padding:9px 14px; border-radius:99px; cursor:pointer; white-space:nowrap; border:1.5px solid var(--line); background:transparent; color:var(--ink-soft); transition:all .18s;}
+  .chip.on{border-color:var(--terra); background:var(--terra); color:#fff;}
+  .chip.olive.on{border-color:var(--olive); background:var(--olive);}
+  input[type=text]{width:100%; font:inherit; font-size:14px; padding:11px 12px 11px 34px; border-radius:12px; border:1.5px solid var(--line); background:var(--paper); color:var(--ink); outline:none;}
+  select{width:100%; font:inherit; font-size:14px; font-weight:600; padding:11px 12px; border-radius:12px; border:1.5px solid var(--line); background:var(--paper); color:var(--ink); cursor:pointer;}
+  .btn-loc{display:inline-flex; align-items:center; gap:7px; font:inherit; font-weight:600; font-size:14px; padding:11px 15px; border-radius:12px; cursor:pointer; border:none; color:#fff; background:var(--ink);}
+  .btn-loc.ok{background:var(--olive);}
+  .go-row{display:flex; gap:10px; margin-top:22px;}
+  .btn-go{flex:1; display:inline-flex; align-items:center; justify-content:center; gap:9px; font:inherit; font-weight:700; font-size:16px; padding:15px; border-radius:14px; border:none; cursor:pointer; color:#fff; background:linear-gradient(180deg,var(--terra),var(--terra-deep)); box-shadow:0 14px 26px -14px rgba(156,58,31,.7);}
+  .btn-go:disabled{opacity:.85;}
+  .btn-surprise{display:inline-flex; align-items:center; justify-content:center; gap:7px; font:inherit; font-weight:700; font-size:15px; padding:15px 16px; border-radius:14px; border:1.5px solid var(--gold); background:rgba(200,150,43,.12); color:#8a6414; cursor:pointer; white-space:nowrap;}
+  input[type=range]{-webkit-appearance:none; width:100%; height:4px; border-radius:99px; background:var(--line); outline:none;}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; width:20px; height:20px; border-radius:50%; background:var(--terra); cursor:pointer; border:3px solid var(--card); box-shadow:0 2px 6px rgba(0,0,0,.18);}
+  .hint{font-size:12.5px; color:var(--ink-soft); margin:9px 0 0; display:flex; align-items:center;}
+  .dot{width:8px;height:8px;border-radius:99px;background:var(--olive);display:inline-block;margin-right:6px;}
+  .more{margin-top:18px; display:inline-flex; align-items:center; gap:7px; background:none; border:none; cursor:pointer; font:inherit; font-weight:600; font-size:13.5px; color:var(--terra-deep); padding:0;}
+  .card{position:relative; background:var(--card); border:1px solid var(--line); border-radius:20px; padding:18px 18px 16px; margin-top:14px; box-shadow:0 16px 34px -28px rgba(33,27,21,.5); animation:rise .45s both ease;}
+  @keyframes rise{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes shimmer{0%{background-position:-400px 0;}100%{background-position:400px 0;}}
+  @keyframes pulse{0%,100%{opacity:.35;transform:scale(.85);}50%{opacity:1;transform:scale(1);}}
+  .badge{position:absolute; top:-12px; left:16px; width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-weight:900; font-size:17px; color:#fff; box-shadow:0 6px 14px -6px rgba(0,0,0,.5);}
+  .heart{position:absolute; top:14px; right:14px; width:38px; height:38px; border-radius:50%; border:1.5px solid var(--line); background:var(--paper); cursor:pointer; font-size:18px; line-height:1; display:flex; align-items:center; justify-content:center; transition:all .15s;}
+  .heart.on{background:var(--terra); border-color:var(--terra);}
+  .rname{font-family:'Fraunces',serif; font-weight:700; font-size:21px; margin:0; line-height:1.1; padding-right:44px;}
+  .meta{display:flex; align-items:center; gap:7px; margin-top:7px; flex-wrap:wrap; font-size:12.5px; color:var(--ink-soft);}
+  .open{font-size:11.5px; font-weight:700; padding:3px 8px; border-radius:7px;}
+  .open.yes{color:#3c6b2f; background:rgba(107,106,58,.16);}
+  .open.no{color:var(--terra-deep); background:rgba(188,75,43,.12);}
+  .travel{font-size:11.5px;font-weight:700;color:var(--ink-soft);background:var(--paper-deep);padding:3px 8px;border-radius:7px;}
+  .action{display:inline-flex; align-items:center; gap:6px; font:inherit; font-weight:600; font-size:13.5px; text-decoration:none; padding:10px 14px; border-radius:11px; cursor:pointer; border:none;}
+  .skel{height:96px; border-radius:18px; margin-top:12px; background:linear-gradient(90deg,var(--paper-deep) 25%,var(--paper) 37%,var(--paper-deep) 63%); background-size:800px 100%; animation:shimmer 1.4s infinite linear;}
+  .err{margin-top:12px; font-size:13.5px; color:var(--terra-deep); font-weight:600;}
+  .quote{font-family:'Fraunces',serif; font-style:italic; font-size:14px; line-height:1.5; color:var(--ink-soft); margin:8px 0 0;}
+  .hours{font-size:12.5px;color:var(--ink-soft);margin:8px 0 0;}
+  .foot{font-size:11.5px; color:var(--ink-soft); margin:22px 0 40px; text-align:center; line-height:1.5;}
+  .tabs{display:flex; gap:6px; margin-top:24px; background:var(--paper-deep); padding:5px; border-radius:14px;}
+  .tab{flex:1; text-align:center; font-weight:700; font-size:13.5px; padding:10px; border-radius:10px; cursor:pointer; color:var(--ink-soft); border:none; background:transparent;}
+  .tab.on{background:var(--card); color:var(--ink); box-shadow:0 2px 8px -4px rgba(0,0,0,.3);}
+  #map{height:420px; border-radius:18px; margin-top:14px; border:1px solid var(--line); overflow:hidden; z-index:0;}
+  .pin{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);color:#fff;font-weight:800;font-family:'Fraunces',serif;box-shadow:0 3px 6px rgba(0,0,0,.4);}
+  .pin span{transform:rotate(45deg);font-size:14px;}
+  .learn{margin-top:14px; background:rgba(107,106,58,.10); border:1px solid rgba(107,106,58,.3); border-radius:14px; padding:12px 14px; font-size:13px; color:#4f4e29; display:flex; gap:10px; align-items:flex-start;}
+  .toast{position:fixed; left:50%; bottom:calc(24px + env(safe-area-inset-bottom)); transform:translateX(-50%); background:var(--ink); color:#fff; font-size:13.5px; font-weight:600; padding:12px 18px; border-radius:99px; box-shadow:0 10px 30px -10px rgba(0,0,0,.6); z-index:9999; opacity:0; transition:opacity .25s, transform .25s; pointer-events:none;}
+  .toast.show{opacity:1; transform:translateX(-50%) translateY(-4px);}
+  .switch{display:inline-flex;align-items:center;gap:8px;cursor:pointer;}
+  .track{width:42px;height:24px;border-radius:99px;background:var(--line);position:relative;transition:.2s;}
+  .track.on{background:var(--olive);}
+  .knob{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.2s;}
+  .track.on .knob{left:21px;}
+  .empty{margin-top:40px;text-align:center;padding-bottom:60px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div style="display:flex;align-items:baseline;gap:10px;">
+      <h1>Forage</h1><span style="font-size:22px;">🍽️</span>
+    </div>
+    <p class="tag">Find your next great meal nearby.</p>
+  </header>
+
+  <div class="panel">
+    <label class="fld">Where are you?</label>
+    <div class="row" style="margin-top:8px;">
+      <button id="locBtn" class="btn-loc"><span id="locIcon">◎</span> <span id="locLabel">Use my location</span></button>
+      <div style="position:relative;flex:1;min-width:180px;">
+        <span style="position:absolute;left:12px;top:11px;color:var(--ink-soft);">📍</span>
+        <input id="place" type="text" placeholder="…or type a neighborhood / city" />
+      </div>
+    </div>
+    <p id="locHint" class="hint" style="display:none;"></p>
+
+    <label class="fld" style="margin-top:20px;">Meal</label>
+    <div class="row" id="meals" style="margin-top:8px;"></div>
+
+    <div class="row" style="margin-top:20px;gap:14px;">
+      <div style="flex:1;min-width:150px;">
+        <label class="fld">Cuisine</label>
+        <select id="cuisine" style="margin-top:8px;"></select>
+      </div>
+      <div style="flex:1;min-width:150px;">
+        <label class="fld">Price</label>
+        <div class="row" id="prices" style="margin-top:8px;"></div>
+      </div>
+    </div>
+
+    <button class="more" id="moreBtn">⚙ More options</button>
+    <div id="extra" style="display:none;margin-top:16px;">
+      <div style="display:flex;justify-content:space-between;">
+        <label class="fld">Distance</label>
+        <span id="radLabel" style="font-size:13px;font-weight:700;color:var(--terra-deep);">within 3 mi</span>
+      </div>
+      <input id="radius" type="range" min="0.5" max="10" step="0.5" value="3" style="margin-top:12px;" />
+
+      <label class="fld" style="margin-top:18px;">🌿 Dietary</label>
+      <div class="row" id="dietary" style="margin-top:8px;"></div>
+
+      <div class="row" style="margin-top:18px;gap:14px;">
+        <div>
+          <label class="fld">Hours</label>
+          <div style="margin-top:8px;"><button class="chip on" id="openNow">Open now</button></div>
+        </div>
+        <div style="flex:1;min-width:160px;">
+          <label class="fld">Rank by</label>
+          <div class="row" id="sorts" style="margin-top:8px;"></div>
+        </div>
+      </div>
+
+      <div style="margin-top:18px;display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <label class="fld" style="margin-bottom:3px;">Learn from my favorites</label>
+          <span style="font-size:12px;color:var(--ink-soft);" id="learnSub">Tunes results to your saved spots</span>
+        </div>
+        <div class="switch" id="learnToggle"><span class="track on"><span class="knob"></span></span></div>
+      </div>
+    </div>
+
+    <div class="go-row">
+      <button class="btn-go" id="go">🔍 Find my top 5</button>
+      <button class="btn-surprise" id="surprise">🎲 Surprise me</button>
+    </div>
+    <p class="err" id="err" style="display:none;"></p>
+  </div>
+
+  <div id="loading" style="display:none;margin-top:26px;">
+    <p style="font-family:'Fraunces',serif;font-style:italic;font-size:16px;color:var(--ink-soft);display:flex;align-items:center;gap:8px;">
+      <span style="display:inline-flex;gap:3px;">
+        <span style="width:6px;height:6px;border-radius:99px;background:var(--terra);animation:pulse 1.2s 0s infinite;"></span>
+        <span style="width:6px;height:6px;border-radius:99px;background:var(--terra);animation:pulse 1.2s .2s infinite;"></span>
+        <span style="width:6px;height:6px;border-radius:99px;background:var(--terra);animation:pulse 1.2s .4s infinite;"></span>
+      </span>
+      <span id="loadLine">Scanning fresh reviews…</span>
+    </p>
+    <div class="skel"></div><div class="skel"></div><div class="skel"></div>
+  </div>
+
+  <div id="tabs" class="tabs" style="display:none;">
+    <button class="tab on" data-view="list" id="tabList">List</button>
+    <button class="tab" data-view="map" id="tabMap">Map</button>
+    <button class="tab" data-view="favs" id="tabFavs">♥ Saved (<span id="favCount">0</span>)</button>
+  </div>
+
+  <div id="learnNote"></div>
+  <div id="results" class="wrap" style="padding:0;margin-top:14px;"></div>
+  <div id="map" style="display:none;"></div>
+  <div id="favsView" style="display:none;"></div>
+
+  <div id="empty" class="empty">
+    <div style="font-size:40px;">🍽️</div>
+    <p style="font-family:'Fraunces',serif;font-style:italic;font-size:16px;color:var(--ink-soft);margin-top:8px;">
+      Set your location, pick a meal, and let Forage do the hunting.<br/>Or hit <b>Surprise me</b>.
+    </p>
+  </div>
+</div>
+<div id="toast" class="toast"></div>
+
+<script>
+const API = "/api/search";
+const CUISINES = ["Any","Italian","Japanese","Mexican","Thai","Indian","Chinese","Korean","Vietnamese","Mediterranean","American","French","BBQ","Seafood","Pizza","Sushi","Ramen","Burgers","Steakhouse","Middle Eastern","Greek","Spanish","Ethiopian","Brunch"];
+const MEALS = [["Breakfast","🍳"],["Lunch","🥗"],["Dinner","🍽️"],["Cafe","☕"],["Matcha","🍵"]];
+const DIETARY = ["Vegetarian","Vegan","Gluten-free","Halal"];
+const SORTS = [["match","Best match"],["rating","Top rated"],["distance","Closest"],["value","Best value"]];
+const LOAD = ["Pinpointing your spot…","Scanning fresh reviews…","Cross-checking ratings…","Weighing local favorites…","Plating your top five…"];
+const DAYS = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
+const state = { coords:null, meal:"Dinner", cuisine:"Any", prices:[1,2], dietary:[], radius:3, openNow:true, sort:"match", learn:true, view:"list" };
+let lastResults = [];
+let map=null, markers=[];
+
+/* ---------- FAVORITES (saved on this device) ---------- */
+const FAV_KEY = "forage_favorites_v1";
+function loadFavs(){ try{ return JSON.parse(localStorage.getItem(FAV_KEY)||"[]"); }catch{ return []; } }
+function saveFavs(f){ localStorage.setItem(FAV_KEY, JSON.stringify(f)); document.getElementById("favCount").textContent=f.length; }
+function isFav(id){ return loadFavs().some(x=>x.id===id); }
+function toggleFav(place){
+  let f=loadFavs();
+  if(f.some(x=>x.id===place.id)){ f=f.filter(x=>x.id!==place.id); toast("Removed from saved"); }
+  else { f.push({id:place.id,name:place.name,cuisine:place.cuisine,rating:place.rating,reviewCount:place.reviewCount,priceLevel:place.priceLevel,address:place.address,lat:place.lat,lng:place.lng,mapsUri:place.mapsUri,phone:place.phone}); toast("Saved ♥"); }
+  saveFavs(f); refreshLearnNote();
+  return f;
+}
+
+/* ---------- TASTE PROFILE (learn from favorites) ---------- */
+function tasteProfile(){
+  const f=loadFavs();
+  if(f.length<2) return null;
+  const cuis={}, price={};
+  f.forEach(x=>{ if(x.cuisine) cuis[x.cuisine]=(cuis[x.cuisine]||0)+1; if(x.priceLevel) price[x.priceLevel]=(price[x.priceLevel]||0)+1; });
+  const topCuis=Object.entries(cuis).sort((a,b)=>b[1]-a[1]).slice(0,3).map(e=>e[0]);
+  const topPrice=Object.entries(price).sort((a,b)=>b[1]-a[1])[0];
+  return { count:f.length, cuisineWeights:cuis, topCuisines:topCuis, favPrice: topPrice?+topPrice[0]:null };
+}
+function tasteBoost(place, prof){
+  if(!prof) return 0;
+  let b=0;
+  // match against the words in this place's cuisine/type label
+  for(const c in prof.cuisineWeights){
+    if(place.cuisine && (place.cuisine.toLowerCase().includes(c.toLowerCase()) || c.toLowerCase().includes(place.cuisine.toLowerCase())))
+      b += 0.35 * Math.min(3, prof.cuisineWeights[c]);
+  }
+  if(prof.favPrice && place.priceLevel===prof.favPrice) b += 0.4;
+  return b;
+}
+function refreshLearnNote(){
+  const note=document.getElementById("learnNote"); note.innerHTML="";
+  const prof=tasteProfile();
+  document.getElementById("learnSub").textContent = prof ? ("Learned from "+prof.count+" saved spots") : "Save 2+ spots to switch this on";
+  if(prof && state.learn && (state.view==="list") && lastResults.length){
+    note.innerHTML = '<div class="learn">🧠 <div><b>Tuned to your taste.</b> Leaning toward '+
+      prof.topCuisines.slice(0,2).join(" & ")+
+      (prof.favPrice?(' and '+"$".repeat(prof.favPrice)):'')+
+      ' based on your '+prof.count+' saved favorites.</div></div>';
+  }
+}
+
+/* ---------- BUILD CONTROLS ---------- */
+const mealsEl=document.getElementById("meals");
+MEALS.forEach(([id,g])=>{const b=document.createElement("button");b.className="chip"+(id===state.meal?" on":"");b.innerHTML=g+" "+id;b.onclick=()=>{state.meal=id;[...mealsEl.children].forEach(c=>c.classList.remove("on"));b.classList.add("on");};mealsEl.appendChild(b);});
+const cuisineEl=document.getElementById("cuisine"); CUISINES.forEach(c=>{const o=document.createElement("option");o.textContent=c;cuisineEl.appendChild(o);}); cuisineEl.onchange=()=>state.cuisine=cuisineEl.value;
+const pricesEl=document.getElementById("prices"); ["$","$$","$$$","$$$$"].forEach((p,i)=>{const lvl=i+1;const b=document.createElement("button");b.className="chip olive"+(state.prices.includes(lvl)?" on":"");b.textContent=p;b.onclick=()=>{if(state.prices.includes(lvl)){state.prices=state.prices.filter(x=>x!==lvl);b.classList.remove("on");}else{state.prices.push(lvl);b.classList.add("on");}};pricesEl.appendChild(b);});
+const dietEl=document.getElementById("dietary"); DIETARY.forEach(d=>{const b=document.createElement("button");b.className="chip olive";b.textContent=d;b.onclick=()=>{if(state.dietary.includes(d)){state.dietary=state.dietary.filter(x=>x!==d);b.classList.remove("on");}else{state.dietary.push(d);b.classList.add("on");}};dietEl.appendChild(b);});
+const sortsEl=document.getElementById("sorts"); SORTS.forEach(([id,lbl])=>{const b=document.createElement("button");b.className="chip"+(id===state.sort?" on":"");b.textContent=lbl;b.onclick=()=>{state.sort=id;[...sortsEl.children].forEach(c=>c.classList.remove("on"));b.classList.add("on");if(lastResults.length)renderList();};sortsEl.appendChild(b);});
+document.getElementById("radius").oninput=e=>{state.radius=+e.target.value;document.getElementById("radLabel").textContent="within "+state.radius+" mi";};
+const openBtn=document.getElementById("openNow"); openBtn.onclick=()=>{state.openNow=!state.openNow;openBtn.classList.toggle("on",state.openNow);};
+const learnT=document.getElementById("learnToggle"); learnT.onclick=()=>{state.learn=!state.learn;learnT.querySelector(".track").classList.toggle("on",state.learn);if(lastResults.length)renderList();refreshLearnNote();};
+document.getElementById("moreBtn").onclick=()=>{const x=document.getElementById("extra");const open=x.style.display==="none";x.style.display=open?"block":"none";document.getElementById("moreBtn").innerHTML=open?"⚙ Fewer options":"⚙ More options";};
+
+const placeEl=document.getElementById("place");
+placeEl.oninput=()=>{ if(placeEl.value.trim()) document.getElementById("locHint").style.display="none"; };
+document.getElementById("locBtn").onclick=()=>{
+  const hint=document.getElementById("locHint");
+  if(!navigator.geolocation){hint.style.display="flex";hint.style.color="var(--terra-deep)";hint.textContent="Location isn’t available — type a place instead.";return;}
+  document.getElementById("locIcon").textContent="◍";document.getElementById("locLabel").textContent="Locating…";
+  navigator.geolocation.getCurrentPosition(
+    pos=>{state.coords={lat:pos.coords.latitude,lng:pos.coords.longitude};placeEl.value="";
+      document.getElementById("locBtn").classList.add("ok");document.getElementById("locIcon").textContent="◉";document.getElementById("locLabel").textContent="Located";
+      hint.style.display="flex";hint.style.color="var(--ink-soft)";hint.innerHTML='<span class="dot"></span>Pinned to your current location.';},
+    ()=>{document.getElementById("locIcon").textContent="◎";document.getElementById("locLabel").textContent="Use my location";
+      hint.style.display="flex";hint.style.color="var(--terra-deep)";hint.textContent="Location access is off — just type a place above instead.";},
+    {enableHighAccuracy:true,timeout:10000}
+  );
+};
+
+/* ---------- HELPERS ---------- */
+function miles(a,b,c,d){const R=3958.8,t=x=>x*Math.PI/180;const dLat=t(c-a),dLon=t(d-b);const h=Math.sin(dLat/2)**2+Math.cos(t(a))*Math.cos(t(c))*Math.sin(dLon/2)**2;return R*2*Math.atan2(Math.sqrt(h),Math.sqrt(1-h));}
+function stars(v){v=Math.max(0,Math.min(5,+v||0));let s='';for(let i=0;i<5;i++){const f=Math.max(0,Math.min(1,v-i));s+=`<span style="position:relative;display:inline-block;width:15px;color:var(--line);">★<span style="position:absolute;left:0;top:0;width:${f*100}%;overflow:hidden;color:var(--gold);">★</span></span>`;}return s;}
+function travelText(d){ if(d==null) return ""; const walk=Math.round(d/3.1*60); const drive=Math.max(1,Math.round((d*1.3)/22*60)); return d<=1.2 ? `🚶 ~${walk} min · 🚗 ~${drive} min` : `🚗 ~${drive} min`; }
+function todayHours(arr){ if(!arr||!arr.length) return null; const day=DAYS[new Date().getDay()]; const line=arr.find(s=>s.toLowerCase().startsWith(day.toLowerCase())); return line? line.replace(day+": ","") : null; }
+function toast(msg){ const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove("show"),1900); }
+function priceStr(n){ return "$".repeat(Math.max(1,Math.min(4,n||2))); }
+
+/* ---------- SEARCH ---------- */
+let loadTimer;
+async function search(){
+  const err=document.getElementById("err"); err.style.display="none";
+  if(!state.coords && !placeEl.value.trim()){ err.style.display="block"; err.textContent="Set your location first — tap “Use my location” or type a place."; return; }
+  document.getElementById("empty").style.display="none";
+  document.getElementById("tabs").style.display="none";
+  document.getElementById("results").innerHTML=""; document.getElementById("favsView").style.display="none"; document.getElementById("map").style.display="none";
+  document.getElementById("loading").style.display="block";
+  document.getElementById("go").disabled=true;
+  let i=0; document.getElementById("loadLine").textContent=LOAD[0];
+  loadTimer=setInterval(()=>{i=(i+1)%LOAD.length;document.getElementById("loadLine").textContent=LOAD[i];},1600);
+  try{
+    const res=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({
+      lat:state.coords?.lat,lng:state.coords?.lng,meal:state.meal,cuisine:state.cuisine,
+      radiusMiles:state.radius,prices:state.prices,dietary:state.dietary,openNow:state.openNow,placeText:placeEl.value.trim()
+    })});
+    const data=await res.json();
+    if(!res.ok) throw new Error(data.error||"Request failed.");
+    lastResults=(data.results||[]).map(x=>{ if(state.coords&&x.lat&&x.lng) x._d=miles(state.coords.lat,state.coords.lng,x.lat,x.lng); return x; });
+    if(!lastResults.length){ document.getElementById("results").innerHTML='<p class="foot">No matches — try widening distance or price.</p>'; }
+    else { document.getElementById("tabs").style.display="flex"; switchView("list"); }
+  }catch(e){ err.style.display="block"; err.textContent=e.message; }
+  finally{ clearInterval(loadTimer); document.getElementById("loading").style.display="none"; document.getElementById("go").disabled=false; }
+}
+document.getElementById("go").onclick=search;
+
+/* ---------- SURPRISE ME ---------- */
+document.getElementById("surprise").onclick=()=>{
+  const prof=tasteProfile();
+  let cuisine, meal=MEALS[Math.floor(Math.random()*MEALS.length)][0];
+  if(prof && state.learn && prof.topCuisines.length){
+    // weighted pick from favorite cuisines, with a chance of a wildcard
+    cuisine = Math.random()<0.7 ? prof.topCuisines[Math.floor(Math.random()*prof.topCuisines.length)] : CUISINES[1+Math.floor(Math.random()*(CUISINES.length-1))];
+    if(prof.favPrice) state.prices=[prof.favPrice, Math.min(4,prof.favPrice+1)];
+  } else {
+    cuisine = CUISINES[1+Math.floor(Math.random()*(CUISINES.length-1))];
+  }
+  // reflect choices in UI
+  state.cuisine=cuisine; cuisineEl.value=CUISINES.includes(cuisine)?cuisine:"Any";
+  state.meal=meal; [...mealsEl.children].forEach(c=>c.classList.toggle("on", c.textContent.trim().endsWith(meal)));
+  [...pricesEl.children].forEach((c,idx)=>c.classList.toggle("on", state.prices.includes(idx+1)));
+  toast("🎲 "+cuisine+" · "+meal);
+  search();
+};
+
+/* ---------- RANKING ---------- */
+function ranked(){
+  const prof=tasteProfile();
+  let r=lastResults.map(x=>({...x}));
+  if(state.sort==="rating") r.sort((a,b)=>(b.rating||0)-(a.rating||0));
+  else if(state.sort==="distance") r.sort((a,b)=>(a._d??1e9)-(b._d??1e9));
+  else if(state.sort==="value") r.sort((a,b)=>(b.rating||0)/(b.priceLevel||4)-(a.rating||0)/(a.priceLevel||4));
+  else { // best match: quality + optional taste boost
+    r.sort((a,b)=>{
+      const base=x=>(x.rating||0)*Math.log10((x.reviewCount||0)+10);
+      const sa=base(a)+(state.learn?tasteBoost(a,prof):0);
+      const sb=base(b)+(state.learn?tasteBoost(b,prof):0);
+      return sb-sa;
+    });
+  }
+  return r.slice(0,5);
+}
+
+/* ---------- RENDER: LIST ---------- */
+function cardHTML(x,i,withBadge){
+  const maps=x.mapsUri||("https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(x.name+" "+(x.address||"")));
+  const badgeBg=i===0?"linear-gradient(180deg,var(--gold),#A8761B)":"linear-gradient(180deg,var(--ink),#000)";
+  const openTag=x.openNow===true?'<span class="open yes">Open now</span>':(x.openNow===false?'<span class="open no">Closed</span>':'');
+  const th=todayHours(x.hours);
+  const fav=isFav(x.id);
+  return `
+    ${withBadge?`<div class="badge" style="background:${badgeBg};">${i===0?"★":(i+1)}</div>`:""}
+    <button class="heart ${fav?'on':''}" data-id="${x.id}">${fav?'♥':'♡'}</button>
+    <h3 class="rname">${x.name}</h3>
+    <div class="meta">
+      <span>${stars(x.rating)}</span><span style="font-weight:700;color:var(--ink);font-size:13.5px;">${(x.rating??0).toFixed(1)}</span>
+      ${x.reviewCount?`<span>(${(+x.reviewCount).toLocaleString()})</span>`:""}
+      <span>· ${priceStr(x.priceLevel)}</span><span>· ${x.cuisine}</span>
+      ${x._d!=null?`<span>· ${x._d<0.1?"<0.1":x._d.toFixed(1)} mi</span>`:""}
+      ${openTag}
+      ${x._d!=null?`<span class="travel">${travelText(x._d)}</span>`:""}
+    </div>
+    ${x.summary?`<p style="font-size:14.5px;line-height:1.5;margin:11px 0 0;">${x.summary}</p>`:""}
+    ${x.topReview?`<p class="quote">“${x.topReview.length>180?x.topReview.slice(0,180)+"…":x.topReview}”</p>`:""}
+    ${th?`<p class="hours">🕒 Today: ${th}</p>`:""}
+    ${x.address?`<p style="font-size:12.5px;color:var(--ink-soft);margin:8px 0 0;">📍 ${x.address}</p>`:""}
+    <div class="row" style="margin-top:14px;">
+      <a class="action" href="${maps}" target="_blank" rel="noreferrer" style="background:var(--terra);color:#fff;">🧭 Directions</a>
+      ${x.phone?`<a class="action" href="tel:${x.phone}" style="background:transparent;color:var(--ink);border:1.5px solid var(--line);">📞 Call</a>`:""}
+      ${x.website?`<a class="action" href="${x.website}" target="_blank" rel="noreferrer" style="background:transparent;color:var(--ink);border:1.5px solid var(--line);">🌐 Site</a>`:""}
+    </div>`;
+}
+function wireHearts(container){
+  container.querySelectorAll(".heart").forEach(btn=>{
+    btn.onclick=()=>{ const id=btn.dataset.id; const place=lastResults.find(x=>x.id===id)||loadFavs().find(x=>x.id===id); toggleFav(place);
+      const on=isFav(id); btn.classList.toggle("on",on); btn.textContent=on?"♥":"♡"; if(state.view==="favs")renderFavs(); };
+  });
+}
+function renderList(){
+  const el=document.getElementById("results"); const r=ranked();
+  el.innerHTML='<h2 style="font-family:\'Fraunces\',serif;font-weight:700;font-size:24px;margin:6px 0 0;">Your top '+r.length+'</h2>';
+  r.forEach((x,i)=>{const c=document.createElement("article");c.className="card";c.style.animationDelay=(i*0.07)+"s";c.innerHTML=cardHTML(x,i,true);el.appendChild(c);});
+  const note=document.createElement("p");note.className="foot";note.textContent="Ratings, reviews and open/closed status come live from Google. Travel times are estimates — confirm hours before you go.";el.appendChild(note);
+  wireHearts(el); refreshLearnNote();
+}
+
+/* ---------- RENDER: MAP ---------- */
+function renderMap(){
+  const el=document.getElementById("map"); el.style.display="block";
+  const r=ranked();
+  if(!map){ map=L.map("map",{scrollWheelZoom:false}); L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",{attribution:"© OpenStreetMap, © CARTO",maxZoom:19}).addTo(map); }
+  markers.forEach(m=>map.removeLayer(m)); markers=[];
+  const pts=[];
+  r.forEach((x,i)=>{
+    if(x.lat==null||x.lng==null) return;
+    const color=i===0?"#C8962B":"#9C3A1F";
+    const icon=L.divIcon({className:"",html:`<div class="pin" style="background:${color};"><span>${i+1}</span></div>`,iconSize:[30,30],iconAnchor:[15,28]});
+    const maps=x.mapsUri||("https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(x.name));
+    const m=L.marker([x.lat,x.lng],{icon}).addTo(map).bindPopup(
+      `<b style="font-family:sans-serif;">${i+1}. ${x.name}</b><br/>★ ${(x.rating??0).toFixed(1)} · ${priceStr(x.priceLevel)} · ${x._d!=null?x._d.toFixed(1)+" mi":""}<br/><a href="${maps}" target="_blank">Directions →</a>`
+    );
+    markers.push(m); pts.push([x.lat,x.lng]);
+  });
+  if(state.coords){ const me=L.circleMarker([state.coords.lat,state.coords.lng],{radius:7,color:"#6B6A3A",fillColor:"#6B6A3A",fillOpacity:1}).addTo(map).bindPopup("You are here"); markers.push(me); pts.push([state.coords.lat,state.coords.lng]); }
+  if(pts.length){ map.fitBounds(pts,{padding:[40,40],maxZoom:15}); }
+  setTimeout(()=>map.invalidateSize(),120);
+}
+
+/* ---------- RENDER: FAVORITES ---------- */
+function renderFavs(){
+  const el=document.getElementById("favsView"); el.style.display="block"; el.innerHTML="";
+  const f=loadFavs(); const prof=tasteProfile();
+  let head='<h2 style="font-family:\'Fraunces\',serif;font-weight:700;font-size:24px;margin:6px 0 0;">Saved spots</h2>';
+  if(prof) head+='<div class="learn" style="margin-top:12px;">🧠 <div><b>Your taste so far:</b> '+prof.topCuisines.join(", ")+(prof.favPrice?(' · usually '+"$".repeat(prof.favPrice)):'')+'. New searches lean this way while “Learn from favorites” is on.</div></div>';
+  el.innerHTML=head;
+  if(!f.length){ el.innerHTML+='<p class="foot">No saved spots yet. Tap the ♡ on any result to save it — Forage learns from what you save.</p>'; return; }
+  f.slice().reverse().forEach(x=>{const c=document.createElement("article");c.className="card";if(state.coords&&x.lat&&x.lng)x._d=miles(state.coords.lat,state.coords.lng,x.lat,x.lng);c.innerHTML=cardHTML(x,-1,false);el.appendChild(c);});
+  wireHearts(el);
+}
+
+/* ---------- VIEW SWITCH ---------- */
+function switchView(v){
+  state.view=v;
+  document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("on",t.dataset.view===v));
+  document.getElementById("results").style.display=v==="list"?"block":"none";
+  document.getElementById("map").style.display=v==="map"?"block":"none";
+  document.getElementById("favsView").style.display=v==="favs"?"block":"none";
+  document.getElementById("learnNote").innerHTML="";
+  if(v==="list") renderList();
+  else if(v==="map") renderMap();
+  else renderFavs();
+}
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>switchView(t.dataset.view));
+
+/* ---------- INIT ---------- */
+saveFavs(loadFavs()); refreshLearnNote();
+if("serviceWorker" in navigator){ navigator.serviceWorker.register("/sw.js").catch(()=>{}); }
+</script>
+</body>
+</html>
