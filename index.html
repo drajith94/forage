@@ -297,6 +297,12 @@ function priceStr(n){ return "$".repeat(Math.max(1,Math.min(4,n||2))); }
 let loadTimer;
 async function search(){
   const err=document.getElementById("err"); err.style.display="none";
+  // Guard: this app needs to run from its deployed https URL, not a local file.
+  if(location.protocol!=="http:" && location.protocol!=="https:"){
+    err.style.display="block";
+    err.textContent="Open the app from its deployed web address (https://…vercel.app), not the local file. The search backend only exists on the deployed site.";
+    return;
+  }
   if(!state.coords && !placeEl.value.trim()){ err.style.display="block"; err.textContent="Set your location first — tap “Use my location” or type a place."; return; }
   document.getElementById("empty").style.display="none";
   document.getElementById("tabs").style.display="none";
@@ -306,16 +312,28 @@ async function search(){
   let i=0; document.getElementById("loadLine").textContent=LOAD[0];
   loadTimer=setInterval(()=>{i=(i+1)%LOAD.length;document.getElementById("loadLine").textContent=LOAD[i];},1600);
   try{
-    const res=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({
+    // Build an absolute URL so older Safari never chokes on the relative path.
+    const endpoint=new URL(API, location.origin).href;
+    const res=await fetch(endpoint,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({
       lat:state.coords?.lat,lng:state.coords?.lng,meal:state.meal,cuisine:state.cuisine,
       radiusMiles:state.radius,prices:state.prices,dietary:state.dietary,openNow:state.openNow,placeText:placeEl.value.trim()
     })});
-    const data=await res.json();
-    if(!res.ok) throw new Error(data.error||"Request failed.");
+    let data;
+    const raw=await res.text();
+    try{ data=JSON.parse(raw); }
+    catch{ throw new Error(res.status===404
+      ? "Backend not found (404). The /api/search function isn’t deployed — make sure the whole \"api\" folder was uploaded and Vercel redeployed."
+      : "The server sent back something unexpected. If you just deployed, give it a minute and try again."); }
+    if(!res.ok) throw new Error(data.error||("Request failed ("+res.status+")."));
     lastResults=(data.results||[]).map(x=>{ if(state.coords&&x.lat&&x.lng) x._d=miles(state.coords.lat,state.coords.lng,x.lat,x.lng); return x; });
     if(!lastResults.length){ document.getElementById("results").innerHTML='<p class="foot">No matches — try widening distance or price.</p>'; }
     else { document.getElementById("tabs").style.display="flex"; switchView("list"); }
-  }catch(e){ err.style.display="block"; err.textContent=e.message; }
+  }catch(e){
+    err.style.display="block";
+    err.textContent = (e && e.message && e.message.includes("Load failed"))
+      ? "Couldn’t reach the server. Check your connection, or confirm the app is deployed and online."
+      : (e.message || "Something went wrong.");
+  }
   finally{ clearInterval(loadTimer); document.getElementById("loading").style.display="none"; document.getElementById("go").disabled=false; }
 }
 document.getElementById("go").onclick=search;
