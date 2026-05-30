@@ -1,0 +1,6 @@
+{
+  "version": 2,
+  "functions": {
+    "api/search.js": { "runtime": "@vercel/node", "maxDuration": 15 }
+  }
+}
