@@ -1,25 +1,62 @@
-// api/search.js
-// Vercel serverless function. Holds your Google API key SECRETLY (server-side)
-// and calls the Google Places API (New) Text Search endpoint.
-// The browser never sees your key.
+// api/search.js  –– CommonJS (module.exports) so Vercel loads it correctly
+// Handles food / parks / play modes + free Reddit buzz enrichment
 
 const PRICE_MAP = {
-  PRICE_LEVEL_FREE: 1,
-  PRICE_LEVEL_INEXPENSIVE: 1,
-  PRICE_LEVEL_MODERATE: 2,
-  PRICE_LEVEL_EXPENSIVE: 3,
-  PRICE_LEVEL_VERY_EXPENSIVE: 4,
+  PRICE_LEVEL_FREE:1, PRICE_LEVEL_INEXPENSIVE:1,
+  PRICE_LEVEL_MODERATE:2, PRICE_LEVEL_EXPENSIVE:3, PRICE_LEVEL_VERY_EXPENSIVE:4,
 };
-
 const MEAL_HINT = {
-  Breakfast: "breakfast",
-  Lunch: "lunch restaurants",
-  Dinner: "dinner restaurants",
-  Cafe: "cafe coffee shop",
-  Matcha: "matcha cafe",
+  Breakfast:"breakfast spot", Lunch:"lunch restaurant", Dinner:"dinner restaurant",
+  Cafe:"cafe coffee shop", Matcha:"matcha cafe",
+};
+const PARK_HINT = {
+  Any:"park", Hiking:"hiking trail park", "Dog Park":"dog park",
+  Playground:"playground", Sports:"sports complex field", Garden:"botanical garden park",
+  Beach:"beach", "Nature Reserve":"nature reserve",
+};
+const PLAY_HINT = {
+  Any:"entertainment activities", Arcade:"arcade game center",
+  Bowling:"bowling alley", Movies:"movie theater cinema", "Mini Golf":"mini golf course",
+  "Escape Room":"escape room", "Live Music":"live music venue", "Laser Tag":"laser tag center",
+  "Go-Kart":"go kart racing", Comedy:"comedy club", Trampoline:"trampoline park", Karaoke:"karaoke bar",
 };
 
-export default async function handler(req, res) {
+// Free Reddit JSON API — no key needed, runs server-side so no CORS issues
+async function redditBuzz(query, location) {
+  try {
+    const q = encodeURIComponent((query + " " + location + " hidden gem recommend").trim());
+    const url = `https://www.reddit.com/search.json?q=${q}&sort=relevance&limit=10&t=year`;
+    const r = await fetch(url, {
+      headers: { "User-Agent": "Forage/1.0 personal activity finder (self-hosted)" },
+      signal: AbortSignal.timeout(5000),
+    });
+    if (!r.ok) return [];
+    const d = await r.json();
+    return (d?.data?.children || [])
+      .filter(p => p.data.score > 1 && p.data.title.length > 10)
+      .map(p => ({
+        title: p.data.title,
+        score: p.data.score,
+        url: "https://reddit.com" + p.data.permalink,
+        body: (p.data.selftext || "").slice(0, 280),
+        sub: p.data.subreddit,
+      }));
+  } catch { return []; }
+}
+
+// Free Nominatim reverse-geocode: coords → city name for Reddit query
+async function cityFromCoords(lat, lng) {
+  try {
+    const r = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`,
+      { headers: { "User-Agent": "Forage/1.0" }, signal: AbortSignal.timeout(4000) }
+    );
+    const d = await r.json();
+    return d?.address?.city || d?.address?.town || d?.address?.suburb || "";
+  } catch { return ""; }
+}
+
+module.exports = async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -27,74 +64,77 @@ export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "Use POST" });
 
   const KEY = process.env.GOOGLE_PLACES_KEY;
-  if (!KEY) {
-    return res.status(500).json({
-      error: "Server is missing GOOGLE_PLACES_KEY. Add it in your Vercel project settings.",
-    });
-  }
+  if (!KEY) return res.status(500).json({ error: "Server is missing GOOGLE_PLACES_KEY." });
 
   try {
     const body = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
     const {
-      lat, lng, meal = "Dinner", cuisine = "Any", radiusMiles = 3,
-      prices = [], dietary = [], openNow = false, placeText = "",
+      lat, lng, mode = "food", placeText = "",
+      // food
+      meal = "Dinner", cuisine = "Any", dietary = [],
+      // parks
+      parkType = "Any",
+      // play
+      playCategory = "Any",
+      // shared
+      prices = [], radiusMiles = 5, openNow = false,
     } = body;
 
-    const parts = [];
-    if (dietary.length) parts.push(dietary.join(" "));
-    if (cuisine && cuisine !== "Any") parts.push(cuisine);
-    parts.push(MEAL_HINT[meal] || "restaurants");
-    if (placeText) parts.push("in " + placeText);
-    const textQuery = parts.join(" ").trim();
+    // Resolve location text
+    let locText = placeText.trim();
+    if (!locText && typeof lat === "number" && typeof lng === "number") {
+      locText = await cityFromCoords(lat, lng);
+    }
+
+    // Build query
+    let textQuery = "", redditQ = "";
+    if (mode === "food") {
+      const parts = [];
+      if (dietary.length) parts.push(dietary.join(" "));
+      if (cuisine !== "Any") parts.push(cuisine);
+      parts.push(MEAL_HINT[meal] || "restaurant");
+      if (placeText) parts.push("in " + placeText);
+      textQuery = parts.join(" ").trim();
+      redditQ = `new ${cuisine !== "Any" ? cuisine : ""} restaurant underrated`;
+    } else if (mode === "parks") {
+      textQuery = (PARK_HINT[parkType] || "park") + (placeText ? " in " + placeText : "");
+      redditQ = `${PARK_HINT[parkType] || "park"} underrated`;
+    } else {
+      textQuery = (PLAY_HINT[playCategory] || "entertainment") + (placeText ? " in " + placeText : "");
+      redditQ = `${PLAY_HINT[playCategory] || "entertainment"} worth it`;
+    }
 
     const radiusMeters = Math.min(50000, Math.max(500, Math.round(radiusMiles * 1609.34)));
-
     const payload = { textQuery, maxResultCount: 20, ...(openNow ? { openNow: true } : {}) };
     if (typeof lat === "number" && typeof lng === "number") {
-      payload.locationBias = {
-        circle: { center: { latitude: lat, longitude: lng }, radius: radiusMeters },
-      };
+      payload.locationBias = { circle: { center: { latitude: lat, longitude: lng }, radius: radiusMeters } };
     }
 
-    const fieldMask = [
-      "places.id",
-      "places.displayName",
-      "places.formattedAddress",
-      "places.location",
-      "places.rating",
-      "places.userRatingCount",
-      "places.priceLevel",
-      "places.currentOpeningHours.openNow",
-      "places.currentOpeningHours.weekdayDescriptions",
-      "places.nationalPhoneNumber",
-      "places.googleMapsUri",
-      "places.websiteUri",
-      "places.editorialSummary",
-      "places.primaryTypeDisplayName",
-      "places.reviews",
+    const FIELDS = [
+      "places.id","places.displayName","places.formattedAddress","places.location",
+      "places.rating","places.userRatingCount","places.priceLevel",
+      "places.currentOpeningHours.openNow","places.currentOpeningHours.weekdayDescriptions",
+      "places.nationalPhoneNumber","places.googleMapsUri","places.websiteUri",
+      "places.editorialSummary","places.primaryTypeDisplayName","places.reviews",
     ].join(",");
 
-    const gRes = await fetch("https://places.googleapis.com/v1/places:searchText", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Goog-Api-Key": KEY,
-        "X-Goog-FieldMask": fieldMask,
-      },
-      body: JSON.stringify(payload),
-    });
+    // Places API + Reddit run in parallel – Reddit failure never breaks the main results
+    const [gRes, buzz] = await Promise.all([
+      fetch("https://places.googleapis.com/v1/places:searchText", {
+        method: "POST",
+        headers: { "Content-Type":"application/json", "X-Goog-Api-Key":KEY, "X-Goog-FieldMask":FIELDS },
+        body: JSON.stringify(payload),
+      }),
+      redditBuzz(redditQ, locText),
+    ]);
 
-    const data = await gRes.json();
-    if (!gRes.ok) {
-      return res.status(gRes.status).json({
-        error: data?.error?.message || "Google Places request failed.",
-      });
-    }
+    const gData = await gRes.json();
+    if (!gRes.ok) return res.status(gRes.status).json({ error: gData?.error?.message || "Google Places failed." });
 
-    let places = (data.places || []).map((p) => ({
+    let places = (gData.places || []).map(p => ({
       id: p.id,
       name: p.displayName?.text || "Unknown",
-      cuisine: p.primaryTypeDisplayName?.text || "Restaurant",
+      type: p.primaryTypeDisplayName?.text || (mode === "parks" ? "Park" : mode === "play" ? "Entertainment" : "Restaurant"),
       rating: p.rating ?? null,
       reviewCount: p.userRatingCount ?? null,
       priceLevel: PRICE_MAP[p.priceLevel] || null,
@@ -107,23 +147,21 @@ export default async function handler(req, res) {
       website: p.websiteUri || null,
       mapsUri: p.googleMapsUri || null,
       summary: p.editorialSummary?.text || null,
-      topReview:
-        p.reviews && p.reviews[0] && p.reviews[0].text ? p.reviews[0].text.text : null,
+      topReview: p.reviews?.[0]?.text?.text || null,
+      mode,
     }));
 
-    if (prices.length) {
-      places = places.filter((p) => p.priceLevel == null || prices.includes(p.priceLevel));
+    if (prices.length && mode !== "parks") {
+      places = places.filter(p => p.priceLevel == null || prices.includes(p.priceLevel));
     }
-    places = places.filter((p) => p.rating != null);
-
-    places.sort(
-      (a, b) =>
-        (b.rating || 0) * Math.log10((b.reviewCount || 0) + 10) -
-        (a.rating || 0) * Math.log10((a.reviewCount || 0) + 10)
+    places = places.filter(p => p.rating != null);
+    places.sort((a, b) =>
+      (b.rating||0) * Math.log10((b.reviewCount||0)+10) -
+      (a.rating||0) * Math.log10((a.reviewCount||0)+10)
     );
 
-    return res.status(200).json({ results: places.slice(0, 12) });
+    return res.status(200).json({ results: places.slice(0, 15), buzz });
   } catch (e) {
     return res.status(500).json({ error: "Server error: " + e.message });
   }
-}
+};
