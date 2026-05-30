@@ -114,10 +114,44 @@ vercel dev               # opens http://localhost:3000
 
 ## Troubleshooting
 
-- **"Server is missing GOOGLE_PLACES_KEY"** → you didn't add the environment variable in Vercel (Step 2b.3), or you added it after deploying and need to **Redeploy**.
-- **"Google Places request failed" / REQUEST_DENIED** → the Places API (New) isn't enabled on the project, billing isn't on, or the key restriction is blocking it. Recheck Step 1.3, 1.6, 1.7.
-- **No results** → widen the distance slider or add more price levels; very specific dietary + cuisine + tiny radius can come back empty.
-- **Location button does nothing on iPhone** → it only works over HTTPS (your Vercel URL is HTTPS, so this only bites on plain-http local testing) and needs the **Allow** permission.
+- **"string did not match the expected pattern"** → you're opening the raw `index.html` file (or a preview) instead of your deployed `https://…vercel.app` URL. The search backend only exists on the deployed site. Open the Vercel URL. (The app now shows a plain-English message when this happens.)
+- **"Backend not found (404)"** → the `api` folder wasn't uploaded, or it got flattened. In your GitHub repo, confirm the file lives at exactly `api/search.js`, then redeploy.
+- **"Server is missing GOOGLE_PLACES_KEY"** → you didn't add the environment variable in Vercel, or added it after deploying and need to **Redeploy**.
+- **"Google Places request failed" / REQUEST_DENIED** → Places API (New) isn't enabled, billing isn't on, or the key restriction is blocking it.
+- **"Couldn't reach the server"** → connection issue, or the deploy is still building (wait a minute).
+- **No results** → widen the distance slider or add more price levels.
+
+---
+
+## Protecting your API key
+
+Your key is already in the safest spot — **server-side in Vercel**, never in the phone-facing code. These steps harden it further and make it impossible to get a surprise bill.
+
+### 1. Never put the key in the front-end
+The key lives only as the `GOOGLE_PLACES_KEY` environment variable in Vercel, read by `api/search.js`. Do **not** paste it into `index.html`, and never commit a real `.env` file (the included `.gitignore` already blocks it). The browser only ever talks to your own `/api/search`, so the key is never sent to anyone's phone.
+
+### 2. Restrict the key to one API
+Google Cloud → **APIs & Services → Credentials** → click your key → **API restrictions** → **Restrict key** → tick **Places API (New)** only → **Save**. Now even if the key leaked, it can only call Places — not Maps, Geocoding, billing, etc.
+
+> Note on *Application* restrictions: "HTTP referrer" restrictions don't help here because the call comes from Vercel's servers, not a browser. "IP address" restriction is the technically correct fit, but Vercel's outbound IPs rotate, so it's impractical for a hobby deploy. The API restriction above plus the quota cap below give you strong protection without the IP headache.
+
+### 3. Cap the daily quota → hard $0 guarantee
+This is the one that makes overspending *impossible*.
+Google Cloud → **APIs & Services** → select **Places API (New)** → **Quotas & System Limits** → find the requests-per-day limit → click the pencil → set it to something like **100/day** → **Save**.
+Once you hit the cap, requests simply stop returning until the next day instead of billing. For personal use, 100/day is plenty, and it guarantees you can never be charged.
+
+### 4. Set a budget alert (belt and suspenders)
+Google Cloud → **Billing → Budgets & alerts → Create budget** → set the amount to **$1** → finish. You'll get an email the instant anything bills — which, under the free cap, it won't.
+
+### 5. If the key is ever exposed, rotate it
+If you accidentally commit it or paste it somewhere public: Credentials → your key → **Regenerate key** (or delete and make a new one), then update `GOOGLE_PLACES_KEY` in Vercel → **Settings → Environment Variables** and **Redeploy**. The old key stops working immediately.
+
+### Quick checklist
+- [ ] Key only in Vercel env var, never in `index.html`
+- [ ] Real `.env` never committed to GitHub
+- [ ] Key restricted to **Places API (New)**
+- [ ] Daily quota capped (e.g. 100/day)
+- [ ] $1 budget alert set
 
 ---
 
