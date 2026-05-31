@@ -112,13 +112,22 @@ module.exports = async function handler(req, res) {
     let textQuery = "", redditQ = "";
     if (mode === "food") {
       const parts = [];
-      if (dietary.length) parts.push(dietary.join(" "));
-      if (dish) parts.push(dish);
-      else if (cuisine !== "Any") parts.push(cuisine);
-      parts.push(MEAL_HINT[meal] || "restaurant");
-      if (placeText) parts.push("in " + placeText);
-      textQuery = parts.join(" ").trim();
-      redditQ = (dish ? dish : (cuisine !== "Any" ? cuisine : "")) + " restaurant best";
+      if (dish) {
+        // Dish search: keep the query tight and dish-led so Google ranks by the dish
+        // itself instead of padding with category-adjacent places.
+        const dq = ["best", dish];
+        if (dietary.length) dq.push(dietary.join(" "));
+        if (placeText) dq.push("in " + placeText);
+        textQuery = dq.join(" ").trim();
+        redditQ = "best " + dish + " near me";
+      } else {
+        if (dietary.length) parts.push(dietary.join(" "));
+        if (cuisine !== "Any") parts.push(cuisine);
+        parts.push(MEAL_HINT[meal] || "restaurant");
+        if (placeText) parts.push("in " + placeText);
+        textQuery = parts.join(" ").trim();
+        redditQ = (cuisine !== "Any" ? cuisine : "") + " restaurant best";
+      }
     } else if (mode === "parks") {
       textQuery = (PARK_HINT[parkType] || "park") + (placeText ? " in " + placeText : "");
       redditQ = (PARK_HINT[parkType] || "park") + " best";
@@ -195,10 +204,40 @@ module.exports = async function handler(req, res) {
       places = places.filter(p => p.priceLevel == null || prices.includes(p.priceLevel));
     }
     places = places.filter(p => p.rating != null);
-    places.sort((a, b) =>
-      (b.rating||0) * Math.log10((b.reviewCount||0)+10) -
-      (a.rating||0) * Math.log10((a.reviewCount||0)+10)
-    );
+
+    // Dish relevance: when a dish is searched, score how clearly each place
+    // matches the dish (name > type > summary > reviews), then prefer matches.
+    if (dish && mode === "food") {
+      const dl = dish.toLowerCase().trim();
+      // also try a singular/plural-insensitive token (burger ~ burgers)
+      const dlBase = dl.replace(/s$/, "");
+      const scoreDish = (p) => {
+        const inName = (p.name || "").toLowerCase();
+        const inType = (p.type || "").toLowerCase();
+        const inSummary = (p.summary || "").toLowerCase();
+        const inReviews = (p.googleReviews || []).map(r => r.text.toLowerCase()).join(" ");
+        let s = 0;
+        if (inName.includes(dl) || inName.includes(dlBase)) s += 5;
+        if (inType.includes(dl) || inType.includes(dlBase)) s += 4;
+        if (inSummary.includes(dl) || inSummary.includes(dlBase)) s += 2;
+        if (inReviews.includes(dl) || inReviews.includes(dlBase)) s += 1;
+        return s;
+      };
+      places.forEach(p => { p._dishScore = scoreDish(p); });
+      const anyMatch = places.some(p => p._dishScore > 0);
+      // If we found real dish matches, drop the zero-score noise (the BBQ-when-you-searched-burger problem).
+      if (anyMatch) places = places.filter(p => p._dishScore > 0);
+      // Rank by dish relevance first, then by quality.
+      places.sort((a, b) =>
+        (b._dishScore - a._dishScore) ||
+        ((b.rating||0) * Math.log10((b.reviewCount||0)+10) - (a.rating||0) * Math.log10((a.reviewCount||0)+10))
+      );
+    } else {
+      places.sort((a, b) =>
+        (b.rating||0) * Math.log10((b.reviewCount||0)+10) -
+        (a.rating||0) * Math.log10((a.reviewCount||0)+10)
+      );
+    }
 
     const top = places.slice(0, 12);
 
