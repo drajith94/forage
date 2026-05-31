@@ -203,7 +203,7 @@ textarea.finput{resize:vertical;min-height:72px;line-height:1.5;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(-3px);}
 .foot{font-size:11.5px;color:var(--ink-soft);margin:20px 0 10px;text-align:center;line-height:1.5;}
 .sec-title{font-family:'Fraunces',serif;font-weight:700;font-size:22px;margin:14px 0 0;}
- 
+
 /* MULTI-SOURCE REVIEWS */
 .rev-panel{margin-top:11px;border-top:1px solid var(--line);padding-top:11px;}
 .rev-toggle{display:flex;align-items:center;gap:6px;background:none;border:none;cursor:pointer;
@@ -251,12 +251,12 @@ input[type=range].rate-slider{width:90px;margin-top:0;}
 </style>
 </head>
 <body>
- 
+
 <header>
   <h1>Forage</h1><span style="font-size:22px;">&#x1F37D;&#xFE0F;</span>
   <span class="tagline" style="margin-left:4px;">Your go-to for food &amp; fun nearby.</span>
 </header>
- 
+
 <div class="loc-strip">
   <button id="locBtn" class="btn-loc"><span id="locIcon">&#9678;</span> <span id="locLabel">My location</span></button>
   <div class="loc-input-wrap">
@@ -265,13 +265,13 @@ input[type=range].rate-slider{width:90px;margin-top:0;}
   </div>
 </div>
 <p id="locHint" class="loc-hint" style="display:none;"></p>
- 
+
 <!-- FOOD -->
 <div class="sec" id="sec-food"><div class="wrap">
   <div class="panel">
     <label class="fld">Meal</label>
     <div class="row" id="food-meals"></div>
- 
+
     <label class="fld" style="margin-top:14px;">Search by dish <span style="font-weight:400;font-size:11px;color:var(--ink-soft);">(optional)</span></label>
     <div class="dish-wrap">
       <span class="dish-icon">&#x1F374;</span>
@@ -285,7 +285,7 @@ input[type=range].rate-slider{width:90px;margin-top:0;}
         <button onclick="clearDish()" style="background:none;border:none;cursor:pointer;font-size:13px;color:var(--terra-deep);padding:0 0 0 4px;">&#215;</button>
       </div>
     </div>
- 
+
     <div class="row" style="margin-top:14px;gap:12px;">
       <div style="flex:1;min-width:140px;"><label class="fld">Cuisine</label><select id="food-cuisine"></select></div>
       <div style="flex:1;min-width:140px;"><label class="fld">Price</label><div class="row" id="food-prices"></div></div>
@@ -316,12 +316,12 @@ input[type=range].rate-slider{width:90px;margin-top:0;}
     <button class="add-rec-btn" onclick="openModal('food')">&#x2795; Add a recommended restaurant</button>
     <p class="err" id="food-err" style="display:none;"></p>
   </div>
- 
+
   <div id="food-recent" class="recent-wrap" style="display:none;">
     <p class="recent-label">&#x1F551; Recent searches</p>
     <div class="recent-scroll" id="food-recent-scroll"></div>
   </div>
- 
+
   <div id="food-loading" style="display:none;">
     <div class="loading-msg">
       <span style="display:inline-flex;gap:3px;">
@@ -342,7 +342,7 @@ input[type=range].rate-slider{width:90px;margin-top:0;}
   <div id="food-map" class="mapbox" style="display:none;"></div>
   <div id="food-buzz"></div>
 </div></div>
- 
+
 <!-- PARKS -->
 <div class="sec" id="sec-parks" style="display:none;"><div class="wrap">
   <div class="panel">
@@ -387,7 +387,7 @@ input[type=range].rate-slider{width:90px;margin-top:0;}
   <div id="parks-map" class="mapbox" style="display:none;"></div>
   <div id="parks-buzz"></div>
 </div></div>
- 
+
 <!-- PLAY -->
 <div class="sec" id="sec-play" style="display:none;"><div class="wrap">
   <div class="panel">
@@ -434,12 +434,12 @@ input[type=range].rate-slider{width:90px;margin-top:0;}
   <div id="play-map" class="mapbox" style="display:none;"></div>
   <div id="play-buzz"></div>
 </div></div>
- 
+
 <!-- SAVED -->
 <div class="sec" id="sec-saved" style="display:none;"><div class="wrap">
   <div id="saved-content" style="padding-bottom:20px;"></div>
 </div></div>
- 
+
 <!-- ADD RECOMMENDATION MODAL -->
 <div class="overlay" id="add-overlay">
   <div class="sheet">
@@ -466,7 +466,7 @@ input[type=range].rate-slider{width:90px;margin-top:0;}
     <button class="btn-sheet-save" onclick="saveCustomPlace()">&#x2705; Save recommendation</button>
   </div>
 </div>
- 
+
 <!-- VISIT LOG MODAL -->
 <div class="overlay" id="visit-overlay">
   <div class="sheet">
@@ -500,7 +500,7 @@ input[type=range].rate-slider{width:90px;margin-top:0;}
     <button class="btn-sheet-save" onclick="saveVisit()">&#x2705; Save visit</button>
   </div>
 </div>
- 
+
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav">
   <button class="nav-btn on" id="nav-food" onclick="switchSec('food')"><span class="ic">&#x1F37D;&#xFE0F;</span>Food</button>
@@ -509,7 +509,7 @@ input[type=range].rate-slider{width:90px;margin-top:0;}
   <button class="nav-btn" id="nav-saved" onclick="switchSec('saved')"><span class="ic">&#x2665;</span><span id="nav-saved-ct">Saved</span></button>
 </nav>
 <div id="toast" class="toast"></div>
- 
+
 <script>
 const API="/api/search";
 const FAV_KEY="forage_v3";
@@ -529,7 +529,7 @@ const DIETARY=["Vegetarian","Vegan","Gluten-free","Halal"];
 const SORTS=[["match","Best match"],["rating","Top rated"],["distance","Closest"],["value","Best value"]];
 const PARK_TYPES=["Any","Hiking","Dog Park","Playground","Sports","Garden","Beach","Nature Reserve"];
 const PLAY_CATS=["Any","Arcade","Bowling","Movies","Mini Golf","Escape Room","Live Music","Laser Tag","Go-Kart","Comedy","Trampoline","Karaoke"];
- 
+
 const loc={coords:null,status:"idle"};
 const S={
   food:{meal:"Dinner",cuisine:"Any",prices:[1,2],dietary:[],radius:3,openNow:true,sort:"match",learn:true,view:"list",results:[],buzz:[],dish:""},
@@ -538,7 +538,7 @@ const S={
 };
 let curSec="food";
 const leafletMaps={};
- 
+
 // ── FAVORITES ──
 function loadFavs(){try{return JSON.parse(localStorage.getItem(FAV_KEY)||"[]");}catch{return[];}}
 function saveFavs(f){localStorage.setItem(FAV_KEY,JSON.stringify(f));updateSavedCount();}
@@ -550,7 +550,7 @@ function toggleFav(place){
   saveFavs(f);return f;
 }
 function updateSavedCount(){const n=loadFavs().length;document.getElementById("nav-saved-ct").textContent=n>0?"Saved ("+n+")":"Saved";}
- 
+
 // ── CUSTOM RECS ──
 function loadCustom(){try{return JSON.parse(localStorage.getItem(CUSTOM_KEY)||"[]");}catch{return[];}}
 function saveCustom(arr){localStorage.setItem(CUSTOM_KEY,JSON.stringify(arr));}
@@ -632,7 +632,7 @@ function removeCustom(id,sec){
   const container=document.getElementById(sec+"-results");
   if(container){const old=container.querySelector(".friend-section");if(old)old.remove();renderFriendRecs(sec);}
 }
- 
+
 // ── DISH SEARCH ──
 function loadDishHist(){try{return JSON.parse(localStorage.getItem(DISH_HIST_KEY)||"[]");}catch{return[];}}
 function saveDishHist(arr){localStorage.setItem(DISH_HIST_KEY,JSON.stringify(arr.slice(0,10)));}
@@ -669,7 +669,7 @@ function updateDishBadge(dish){
   if(dish){b.style.display="flex";l.textContent=dish;}else{b.style.display="none";}
 }
 document.getElementById("dish-in").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();dishSearch();}});
- 
+
 // ── SEARCH HISTORY ──
 function loadSearchHist(){try{return JSON.parse(localStorage.getItem(SEARCH_HIST_KEY)||"[]");}catch{return[];}}
 function saveSearchHist(arr){localStorage.setItem(SEARCH_HIST_KEY,JSON.stringify(arr.slice(0,8)));}
@@ -689,7 +689,7 @@ function renderSearchRecent(){
     scroll.appendChild(c);
   });
 }
- 
+
 // ── TASTE PROFILE ──
 function tasteProfile(){
   const f=loadFavs().filter(x=>x.mode==="food");if(f.length<2)return null;
@@ -704,7 +704,7 @@ function tasteBoost(place,prof){
   for(const c in prof.cuisineWeights){if(place.type&&(place.type.toLowerCase().includes(c.toLowerCase())||c.toLowerCase().includes(place.type.toLowerCase())))b+=0.3*Math.min(3,prof.cuisineWeights[c]);}
   if(prof.favPrice&&place.priceLevel===prof.favPrice)b+=0.4;return b;
 }
- 
+
 // ── HELPERS ──
 function miles(a,b,c,d){const R=3958.8,t=x=>x*Math.PI/180;const dLat=t(c-a),dLon=t(d-b);const h=Math.sin(dLat/2)**2+Math.cos(t(a))*Math.cos(t(c))*Math.sin(dLon/2)**2;return R*2*Math.atan2(Math.sqrt(h),Math.sqrt(1-h));}
 function stars(v){v=Math.max(0,Math.min(5,+v||0));let s="";for(let i=0;i<5;i++){const f=Math.max(0,Math.min(1,v-i));s+=`<span style="position:relative;display:inline-block;width:14px;color:var(--line);">★<span style="position:absolute;left:0;top:0;width:${f*100}%;overflow:hidden;color:var(--gold);">★</span></span>`;}return s;}
@@ -719,7 +719,7 @@ function sharePlace(name,url){
 function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("show"),2000);}
 function showErr(sec,msg){const e=document.getElementById(sec+"-err");e.textContent=msg;e.style.display="block";}
 function hideErr(sec){document.getElementById(sec+"-err").style.display="none";}
- 
+
 // ── LOCATION ──
 document.getElementById("locBtn").onclick=()=>{
   const hint=document.getElementById("locHint");
@@ -735,7 +735,7 @@ document.getElementById("locBtn").onclick=()=>{
   );
 };
 document.getElementById("place").oninput=()=>{if(document.getElementById("place").value.trim())document.getElementById("locHint").style.display="none";};
- 
+
 // ── BUILD CONTROLS ──
 function buildFoodControls(){
   const me=document.getElementById("food-meals");
@@ -776,7 +776,7 @@ function buildPlayControls(){
   document.getElementById("play-tab-list").onclick=()=>switchView("play","list");
   document.getElementById("play-tab-map").onclick=()=>switchView("play","map");
 }
- 
+
 // ── SECTION NAV ──
 function switchSec(name){
   curSec=name;
@@ -796,7 +796,7 @@ function switchView(sec,view){
   if(view==="map")renderMap(sec);
   else{renderList(sec);refreshLearnNote();}
 }
- 
+
 // ── SEARCH ──
 let loadTimers={};
 async function doSearch(sec){
@@ -841,7 +841,7 @@ async function doSearch(sec){
     clearInterval(loadTimers[sec]);loadEl.style.display="none";if(goBtn)goBtn.disabled=false;
   }
 }
- 
+
 // ── RANKING ──
 function ranked(sec){
   const s=S[sec];const prof=sec==="food"?tasteProfile():null;
@@ -852,7 +852,7 @@ function ranked(sec){
   else{r.sort((a,b)=>{const base=x=>(x.rating||0)*Math.log10((x.reviewCount||0)+10);const boost=sec==="food"&&s.learn?tasteBoost:()=>0;return base(b)+boost(b,prof)-(base(a)+boost(a,prof));});}
   return r.slice(0,10);
 }
- 
+
 // ── CARD HTML ──
 function cardHTML(x,i,sec){
   const isFirst=i===0;
@@ -905,6 +905,7 @@ function cardHTML(x,i,sec){
       <a class="act" href="${maps}" target="_blank" rel="noreferrer" style="background:var(--terra);color:#fff;">&#x1F9AD; Directions</a>
       ${x.phone?`<a class="act" href="tel:${x.phone}" style="border:1.5px solid var(--line);color:var(--ink);">&#x1F4DE; Call</a>`:""}
       ${x.website?`<a class="act" href="${x.website}" target="_blank" rel="noreferrer" style="border:1.5px solid var(--line);color:var(--ink);">&#x1F310; Site</a>`:""}
+      ${(sec==="food")?`<a class="act" href="https://www.opentable.com/s?term=${encodeURIComponent(x.name)}&covers=2" target="_blank" rel="noreferrer" style="border:1.5px solid var(--olive);color:var(--olive);">&#x1F4C5; Reserve</a>`:""}
       <button class="act act-share" onclick="sharePlace('${shareName}','${shareUrl}')">&#x1F4E4; Share</button>
       <button class="act visit-btn${hasVisited(x.id)?' logged':''}" data-id="${x.id}">${hasVisited(x.id)?'&#x2714; Visited':'&#x1F37D;&#xFE0F; I went here'}</button>
     </div>
@@ -919,7 +920,7 @@ function wireHearts(container){
     };
   });
 }
- 
+
 // ── RENDER LIST ──
 function renderList(sec){
   const el=document.getElementById(sec+"-results");const r=ranked(sec);
@@ -930,7 +931,7 @@ function renderList(sec){
   const note=document.createElement("p");note.className="foot";note.textContent="Ratings live from Google. Hours can change — confirm before you go.";el.appendChild(note);
   wireHearts(el);renderFriendRecs(sec);
 }
- 
+
 // ── RENDER MAP ──
 function renderMap(sec){
   const mapEl=document.getElementById(sec+"-map");mapEl.style.display="block";
@@ -953,7 +954,7 @@ function renderMap(sec){
   if(pts.length)m.fitBounds(pts,{padding:[40,40],maxZoom:15});
   setTimeout(()=>m.invalidateSize(),150);
 }
- 
+
 // ── REDDIT BUZZ ──
 function renderBuzz(sec){
   const buzz=S[sec].buzz;if(!buzz||!buzz.length)return;
@@ -970,7 +971,7 @@ function renderBuzz(sec){
     scroll.appendChild(a);
   });
 }
- 
+
 // ── LEARN NOTE ──
 function refreshLearnNote(){
   const note=document.getElementById("food-learn-note");if(!note)return;
@@ -981,7 +982,7 @@ function refreshLearnNote(){
     note.innerHTML=`<div class="taste-card">&#x1F9E0; <div><b>Tuned to your taste.</b> Leaning toward ${prof.topCuisines.slice(0,2).join(" & ")}${prof.favPrice?" and "+"$".repeat(prof.favPrice):""} from your ${prof.count} saved favorites.</div></div>`;
   }
 }
- 
+
 // ── SURPRISE ME ──
 function surpriseMe(){
   const prof=tasteProfile();let cuisine,meal=MEALS[Math.floor(Math.random()*MEALS.length)][0];
@@ -996,7 +997,7 @@ function surpriseMe(){
   toast("&#x1F35A; "+cuisine+" "+meal+"!");
   doSearch("food");
 }
- 
+
 // ── RENDER SAVED ──
 function renderSaved(){
   const el=document.getElementById("saved-content");el.innerHTML="";
@@ -1088,7 +1089,7 @@ function renderSaved(){
   el.appendChild(starSec);
   wireHearts(el);
 }
- 
+
 // ── INIT ──
 buildFoodControls();
 buildParksControls();
@@ -1098,7 +1099,7 @@ renderDishHistory();
 renderSearchRecent();
 refreshSubtype();
 if("serviceWorker" in navigator)navigator.serviceWorker.register("/sw.js").catch(()=>{});
- 
+
 // delegated handler for remove-custom buttons
 document.addEventListener('click', function(e) {
   const btn = e.target.closest('.btn-remove-custom');
@@ -1107,16 +1108,16 @@ document.addEventListener('click', function(e) {
   const sec = btn.dataset.csec || curSec;
   if (id) removeCustom(id, sec);
 });
- 
+
 // ========== VISIT LOG + DISH RATINGS ==========
 function loadVisits(){ try{ return JSON.parse(localStorage.getItem(VISITS_KEY)||"[]"); }catch{ return []; } }
 function saveVisits(a){ localStorage.setItem(VISITS_KEY, JSON.stringify(a)); }
 function visitsFor(id){ return loadVisits().filter(function(v){ return v.placeId===id; }); }
 function hasVisited(id){ return loadVisits().some(function(v){ return v.placeId===id; }); }
 function deleteVisit(date){ saveVisits(loadVisits().filter(function(v){return v.date!==date;})); toast("Visit removed"); renderSaved(); }
- 
+
 var _visitCtx = null; // {placeId,name,type,priceLevel,address,lat,lng,mapsUri,phone,mode}
- 
+
 function openVisit(id){
   var p=[].concat(S.food.results,S.parks.results,S.play.results,loadFavs()).find(function(x){return x.id===id;});
   if(!p){ toast("Couldn't find that place"); return; }
@@ -1132,7 +1133,7 @@ function openVisit(id){
 }
 function closeVisit(){ document.getElementById("visit-overlay").classList.remove("show"); }
 document.getElementById("visit-overlay").addEventListener("click",function(e){ if(e.target===this) closeVisit(); });
- 
+
 function visitPickOther(){
   var box=document.getElementById("visit-other");
   box.style.display = box.style.display==="none" ? "block" : "none";
@@ -1183,7 +1184,7 @@ document.getElementById("visit-search").addEventListener("input",function(e){
   });
   wireVisitPicks();
 });
- 
+
 function addDishRow(name,score){
   var list=document.getElementById("dish-rate-list");
   var row=document.createElement("div"); row.className="dish-rate-row";
@@ -1194,11 +1195,11 @@ function addDishRow(name,score){
   slider.addEventListener("input",function(){ num.textContent=slider.value; });
   list.appendChild(row);
 }
- 
+
 document.querySelectorAll("#visit-verdict .chip").forEach(function(b){
   b.onclick=function(){ document.querySelectorAll("#visit-verdict .chip").forEach(function(x){x.classList.remove("on");}); b.classList.add("on"); };
 });
- 
+
 function saveVisit(){
   if(!_visitCtx){ toast("Pick a place first"); return; }
   var dishes=[];
@@ -1216,7 +1217,7 @@ function saveVisit(){
   if(curSec==="saved") renderSaved();
   if(S[_visitCtx.mode] && S[_visitCtx.mode].results.length) renderList(_visitCtx.mode);
 }
- 
+
 // ========== VISIT-AWARE TASTE ENGINE ==========
 // Blends saved favorites + logged visits (weighted by dish ratings & verdict).
 function visitTasteSignal(){
@@ -1260,7 +1261,7 @@ tasteProfile = function(){
   }
   return null;
 };
- 
+
 // ========== MULTI-SOURCE REVIEWS RENDER ==========
 function reviewPanelHTML(x){
   var g=(x.googleReviews||[]).slice(0,2);
@@ -1290,13 +1291,13 @@ function toggleRev(id,btn){
   btn.innerHTML=btn.innerHTML.replace(el.classList.contains("show")?"\u25be":"\u25b8","");
 }
 function escapeHtml(s){ return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
- 
+
 // ========== DELEGATED: visit buttons ==========
 document.addEventListener("click",function(e){
   var vb=e.target.closest(".visit-btn");
   if(vb){ openVisit(vb.dataset.id); }
 });
- 
+
 </script>
 </body>
 </html>
