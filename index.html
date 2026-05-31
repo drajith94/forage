@@ -23,31 +23,19 @@
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{margin:0;padding:0;}
-body{
-  font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--paper);
+body{font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--paper);
   background-image:radial-gradient(900px 500px at 100% -8%,rgba(188,75,43,.09),transparent 60%),
     radial-gradient(800px 500px at -10% 12%,rgba(107,106,58,.09),transparent 55%);
-  min-height:100vh;
-  padding-bottom:calc(72px + env(safe-area-inset-bottom));
-}
+  min-height:100vh;padding-bottom:calc(72px + env(safe-area-inset-bottom));}
 .wrap{max-width:720px;margin:0 auto;padding:0 16px;}
- 
-/* HEADER */
-header{
-  background:var(--card);border-bottom:1px solid var(--line);
+header{background:var(--card);border-bottom:1px solid var(--line);
   padding:calc(env(safe-area-inset-top) + 14px) 18px 12px;
-  display:flex;align-items:baseline;gap:10px;
-  position:sticky;top:0;z-index:150;
-}
+  display:flex;align-items:baseline;gap:10px;position:sticky;top:0;z-index:150;}
 h1{font-family:'Fraunces',serif;font-weight:900;font-size:30px;letter-spacing:-.02em;margin:0;line-height:1;}
 .tagline{font-family:'Fraunces',serif;font-style:italic;font-size:13.5px;color:var(--terra-deep);margin:0;}
- 
-/* LOCATION STRIP */
-.loc-strip{
-  background:var(--card);border-bottom:1px solid var(--line);
-  padding:10px 16px;display:flex;gap:8px;align-items:center;
-  position:sticky;top:calc(env(safe-area-inset-top)+58px);z-index:140;
-}
+.loc-strip{background:var(--card);border-bottom:1px solid var(--line);padding:10px 16px;
+  display:flex;gap:8px;align-items:center;
+  position:sticky;top:calc(env(safe-area-inset-top)+58px);z-index:140;}
 .btn-loc{display:inline-flex;align-items:center;gap:6px;font:inherit;font-weight:600;font-size:13px;
   padding:9px 13px;border-radius:10px;cursor:pointer;border:none;color:#fff;background:var(--ink);white-space:nowrap;}
 .btn-loc.ok{background:var(--olive);}
@@ -57,35 +45,50 @@ input.loc-in{width:100%;font:inherit;font-size:13.5px;padding:9px 10px 9px 30px;
   border:1.5px solid var(--line);background:var(--paper);color:var(--ink);outline:none;}
 .loc-hint{font-size:12px;color:var(--ink-soft);padding:6px 16px 0;display:flex;align-items:center;gap:6px;}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--olive);flex-shrink:0;}
- 
-/* SECTIONS */
 .sec{padding-top:14px;}
- 
-/* PANEL */
 .panel{background:var(--card);border:1px solid var(--line);border-radius:20px;
   padding:16px;box-shadow:0 16px 36px -26px rgba(33,27,21,.4);margin:0 0 2px;}
 label.fld{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
   color:var(--ink-soft);display:block;margin-bottom:7px;}
 .row{display:flex;gap:7px;flex-wrap:wrap;}
- 
-/* CHIPS */
 .chip{font-size:13px;font-weight:600;padding:8px 13px;border-radius:99px;cursor:pointer;
   white-space:nowrap;border:1.5px solid var(--line);background:transparent;color:var(--ink-soft);
   transition:all .15s;flex-shrink:0;}
 .chip.on{border-color:var(--terra);background:var(--terra);color:#fff;}
 .chip.olive.on{border-color:var(--olive);background:var(--olive);color:#fff;}
-.chip.gold.on{border-color:var(--gold);background:var(--gold);color:#fff;}
- 
 select{width:100%;font:inherit;font-size:14px;font-weight:600;padding:10px 11px;border-radius:11px;
   border:1.5px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer;}
 input[type=range]{-webkit-appearance:none;width:100%;height:4px;border-radius:99px;background:var(--line);outline:none;margin-top:10px;}
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;
   background:var(--terra);cursor:pointer;border:3px solid var(--card);box-shadow:0 2px 6px rgba(0,0,0,.18);}
- 
 .more-btn{margin-top:14px;display:inline-flex;align-items:center;gap:6px;background:none;border:none;
   cursor:pointer;font:inherit;font-weight:600;font-size:13px;color:var(--terra-deep);padding:0;}
- 
-/* GO ROW */
+/* DISH SEARCH */
+.dish-wrap{position:relative;margin-top:14px;}
+.dish-input-row{display:flex;gap:8px;}
+.dish-in{flex:1;font:inherit;font-size:14px;padding:11px 12px 11px 36px;border-radius:11px;
+  border:1.5px solid var(--line);background:var(--paper);color:var(--ink);outline:none;transition:border-color .15s;}
+.dish-in:focus{border-color:var(--terra);}
+.dish-icon{position:absolute;left:12px;top:26px;font-size:14px;pointer-events:none;}
+.dish-history{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+.dish-chip{font-size:12px;font-weight:600;padding:5px 11px;border-radius:99px;cursor:pointer;
+  border:1.5px solid var(--line);background:var(--paper);color:var(--ink-soft);
+  display:inline-flex;align-items:center;gap:5px;white-space:nowrap;}
+.dish-chip .dx{font-size:11px;color:var(--line);cursor:pointer;}
+.dish-chip .dx:hover{color:var(--terra);}
+.dish-active-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(188,75,43,.10);
+  color:var(--terra-deep);font-size:12px;font-weight:700;padding:4px 10px;border-radius:8px;
+  margin-top:8px;border:1px solid rgba(188,75,43,.25);}
+/* RECENT SEARCHES */
+.recent-wrap{margin-top:12px;}
+.recent-label{font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--ink-soft);margin-bottom:6px;}
+.recent-scroll{display:flex;gap:7px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;}
+.recent-scroll::-webkit-scrollbar{display:none;}
+.recent-chip{flex-shrink:0;font-size:12.5px;font-weight:600;padding:7px 12px;border-radius:99px;
+  cursor:pointer;border:1.5px solid var(--line);background:var(--card);color:var(--ink-soft);white-space:nowrap;transition:all .15s;}
+.recent-chip:hover{border-color:var(--terra);color:var(--terra);}
+/* GO BUTTONS */
 .go-row{display:flex;gap:9px;margin-top:16px;}
 .btn-go{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;font:inherit;
   font-weight:700;font-size:15px;padding:14px;border-radius:13px;border:none;cursor:pointer;
@@ -101,22 +104,17 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
   box-shadow:0 12px 24px -12px rgba(79,78,42,.65);}
 .btn-plain:disabled{opacity:.8;cursor:default;}
 .err{font-size:13px;color:var(--terra-deep);font-weight:600;margin-top:10px;}
- 
 /* SUB TABS */
 .sub-tabs{display:flex;gap:5px;margin-top:16px;background:var(--paper-deep);padding:4px;border-radius:13px;}
 .stab{flex:1;text-align:center;font-weight:700;font-size:13px;padding:9px;border-radius:9px;
   cursor:pointer;color:var(--ink-soft);border:none;background:transparent;}
 .stab.on{background:var(--card);color:var(--ink);box-shadow:0 2px 7px -3px rgba(0,0,0,.28);}
- 
-/* RESULTS */
-.results{margin-top:2px;}
-.sec-title{font-family:'Fraunces',serif;font-weight:700;font-size:22px;margin:14px 0 0;}
- 
 /* CARDS */
 .card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:18px;
-  padding:17px 17px 15px;margin-top:13px;box-shadow:0 14px 30px -24px rgba(33,27,21,.48);
-  animation:rise .42s both ease;}
+  padding:17px 17px 15px;margin-top:13px;box-shadow:0 14px 30px -24px rgba(33,27,21,.48);animation:rise .42s both ease;}
 @keyframes rise{from{opacity:0;transform:translateY(13px);}to{opacity:1;transform:translateY(0);}}
+@keyframes shimmer{0%{background-position:-400px 0;}100%{background-position:400px 0;}}
+@keyframes pulse{0%,100%{opacity:.3;transform:scale(.8);}50%{opacity:1;transform:scale(1);}}
 .badge{position:absolute;top:-11px;left:14px;width:32px;height:32px;border-radius:9px;display:flex;
   align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:900;font-size:15px;
   color:#fff;box-shadow:0 5px 12px -5px rgba(0,0,0,.45);}
@@ -130,6 +128,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .pill-open{color:var(--green);background:var(--green-bg);}
 .pill-closed{color:var(--terra-deep);background:rgba(188,75,43,.11);}
 .pill-travel{color:var(--ink-soft);background:var(--paper-deep);}
+.pill-closes{color:#7a5a10;background:rgba(200,150,43,.14);}
 .type-tag{display:inline-block;margin-top:9px;font-size:11px;font-weight:700;letter-spacing:.04em;
   text-transform:uppercase;color:var(--terra-deep);background:rgba(188,75,43,.09);padding:3px 8px;border-radius:7px;}
 .card-body{font-size:14px;line-height:1.5;color:var(--ink);margin:10px 0 0;}
@@ -140,70 +139,35 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .actions{display:flex;gap:7px;margin-top:13px;flex-wrap:wrap;}
 .act{display:inline-flex;align-items:center;gap:5px;font:inherit;font-weight:600;font-size:13px;
   text-decoration:none;padding:9px 13px;border-radius:10px;cursor:pointer;border:none;}
- 
+.act-share{background:transparent;color:var(--ink);border:1.5px solid var(--line);}
 /* MAP */
 .mapbox{height:400px;border-radius:16px;margin-top:13px;border:1px solid var(--line);overflow:hidden;z-index:0;}
- 
 /* SKELETON */
 .skel{height:90px;border-radius:16px;margin-top:12px;
   background:linear-gradient(90deg,var(--paper-deep) 25%,var(--paper) 37%,var(--paper-deep) 63%);
   background-size:800px 100%;animation:shimmer 1.4s infinite linear;}
-@keyframes shimmer{0%{background-position:-400px 0;}100%{background-position:400px 0;}}
 .loading-msg{font-family:'Fraunces',serif;font-style:italic;font-size:15px;color:var(--ink-soft);
   display:flex;align-items:center;gap:8px;margin-top:18px;}
-@keyframes pulse{0%,100%{opacity:.3;transform:scale(.8);}50%{opacity:1;transform:scale(1);}}
- 
 /* REDDIT BUZZ */
 .buzz-wrap{margin-top:18px;}
 .buzz-title{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
-  color:var(--ink-soft);margin-bottom:9px;display:flex;align-items:center;gap:6px;}
+  color:var(--ink-soft);margin-bottom:9px;}
 .buzz-scroll{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none;}
 .buzz-scroll::-webkit-scrollbar{display:none;}
 .buzz-card{flex-shrink:0;width:220px;background:var(--card);border:1px solid var(--line);
   border-radius:13px;padding:12px;cursor:pointer;text-decoration:none;display:block;}
-.buzz-card:hover{border-color:var(--terra);}
 .buzz-sub{font-size:11px;font-weight:700;color:var(--terra-deep);margin-bottom:4px;}
 .buzz-title-text{font-size:13px;font-weight:600;color:var(--ink);line-height:1.35;
   display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
 .buzz-score{font-size:11px;color:var(--ink-soft);margin-top:6px;}
 .buzz-matched{background:rgba(188,75,43,.08);border-color:var(--terra);}
- 
 /* SWITCH */
 .switch-row{display:flex;justify-content:space-between;align-items:center;margin-top:14px;}
 .track{width:40px;height:22px;border-radius:99px;background:var(--line);position:relative;cursor:pointer;transition:.2s;flex-shrink:0;}
 .track.on{background:var(--olive);}
 .knob{position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:.2s;}
 .track.on .knob{left:21px;}
- 
-/* SAVED */
-.taste-card{background:var(--green-bg);border:1px solid rgba(107,106,58,.3);border-radius:14px;
-  padding:13px 14px;margin-top:14px;font-size:13px;color:#4a4a1e;display:flex;gap:10px;}
-.mode-badge{font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
-  padding:2px 7px;border-radius:6px;display:inline-block;margin-bottom:3px;}
-.mode-food{color:var(--terra-deep);background:rgba(188,75,43,.10);}
-.mode-parks{color:var(--olive);background:rgba(107,106,58,.12);}
-.mode-play{color:#5a3a8a;background:rgba(90,58,138,.10);}
- 
-/* BOTTOM NAV */
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);
-  border-top:1px solid var(--line);display:flex;z-index:200;
-  padding-bottom:env(safe-area-inset-bottom);}
-.nav-btn{flex:1;padding:9px 0 7px;border:none;background:transparent;cursor:pointer;
-  display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--ink-soft);
-  font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;transition:color .15s;}
-.nav-btn .ic{font-size:21px;line-height:1;}
-.nav-btn.on{color:var(--terra);}
- 
-/* TOAST */
-.toast{position:fixed;left:50%;bottom:calc(80px + env(safe-area-inset-bottom));
-  transform:translateX(-50%);background:var(--ink);color:#fff;font-size:13px;font-weight:600;
-  padding:11px 17px;border-radius:99px;box-shadow:0 8px 26px -8px rgba(0,0,0,.55);
-  z-index:9999;opacity:0;transition:opacity .22s,transform .22s;pointer-events:none;}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(-3px);}
-.foot{font-size:11.5px;color:var(--ink-soft);margin:20px 0 10px;text-align:center;line-height:1.5;}
-.empty-state{text-align:center;padding:40px 0 20px;}
- 
-/* --- FRIEND REC MODAL & CARDS --- */
+/* FRIEND RECS */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.52);z-index:500;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s;}
 .overlay.show{opacity:1;pointer-events:all;}
 .sheet{width:100%;max-width:720px;background:var(--card);border-radius:22px 22px 0 0;padding:0 18px calc(env(safe-area-inset-bottom)+32px);max-height:92vh;overflow-y:auto;transform:translateY(100%);transition:transform .32s cubic-bezier(.32,.72,0,1);}
@@ -224,82 +188,138 @@ textarea.finput{resize:vertical;min-height:72px;line-height:1.5;}
 .rec-badge{display:inline-block;background:var(--olive);color:#fff;font-size:11px;font-weight:700;letter-spacing:.04em;border-radius:7px;padding:2px 9px;margin-bottom:6px;}
 .rec-by{font-size:12.5px;color:var(--olive);font-weight:700;margin:5px 0 0;}
 .btn-remove-custom{background:none;border:none;cursor:pointer;font:inherit;font-size:12px;font-weight:600;color:var(--terra-deep);padding:4px 0 0;}
+.taste-card{background:var(--green-bg);border:1px solid rgba(107,106,58,.3);border-radius:14px;padding:13px 14px;margin-top:14px;font-size:13px;color:#4a4a1e;display:flex;gap:10px;}
+.mode-badge{font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:6px;display:inline-block;margin-bottom:3px;}
+.mode-food{color:var(--terra-deep);background:rgba(188,75,43,.10);}
+.mode-parks{color:var(--olive);background:rgba(107,106,58,.12);}
+.mode-play{color:#5a3a8a;background:rgba(90,58,138,.10);}
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--line);display:flex;z-index:200;padding-bottom:env(safe-area-inset-bottom);}
+.nav-btn{flex:1;padding:9px 0 7px;border:none;background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--ink-soft);font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;transition:color .15s;}
+.nav-btn .ic{font-size:21px;line-height:1;}
+.nav-btn.on{color:var(--terra);}
+/* TOAST */
+.toast{position:fixed;left:50%;bottom:calc(80px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:#fff;font-size:13px;font-weight:600;padding:11px 17px;border-radius:99px;box-shadow:0 8px 26px -8px rgba(0,0,0,.55);z-index:9999;opacity:0;transition:opacity .22s,transform .22s;pointer-events:none;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(-3px);}
+.foot{font-size:11.5px;color:var(--ink-soft);margin:20px 0 10px;text-align:center;line-height:1.5;}
+.sec-title{font-family:'Fraunces',serif;font-weight:700;font-size:22px;margin:14px 0 0;}
+ 
+/* MULTI-SOURCE REVIEWS */
+.rev-panel{margin-top:11px;border-top:1px solid var(--line);padding-top:11px;}
+.rev-toggle{display:flex;align-items:center;gap:6px;background:none;border:none;cursor:pointer;
+  font:inherit;font-weight:700;font-size:12.5px;color:var(--terra-deep);padding:0;}
+.rev-src{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:700;
+  padding:2px 7px;border-radius:6px;margin-right:5px;}
+.src-google{color:#1a73e8;background:rgba(26,115,232,.10);}
+.src-reddit{color:#d93a00;background:rgba(217,58,0,.10);}
+.rev-list{margin-top:9px;display:none;}
+.rev-list.show{display:block;}
+.rev-item{padding:9px 0;border-bottom:1px solid var(--paper-deep);}
+.rev-item:last-child{border-bottom:none;}
+.rev-head{display:flex;align-items:center;gap:6px;margin-bottom:4px;flex-wrap:wrap;}
+.rev-by{font-size:11.5px;color:var(--ink-soft);font-weight:600;}
+.rev-text{font-size:13px;line-height:1.5;color:var(--ink);}
+.rev-link{font-size:11.5px;font-weight:700;color:var(--terra-deep);text-decoration:none;}
+.rev-summary-line{font-size:11.5px;color:var(--ink-soft);margin-top:3px;}
+/* VISIT LOG */
+.visit-btn{display:inline-flex;align-items:center;gap:5px;font:inherit;font-weight:600;font-size:13px;
+  padding:9px 13px;border-radius:10px;cursor:pointer;border:1.5px solid var(--gold);
+  background:rgba(200,150,43,.10);color:#7a5a10;}
+.visit-btn.logged{background:var(--gold);color:#fff;border-color:var(--gold);}
+.dish-rate-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.dish-rate-row input.dname{flex:1;font:inherit;font-size:14px;padding:9px 11px;border-radius:10px;
+  border:1.5px solid var(--line);background:var(--paper);color:var(--ink);outline:none;}
+.rate-pick{display:flex;align-items:center;gap:6px;}
+.rate-num{width:34px;text-align:center;font-weight:800;font-size:15px;color:var(--terra-deep);font-family:'Fraunces',serif;}
+input[type=range].rate-slider{width:90px;margin-top:0;}
+.add-dish-btn{background:none;border:1.5px dashed var(--line);border-radius:10px;padding:8px 12px;
+  font:inherit;font-weight:600;font-size:13px;color:var(--ink-soft);cursor:pointer;width:100%;}
+.visited-pill{display:inline-flex;align-items:center;gap:4px;background:var(--gold);color:#fff;
+  font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:6px;margin-bottom:6px;}
+.visit-search{width:100%;font:inherit;font-size:14px;padding:11px 12px;border-radius:11px;
+  border:1.5px solid var(--line);background:var(--paper);color:var(--ink);outline:none;margin-bottom:10px;}
+.visit-pick-item{padding:11px 12px;border:1.5px solid var(--line);border-radius:11px;margin-bottom:7px;
+  cursor:pointer;font-size:14px;font-weight:600;display:flex;justify-content:space-between;align-items:center;}
+.visit-pick-item:hover,.visit-pick-item.sel{border-color:var(--terra);background:rgba(188,75,43,.05);}
+.journal-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px;margin-top:12px;}
+.journal-dish{display:flex;justify-content:space-between;align-items:center;font-size:13.5px;padding:4px 0;}
+.journal-score{font-weight:800;font-family:'Fraunces',serif;color:var(--gold);}
+.seg{display:flex;gap:6px;background:var(--paper-deep);padding:4px;border-radius:11px;margin-bottom:14px;}
+.seg button{flex:1;border:none;background:none;font:inherit;font-weight:700;font-size:13px;padding:8px;
+  border-radius:8px;cursor:pointer;color:var(--ink-soft);}
+.seg button.on{background:var(--card);color:var(--ink);box-shadow:0 2px 6px -3px rgba(0,0,0,.3);}
 </style>
 </head>
 <body>
  
-<!-- HEADER -->
 <header>
-  <h1>Forage</h1><span style="font-size:22px;">🍽️</span>
+  <h1>Forage</h1><span style="font-size:22px;">&#x1F37D;&#xFE0F;</span>
   <span class="tagline" style="margin-left:4px;">Your go-to for food &amp; fun nearby.</span>
 </header>
  
-<!-- SHARED LOCATION -->
 <div class="loc-strip">
-  <button id="locBtn" class="btn-loc"><span id="locIcon">◎</span> <span id="locLabel">My location</span></button>
+  <button id="locBtn" class="btn-loc"><span id="locIcon">&#9678;</span> <span id="locLabel">My location</span></button>
   <div class="loc-input-wrap">
-    <span class="ic">📍</span>
-    <input id="place" class="loc-in" type="text" placeholder="City or neighborhood…"/>
+    <span class="ic">&#x1F4CD;</span>
+    <input id="place" class="loc-in" type="text" placeholder="City or neighborhood&#x2026;"/>
   </div>
 </div>
 <p id="locHint" class="loc-hint" style="display:none;"></p>
  
-<!-- ============================================================ FOOD SECTION -->
-<div class="sec" id="sec-food">
-<div class="wrap">
- 
+<!-- FOOD -->
+<div class="sec" id="sec-food"><div class="wrap">
   <div class="panel">
     <label class="fld">Meal</label>
     <div class="row" id="food-meals"></div>
  
-    <div class="row" style="margin-top:14px;gap:12px;">
-      <div style="flex:1;min-width:140px;">
-        <label class="fld">Cuisine</label>
-        <select id="food-cuisine"></select>
+    <label class="fld" style="margin-top:14px;">Search by dish <span style="font-weight:400;font-size:11px;color:var(--ink-soft);">(optional)</span></label>
+    <div class="dish-wrap">
+      <span class="dish-icon">&#x1F374;</span>
+      <div class="dish-input-row">
+        <input id="dish-in" class="dish-in" type="text" placeholder="e.g. dosa, smash burger, tonkotsu ramen&#x2026;" autocomplete="off" autocorrect="off" spellcheck="false"/>
+        <button class="chip" style="white-space:nowrap;" onclick="dishSearch()">&#x1F50D;</button>
       </div>
-      <div style="flex:1;min-width:140px;">
-        <label class="fld">Price</label>
-        <div class="row" id="food-prices"></div>
+      <div id="dish-history" class="dish-history"></div>
+      <div id="dish-active" style="display:none;" class="dish-active-badge">
+        &#x1F374; Showing results for: <b id="dish-active-label"></b>
+        <button onclick="clearDish()" style="background:none;border:none;cursor:pointer;font-size:13px;color:var(--terra-deep);padding:0 0 0 4px;">&#215;</button>
       </div>
     </div>
  
-    <button class="more-btn" id="food-more-btn">⚙ More options</button>
+    <div class="row" style="margin-top:14px;gap:12px;">
+      <div style="flex:1;min-width:140px;"><label class="fld">Cuisine</label><select id="food-cuisine"></select></div>
+      <div style="flex:1;min-width:140px;"><label class="fld">Price</label><div class="row" id="food-prices"></div></div>
+    </div>
+    <button class="more-btn" id="food-more-btn">&#x2699; More options</button>
     <div id="food-more" style="display:none;margin-top:13px;">
       <div style="display:flex;justify-content:space-between;align-items:baseline;">
         <label class="fld" style="margin-bottom:0;">Distance</label>
         <span id="food-rad-label" style="font-size:12px;font-weight:700;color:var(--terra-deep);">within 3 mi</span>
       </div>
       <input id="food-radius" type="range" min="0.5" max="10" step="0.5" value="3"/>
- 
-      <label class="fld" style="margin-top:14px;">🌿 Dietary</label>
+      <label class="fld" style="margin-top:14px;">&#x1F33F; Dietary</label>
       <div class="row" id="food-dietary"></div>
- 
       <div class="row" style="margin-top:14px;gap:12px;">
-        <div>
-          <label class="fld">Hours</label>
-          <button class="chip on" id="food-open">Open now</button>
-        </div>
-        <div style="flex:1;">
-          <label class="fld">Rank by</label>
-          <div class="row" id="food-sorts"></div>
-        </div>
+        <div><label class="fld">Hours</label><button class="chip on" id="food-open">Open now</button></div>
+        <div style="flex:1;"><label class="fld">Rank by</label><div class="row" id="food-sorts"></div></div>
       </div>
- 
       <div class="switch-row">
-        <div>
-          <label class="fld" style="margin-bottom:2px;">Learn from my favorites</label>
-          <span style="font-size:11.5px;color:var(--ink-soft);" id="food-learn-sub">Tunes results to your saved spots</span>
-        </div>
+        <div><label class="fld" style="margin-bottom:2px;">Learn from my favorites</label>
+        <span style="font-size:11.5px;color:var(--ink-soft);" id="food-learn-sub">Save 2+ spots to activate</span></div>
         <div class="track on" id="food-learn-track"><div class="knob"></div></div>
       </div>
     </div>
- 
     <div class="go-row">
-      <button class="btn-go" id="food-go">🔍 Find top 10</button>
-      <button class="btn-surprise" id="food-surprise">🎲 Surprise me</button>
+      <button class="btn-go" id="food-go">&#x1F50D; Find top 10</button>
+      <button class="btn-surprise" id="food-surprise">&#x1F3B2; Surprise me</button>
     </div>
-    <p class="err" id="food-err" style="display:none;"></p>
     <button class="add-rec-btn" onclick="openModal('food')">&#x2795; Add a recommended restaurant</button>
+    <p class="err" id="food-err" style="display:none;"></p>
+  </div>
+ 
+  <div id="food-recent" class="recent-wrap" style="display:none;">
+    <p class="recent-label">&#x1F551; Recent searches</p>
+    <div class="recent-scroll" id="food-recent-scroll"></div>
   </div>
  
   <div id="food-loading" style="display:none;">
@@ -309,38 +329,32 @@ textarea.finput{resize:vertical;min-height:72px;line-height:1.5;}
         <span style="width:6px;height:6px;border-radius:50%;background:var(--terra);animation:pulse 1.2s .2s infinite;"></span>
         <span style="width:6px;height:6px;border-radius:50%;background:var(--terra);animation:pulse 1.2s .4s infinite;"></span>
       </span>
-      <span id="food-load-line">Scanning fresh reviews…</span>
+      <span id="food-load-line">Scanning fresh reviews&#x2026;</span>
     </div>
     <div class="skel"></div><div class="skel"></div><div class="skel"></div>
   </div>
- 
   <div class="sub-tabs" id="food-tabs" style="display:none;">
-    <button class="stab on" id="food-tab-list">📋 List</button>
-    <button class="stab" id="food-tab-map">🗺 Map</button>
+    <button class="stab on" id="food-tab-list">&#x1F4CB; List</button>
+    <button class="stab" id="food-tab-map">&#x1F5FA; Map</button>
   </div>
   <div id="food-learn-note"></div>
-  <div class="results" id="food-results"></div>
+  <div id="food-results" style="padding:0;margin-top:14px;"></div>
   <div id="food-map" class="mapbox" style="display:none;"></div>
   <div id="food-buzz"></div>
+</div></div>
  
-</div>
-</div>
- 
-<!-- ============================================================ PARKS SECTION -->
-<div class="sec" id="sec-parks" style="display:none;">
-<div class="wrap">
- 
+<!-- PARKS -->
+<div class="sec" id="sec-parks" style="display:none;"><div class="wrap">
   <div class="panel">
     <label class="fld">Park type</label>
     <div class="row" id="parks-types"></div>
- 
-    <button class="more-btn" id="parks-more-btn">⚙ More options</button>
+    <button class="more-btn" id="parks-more-btn">&#x2699; More options</button>
     <div id="parks-more" style="display:none;margin-top:13px;">
       <div style="display:flex;justify-content:space-between;align-items:baseline;">
         <label class="fld" style="margin-bottom:0;">Distance</label>
         <span id="parks-rad-label" style="font-size:12px;font-weight:700;color:var(--olive);">within 5 mi</span>
       </div>
-      <input id="parks-radius" type="range" min="0.5" max="20" step="0.5" value="5" style="accent-color:var(--olive);"/>
+      <input id="parks-radius" type="range" min="0.5" max="20" step="0.5" value="5"/>
       <div style="margin-top:14px;display:flex;gap:8px;align-items:center;">
         <label class="fld" style="margin-bottom:0;">Hours</label>
         <button class="chip olive" id="parks-open">Open now</button>
@@ -348,14 +362,12 @@ textarea.finput{resize:vertical;min-height:72px;line-height:1.5;}
       <label class="fld" style="margin-top:14px;">Rank by</label>
       <div class="row" id="parks-sorts"></div>
     </div>
- 
     <div class="go-row" style="margin-top:16px;">
-      <button class="btn-plain" id="parks-go">🌳 Find parks</button>
+      <button class="btn-plain" id="parks-go">&#x1F333; Find parks</button>
     </div>
-    <p class="err" id="parks-err" style="display:none;"></p>
     <button class="add-rec-btn" onclick="openModal('parks')">&#x2795; Add a recommended park</button>
+    <p class="err" id="parks-err" style="display:none;"></p>
   </div>
- 
   <div id="parks-loading" style="display:none;">
     <div class="loading-msg">
       <span style="display:inline-flex;gap:3px;">
@@ -363,41 +375,33 @@ textarea.finput{resize:vertical;min-height:72px;line-height:1.5;}
         <span style="width:6px;height:6px;border-radius:50%;background:var(--olive);animation:pulse 1.2s .2s infinite;"></span>
         <span style="width:6px;height:6px;border-radius:50%;background:var(--olive);animation:pulse 1.2s .4s infinite;"></span>
       </span>
-      <span id="parks-load-line">Finding parks nearby…</span>
+      <span id="parks-load-line">Finding parks nearby&#x2026;</span>
     </div>
-    <div class="skel"></div><div class="skel"></div><div class="skel"></div>
+    <div class="skel"></div><div class="skel"></div>
   </div>
- 
   <div class="sub-tabs" id="parks-tabs" style="display:none;">
-    <button class="stab on" id="parks-tab-list">📋 List</button>
-    <button class="stab" id="parks-tab-map">🗺 Map</button>
+    <button class="stab on" id="parks-tab-list">&#x1F4CB; List</button>
+    <button class="stab" id="parks-tab-map">&#x1F5FA; Map</button>
   </div>
-  <div class="results" id="parks-results"></div>
+  <div id="parks-results" style="padding:0;margin-top:14px;"></div>
   <div id="parks-map" class="mapbox" style="display:none;"></div>
   <div id="parks-buzz"></div>
+</div></div>
  
-</div>
-</div>
- 
-<!-- ============================================================ PLAY SECTION -->
-<div class="sec" id="sec-play" style="display:none;">
-<div class="wrap">
- 
+<!-- PLAY -->
+<div class="sec" id="sec-play" style="display:none;"><div class="wrap">
   <div class="panel">
     <label class="fld">What are you in the mood for?</label>
     <div class="row" id="play-cats"></div>
- 
-    <button class="more-btn" id="play-more-btn">⚙ More options</button>
+    <button class="more-btn" id="play-more-btn">&#x2699; More options</button>
     <div id="play-more" style="display:none;margin-top:13px;">
       <label class="fld">Price</label>
       <div class="row" id="play-prices"></div>
- 
       <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:14px;">
         <label class="fld" style="margin-bottom:0;">Distance</label>
         <span id="play-rad-label" style="font-size:12px;font-weight:700;color:#5a3a8a;">within 5 mi</span>
       </div>
       <input id="play-radius" type="range" min="0.5" max="15" step="0.5" value="5"/>
- 
       <div style="margin-top:14px;display:flex;gap:8px;align-items:center;">
         <label class="fld" style="margin-bottom:0;">Hours</label>
         <button class="chip on" id="play-open">Open now</button>
@@ -405,14 +409,12 @@ textarea.finput{resize:vertical;min-height:72px;line-height:1.5;}
       <label class="fld" style="margin-top:14px;">Rank by</label>
       <div class="row" id="play-sorts"></div>
     </div>
- 
     <div class="go-row" style="margin-top:16px;">
-      <button class="btn-go" id="play-go" style="background:linear-gradient(180deg,#7b4ab8,#5a3a8a);box-shadow:0 12px 24px -12px rgba(90,58,138,.6);">🎮 Find entertainment</button>
+      <button class="btn-go" id="play-go" style="background:linear-gradient(180deg,#7b4ab8,#5a3a8a);box-shadow:0 12px 24px -12px rgba(90,58,138,.6);">&#x1F3AE; Find entertainment</button>
     </div>
-    <p class="err" id="play-err" style="display:none;"></p>
     <button class="add-rec-btn" onclick="openModal('play')">&#x2795; Add a recommended entertainment spot</button>
+    <p class="err" id="play-err" style="display:none;"></p>
   </div>
- 
   <div id="play-loading" style="display:none;">
     <div class="loading-msg">
       <span style="display:inline-flex;gap:3px;">
@@ -420,32 +422,27 @@ textarea.finput{resize:vertical;min-height:72px;line-height:1.5;}
         <span style="width:6px;height:6px;border-radius:50%;background:#7b4ab8;animation:pulse 1.2s .2s infinite;"></span>
         <span style="width:6px;height:6px;border-radius:50%;background:#7b4ab8;animation:pulse 1.2s .4s infinite;"></span>
       </span>
-      <span id="play-load-line">Scouting entertainment…</span>
+      <span id="play-load-line">Scouting entertainment&#x2026;</span>
     </div>
-    <div class="skel"></div><div class="skel"></div><div class="skel"></div>
+    <div class="skel"></div><div class="skel"></div>
   </div>
- 
   <div class="sub-tabs" id="play-tabs" style="display:none;">
-    <button class="stab on" id="play-tab-list">📋 List</button>
-    <button class="stab" id="play-tab-map">🗺 Map</button>
+    <button class="stab on" id="play-tab-list">&#x1F4CB; List</button>
+    <button class="stab" id="play-tab-map">&#x1F5FA; Map</button>
   </div>
-  <div class="results" id="play-results"></div>
+  <div id="play-results" style="padding:0;margin-top:14px;"></div>
   <div id="play-map" class="mapbox" style="display:none;"></div>
   <div id="play-buzz"></div>
+</div></div>
  
-</div>
-</div>
- 
-<!-- ============================================================ SAVED SECTION -->
-<div class="sec" id="sec-saved" style="display:none;">
-<div class="wrap">
+<!-- SAVED -->
+<div class="sec" id="sec-saved" style="display:none;"><div class="wrap">
   <div id="saved-content" style="padding-bottom:20px;"></div>
-</div>
-</div>
+</div></div>
  
 <!-- ADD RECOMMENDATION MODAL -->
 <div class="overlay" id="add-overlay">
-  <div class="sheet" id="add-sheet">
+  <div class="sheet">
     <div class="sheet-handle"></div>
     <button style="position:absolute;top:16px;right:18px;background:none;border:none;font-size:26px;line-height:1;cursor:pointer;color:var(--ink-soft);" onclick="closeModal()">&#215;</button>
     <p class="sheet-title">Add a recommendation</p>
@@ -457,26 +454,11 @@ textarea.finput{resize:vertical;min-height:72px;line-height:1.5;}
         <button class="chip" data-mode="play" onclick="setModalMode('play')">&#x1F3AE; Entertainment</button>
       </div>
     </div>
-    <div class="fgroup">
-      <label class="flabel">Place name *</label>
-      <input id="add-name" class="finput" type="text" placeholder="e.g. Carmine&#x2019;s Italian Kitchen" autocomplete="off"/>
-    </div>
-    <div class="fgroup">
-      <label class="flabel" id="subtype-label">Cuisine</label>
-      <select id="add-subtype" class="finput"></select>
-    </div>
-    <div class="fgroup">
-      <label class="flabel">Recommended by</label>
-      <input id="add-recby" class="finput" type="text" placeholder="e.g. Sarah, Mom, Instagram&#x2026;" autocomplete="off"/>
-    </div>
-    <div class="fgroup">
-      <label class="flabel">Notes (optional)</label>
-      <textarea id="add-notes" class="finput" placeholder="What makes it special? Best dish?"></textarea>
-    </div>
-    <div class="fgroup">
-      <label class="flabel">Address (optional)</label>
-      <input id="add-address" class="finput" type="text" placeholder="Street address or neighborhood" autocomplete="off"/>
-    </div>
+    <div class="fgroup"><label class="flabel">Place name *</label><input id="add-name" class="finput" type="text" placeholder="e.g. Carmine&#x2019;s Italian Kitchen" autocomplete="off"/></div>
+    <div class="fgroup"><label class="flabel" id="subtype-label">Cuisine</label><select id="add-subtype" class="finput"></select></div>
+    <div class="fgroup"><label class="flabel">Recommended by</label><input id="add-recby" class="finput" type="text" placeholder="e.g. Sarah, Mom, Instagram&#x2026;" autocomplete="off"/></div>
+    <div class="fgroup"><label class="flabel">Notes (optional)</label><textarea id="add-notes" class="finput" placeholder="What makes it special? Best dish?"></textarea></div>
+    <div class="fgroup"><label class="flabel">Address (optional)</label><input id="add-address" class="finput" type="text" placeholder="Street address or neighborhood" autocomplete="off"/></div>
     <div class="row" style="gap:12px;">
       <div class="fgroup" style="flex:1;min-width:120px;"><label class="flabel">Phone</label><input id="add-phone" class="finput" type="tel" placeholder="(optional)"/></div>
       <div class="fgroup" style="flex:1;min-width:120px;"><label class="flabel">Website</label><input id="add-website" class="finput" type="url" placeholder="(optional)"/></div>
@@ -485,260 +467,292 @@ textarea.finput{resize:vertical;min-height:72px;line-height:1.5;}
   </div>
 </div>
  
+<!-- VISIT LOG MODAL -->
+<div class="overlay" id="visit-overlay">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <button style="position:absolute;top:16px;right:18px;background:none;border:none;font-size:26px;line-height:1;cursor:pointer;color:var(--ink-soft);" onclick="closeVisit()">&#215;</button>
+    <p class="sheet-title">Log your visit</p>
+    <p style="font-size:13px;color:var(--ink-soft);margin:-8px 0 14px;">Rate the dishes you had so Forage learns what you love.</p>
+    <div class="fgroup">
+      <label class="flabel">Where did you go?</label>
+      <div id="visit-place-display" style="font-weight:700;font-size:16px;color:var(--ink);margin-bottom:8px;"></div>
+      <button id="visit-change-btn" style="background:none;border:none;color:var(--terra-deep);font:inherit;font-weight:600;font-size:13px;cursor:pointer;padding:0;" onclick="visitPickOther()">&#x21BB; I went somewhere else instead</button>
+      <div id="visit-other" style="display:none;margin-top:10px;">
+        <input id="visit-search" class="visit-search" type="text" placeholder="Type the place name&#x2026;"/>
+        <div id="visit-results"></div>
+      </div>
+    </div>
+    <div class="fgroup">
+      <label class="flabel">What did you eat? Rate 1&#x2013;10</label>
+      <div id="dish-rate-list"></div>
+      <button class="add-dish-btn" onclick="addDishRow()">&#x2795; Add another dish</button>
+    </div>
+    <div class="fgroup">
+      <label class="flabel">Overall, would you go back?</label>
+      <div class="row" id="visit-verdict">
+        <button class="chip" data-v="loved">&#x2764;&#xFE0F; Loved it</button>
+        <button class="chip" data-v="good">&#x1F44D; Good</button>
+        <button class="chip" data-v="meh">&#x1F610; Meh</button>
+        <button class="chip" data-v="no">&#x1F44E; No</button>
+      </div>
+    </div>
+    <button class="btn-sheet-save" onclick="saveVisit()">&#x2705; Save visit</button>
+  </div>
+</div>
+ 
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav">
-  <button class="nav-btn on" id="nav-food" onclick="switchSec('food')"><span class="ic">🍽️</span>Food</button>
-  <button class="nav-btn" id="nav-parks" onclick="switchSec('parks')"><span class="ic">🌳</span>Parks</button>
-  <button class="nav-btn" id="nav-play" onclick="switchSec('play')"><span class="ic">🎮</span>Play</button>
-  <button class="nav-btn" id="nav-saved" onclick="switchSec('saved')"><span class="ic">♥</span><span id="nav-saved-ct">Saved</span></button>
+  <button class="nav-btn on" id="nav-food" onclick="switchSec('food')"><span class="ic">&#x1F37D;&#xFE0F;</span>Food</button>
+  <button class="nav-btn" id="nav-parks" onclick="switchSec('parks')"><span class="ic">&#x1F333;</span>Parks</button>
+  <button class="nav-btn" id="nav-play" onclick="switchSec('play')"><span class="ic">&#x1F3AE;</span>Play</button>
+  <button class="nav-btn" id="nav-saved" onclick="switchSec('saved')"><span class="ic">&#x2665;</span><span id="nav-saved-ct">Saved</span></button>
 </nav>
- 
 <div id="toast" class="toast"></div>
  
 <script>
-/* ====================================================
-   FORAGE — unified food / parks / entertainment finder
-   ==================================================== */
- 
-const API = "/api/search";
-const FAV_KEY = "forage_v3";
-const CUSTOM_KEY = "forage_custom_v1";
-const DAYS = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-const LOAD_MSGS = {
-  food: ["Pinpointing your spot…","Scanning fresh reviews…","Checking Reddit buzz…","Weighing local favorites…","Plating your top 10…"],
-  parks: ["Finding parks nearby…","Checking trail reviews…","Scanning hidden gems…"],
-  play: ["Scouting entertainment…","Checking opening hours…","Ranking your options…"],
+const API="/api/search";
+const FAV_KEY="forage_v3";
+const CUSTOM_KEY="forage_custom_v1";
+const DISH_HIST_KEY="forage_dish_hist";
+const SEARCH_HIST_KEY="forage_search_hist";
+const VISITS_KEY="forage_visits_v1";
+const DAYS=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const LOAD_MSGS={
+  food:["Pinpointing your spot…","Scanning fresh reviews…","Checking Reddit buzz…","Weighing local favorites…","Plating your top 10…"],
+  parks:["Finding parks nearby…","Checking trail reviews…","Scanning hidden gems…"],
+  play:["Scouting entertainment…","Checking opening hours…","Ranking your options…"],
 };
+const CUISINES=["Any","Italian","Japanese","Mexican","Thai","Indian","Chinese","Korean","Vietnamese","Mediterranean","American","French","BBQ","Seafood","Pizza","Sushi","Ramen","Burgers","Steakhouse","Middle Eastern","Greek","Spanish","Ethiopian","Brunch"];
+const MEALS=[["Breakfast","&#x1F373;"],["Lunch","&#x1F957;"],["Dinner","&#x1F37D;&#xFE0F;"],["Cafe","&#x2615;"],["Matcha","&#x1F375;"]];
+const DIETARY=["Vegetarian","Vegan","Gluten-free","Halal"];
+const SORTS=[["match","Best match"],["rating","Top rated"],["distance","Closest"],["value","Best value"]];
+const PARK_TYPES=["Any","Hiking","Dog Park","Playground","Sports","Garden","Beach","Nature Reserve"];
+const PLAY_CATS=["Any","Arcade","Bowling","Movies","Mini Golf","Escape Room","Live Music","Laser Tag","Go-Kart","Comedy","Trampoline","Karaoke"];
  
-// ──────────── DATA CONSTANTS ────────────
-const CUISINES = ["Any","Italian","Japanese","Mexican","Thai","Indian","Chinese","Korean","Vietnamese","Mediterranean","American","French","BBQ","Seafood","Pizza","Sushi","Ramen","Burgers","Steakhouse","Middle Eastern","Greek","Spanish","Ethiopian","Brunch"];
-const MEALS = [["Breakfast","🍳"],["Lunch","🥗"],["Dinner","🍽️"],["Cafe","☕"],["Matcha","🍵"]];
-const DIETARY = ["Vegetarian","Vegan","Gluten-free","Halal"];
-const SORTS = [["match","Best match"],["rating","Top rated"],["distance","Closest"],["value","Best value"]];
-const PARK_TYPES = ["Any","Hiking","Dog Park","Playground","Sports","Garden","Beach","Nature Reserve"];
-const PLAY_CATS = ["Any","Arcade","Bowling","Movies","Mini Golf","Escape Room","Live Music","Laser Tag","Go-Kart","Comedy","Trampoline","Karaoke"];
- 
-// ──────────── SHARED LOCATION STATE ────────────
-const loc = { coords: null, status: "idle" };
- 
-// ──────────── PER-SECTION STATE ────────────
-const S = {
-  food:  { meal:"Dinner", cuisine:"Any", prices:[1,2], dietary:[], radius:3,  openNow:true,  sort:"match", learn:true,  view:"list", results:[], buzz:[] },
-  parks: { type:"Any",    radius:5,      openNow:false, sort:"match", view:"list", results:[], buzz:[] },
-  play:  { category:"Any", prices:[1,2,3,4], radius:5, openNow:true, sort:"match", view:"list", results:[], buzz:[] },
+const loc={coords:null,status:"idle"};
+const S={
+  food:{meal:"Dinner",cuisine:"Any",prices:[1,2],dietary:[],radius:3,openNow:true,sort:"match",learn:true,view:"list",results:[],buzz:[],dish:""},
+  parks:{type:"Any",radius:5,openNow:false,sort:"match",view:"list",results:[],buzz:[]},
+  play:{category:"Any",prices:[1,2,3,4],radius:5,openNow:true,sort:"match",view:"list",results:[],buzz:[]},
 };
-let curSec = "food";
-const leafletMaps = {};
-const leafletMarkers = {};
+let curSec="food";
+const leafletMaps={};
  
-// ──────────── FAVORITES ────────────
-function loadFavs(){ try{ return JSON.parse(localStorage.getItem(FAV_KEY)||"[]"); }catch{ return []; } }
-function saveFavs(f){ localStorage.setItem(FAV_KEY,JSON.stringify(f)); updateSavedCount(); }
-function isFav(id){ return loadFavs().some(x=>x.id===id); }
+// ── FAVORITES ──
+function loadFavs(){try{return JSON.parse(localStorage.getItem(FAV_KEY)||"[]");}catch{return[];}}
+function saveFavs(f){localStorage.setItem(FAV_KEY,JSON.stringify(f));updateSavedCount();}
+function isFav(id){return loadFavs().some(x=>x.id===id);}
 function toggleFav(place){
-  let f = loadFavs();
-  if(f.some(x=>x.id===place.id)){ f=f.filter(x=>x.id!==place.id); toast("Removed from saved"); }
-  else { f.push({id:place.id,name:place.name,type:place.type,rating:place.rating,reviewCount:place.reviewCount,priceLevel:place.priceLevel,address:place.address,lat:place.lat,lng:place.lng,mapsUri:place.mapsUri,phone:place.phone,website:place.website,mode:place.mode||curSec}); toast("Saved ♥"); }
-  saveFavs(f); return f;
+  let f=loadFavs();
+  if(f.some(x=>x.id===place.id)){f=f.filter(x=>x.id!==place.id);toast("Removed from saved");}
+  else{f.push({id:place.id,name:place.name,type:place.type,rating:place.rating,reviewCount:place.reviewCount,priceLevel:place.priceLevel,address:place.address,lat:place.lat,lng:place.lng,mapsUri:place.mapsUri,phone:place.phone,website:place.website,mode:place.mode||curSec});toast("Saved ♥");}
+  saveFavs(f);return f;
 }
-function updateSavedCount(){
-  const n=loadFavs().length;
-  document.getElementById("nav-saved-ct").textContent = n>0?"Saved ("+n+")":"Saved";
-}
+function updateSavedCount(){const n=loadFavs().length;document.getElementById("nav-saved-ct").textContent=n>0?"Saved ("+n+")":"Saved";}
  
- 
-// ------------ CUSTOM / FRIEND RECOMMENDATIONS ------------
-function loadCustom(){ try{ return JSON.parse(localStorage.getItem(CUSTOM_KEY)||"[]"); }catch{ return []; } }
-function saveCustom(arr){ localStorage.setItem(CUSTOM_KEY,JSON.stringify(arr)); }
-function deleteCustom(id){ saveCustom(loadCustom().filter(function(x){ return x.id!==id; })); }
- 
-var _mmode = "food";
- 
+// ── CUSTOM RECS ──
+function loadCustom(){try{return JSON.parse(localStorage.getItem(CUSTOM_KEY)||"[]");}catch{return[];}}
+function saveCustom(arr){localStorage.setItem(CUSTOM_KEY,JSON.stringify(arr));}
+function deleteCustom(id){saveCustom(loadCustom().filter(x=>x.id!==id));}
+let _mmode="food";
 function openModal(sec){
-  _mmode = sec||curSec||"food";
-  document.querySelectorAll("#modal-modes .chip").forEach(function(b){ b.classList.toggle("on",b.dataset.mode===_mmode); });
+  _mmode=sec||curSec||"food";
+  document.querySelectorAll("#modal-modes .chip").forEach(b=>b.classList.toggle("on",b.dataset.mode===_mmode));
   refreshSubtype();
   document.getElementById("add-overlay").classList.add("show");
-  setTimeout(function(){ var n=document.getElementById("add-name"); if(n) n.focus(); },330);
+  setTimeout(()=>{const n=document.getElementById("add-name");if(n)n.focus();},330);
 }
 function closeModal(){
   document.getElementById("add-overlay").classList.remove("show");
-  ["add-name","add-recby","add-notes","add-address","add-phone","add-website"].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=""; });
+  ["add-name","add-recby","add-notes","add-address","add-phone","add-website"].forEach(id=>{const el=document.getElementById(id);if(el)el.value="";});
 }
-(function(){
-  var ov=document.getElementById("add-overlay");
-  if(ov) ov.addEventListener("click",function(e){ if(e.target===ov) closeModal(); });
-})();
+document.getElementById("add-overlay").addEventListener("click",e=>{if(e.target===document.getElementById("add-overlay"))closeModal();});
 function setModalMode(mode){
   _mmode=mode;
-  document.querySelectorAll("#modal-modes .chip").forEach(function(b){ b.classList.toggle("on",b.dataset.mode===mode); });
+  document.querySelectorAll("#modal-modes .chip").forEach(b=>b.classList.toggle("on",b.dataset.mode===mode));
   refreshSubtype();
 }
 function refreshSubtype(){
-  var sel=document.getElementById("add-subtype");
-  var lbl=document.getElementById("subtype-label");
-  if(!sel||!lbl) return;
-  var opts=[];
-  if(_mmode==="food"){ opts=CUISINES; lbl.textContent="Cuisine"; }
-  else if(_mmode==="parks"){ opts=PARK_TYPES; lbl.textContent="Park type"; }
-  else{ opts=PLAY_CATS; lbl.textContent="Category"; }
-  sel.innerHTML=opts.map(function(o){ return "<option>"+o+"</option>"; }).join("");
+  const sel=document.getElementById("add-subtype");const lbl=document.getElementById("subtype-label");if(!sel||!lbl)return;
+  let opts=[];
+  if(_mmode==="food"){opts=CUISINES;lbl.textContent="Cuisine";}
+  else if(_mmode==="parks"){opts=PARK_TYPES;lbl.textContent="Park type";}
+  else{opts=PLAY_CATS;lbl.textContent="Category";}
+  sel.innerHTML=opts.map(o=>"<option>"+o+"</option>").join("");
 }
 function saveCustomPlace(){
-  var nameEl=document.getElementById("add-name");
-  var name=(nameEl.value||"").trim();
-  if(!name){ nameEl.style.borderColor="var(--terra)"; nameEl.focus(); return; }
+  const nameEl=document.getElementById("add-name");const name=(nameEl.value||"").trim();
+  if(!name){nameEl.style.borderColor="var(--terra)";nameEl.focus();return;}
   nameEl.style.borderColor="";
-  var sub=(document.getElementById("add-subtype").value||"Any");
-  var place={
-    id:"custom_"+Date.now(), name:name, mode:_mmode,
-    cuisine:_mmode==="food"?sub:null,
-    parkType:_mmode==="parks"?sub:null,
-    playCategory:_mmode==="play"?sub:null,
-    address:(document.getElementById("add-address").value||"").trim(),
-    notes:(document.getElementById("add-notes").value||"").trim(),
-    recommendedBy:(document.getElementById("add-recby").value||"").trim(),
-    phone:(document.getElementById("add-phone").value||"").trim()||null,
-    website:(document.getElementById("add-website").value||"").trim()||null,
-    addedAt:Date.now(),
-  };
-  var arr=loadCustom(); arr.push(place); saveCustom(arr);
-  closeModal();
-  toast("\u2705 "+name+" added!");
-  if(curSec==="saved") renderSaved();
-  else if(S[_mmode]&&S[_mmode].results.length) renderList(_mmode);
+  const sub=(document.getElementById("add-subtype").value||"Any");
+  const place={id:"custom_"+Date.now(),name,mode:_mmode,cuisine:_mmode==="food"?sub:null,parkType:_mmode==="parks"?sub:null,playCategory:_mmode==="play"?sub:null,address:(document.getElementById("add-address").value||"").trim(),notes:(document.getElementById("add-notes").value||"").trim(),recommendedBy:(document.getElementById("add-recby").value||"").trim(),phone:(document.getElementById("add-phone").value||"").trim()||null,website:(document.getElementById("add-website").value||"").trim()||null,addedAt:Date.now()};
+  const arr=loadCustom();arr.push(place);saveCustom(arr);
+  closeModal();toast("✅ "+name+" added!");
+  if(curSec==="saved")renderSaved();
+  else if(S[_mmode]&&S[_mmode].results.length)renderList(_mmode);
 }
 function matchCustom(sec){
-  var all=loadCustom().filter(function(x){ return x.mode===sec; });
-  if(!all.length) return [];
-  var s=S[sec];
-  return all.filter(function(x){
-    if(sec==="food"){ var cur=s.cuisine||"Any"; return cur==="Any"||(x.cuisine||"Any")==="Any"||x.cuisine===cur; }
-    if(sec==="parks"){ var cur=s.type||"Any"; return cur==="Any"||(x.parkType||"Any")==="Any"||x.parkType===cur; }
-    var cur=s.category||"Any"; return cur==="Any"||(x.playCategory||"Any")==="Any"||x.playCategory===cur;
+  const all=loadCustom().filter(x=>x.mode===sec);if(!all.length)return[];
+  const s=S[sec];
+  return all.filter(x=>{
+    if(sec==="food"){const cur=s.cuisine||"Any";return cur==="Any"||(x.cuisine||"Any")==="Any"||x.cuisine===cur;}
+    if(sec==="parks"){const cur=s.type||"Any";return cur==="Any"||(x.parkType||"Any")==="Any"||x.parkType===cur;}
+    const cur=s.category||"Any";return cur==="Any"||(x.playCategory||"Any")==="Any"||x.playCategory===cur;
   });
 }
 function renderFriendRecs(sec){
-  var matches=matchCustom(sec);
-  if(!matches.length) return;
-  var container=document.getElementById(sec+"-results");
-  if(!container) return;
-  var wrap=document.createElement("div");
-  wrap.className="friend-section";
-  wrap.innerHTML='<div class="friend-header"><span style="font-size:18px;">\ud83e\udd1d</span><span class="friend-label">Recommended by a friend</span></div>';
-  matches.forEach(function(x,i){
-    var c=document.createElement("article");
-    c.className="card friend-card"; c.style.animationDelay=(i*0.06)+"s";
-    var sub=sec==="food"?(x.cuisine||"Any"):sec==="parks"?(x.parkType||"Any"):(x.playCategory||"Any");
-    var maps="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(x.name+" "+(x.address||""));
-    c.innerHTML=
-      '<span class="rec-badge">\ud83e\udd1d Friend rec</span>'+
-      '<h3 class="rname" style="padding-right:8px;">'+x.name+'</h3>'+
-      '<div class="meta"><span>'+sub+'</span>'+(x.address?'<span> &middot; '+x.address+'</span>':'')+' </div>'+
-      (x.recommendedBy?'<p class="rec-by">Recommended by '+x.recommendedBy+'</p>':'')+
-      (x.notes?'<p class="card-quote">\u201c'+x.notes+'\u201d</p>':'')+
-      (x.address?'<p class="card-addr">\ud83d\udccd <span>'+x.address+'</span></p>':'')+
-      '<div class="actions" style="flex-wrap:wrap;align-items:center;">'+
-        '<a class="act" href="'+maps+'" target="_blank" rel="noreferrer" style="background:var(--olive);color:#fff;">\ud83e\uddad Directions</a>'+
-        (x.phone?'<a class="act" href="tel:'+x.phone+'" style="border:1.5px solid var(--line);color:var(--ink);">\ud83d\udcde Call</a>':'')+
-        (x.website?'<a class="act" href="'+x.website+'" target="_blank" rel="noreferrer" style="border:1.5px solid var(--line);color:var(--ink);">\ud83c\udf10 Site</a>':'')+
-        '<button class="btn-remove-custom" onclick="removeCustom(\''+x.id+'\',\''+sec+'\')">&#215; Remove</button>'+
-      '</div>';
+  const matches=matchCustom(sec);if(!matches.length)return;
+  const container=document.getElementById(sec+"-results");if(!container)return;
+  const wrap=document.createElement("div");wrap.className="friend-section";
+  wrap.innerHTML='<div class="friend-header"><span style="font-size:18px;">&#x1F91D;</span><span class="friend-label">Recommended by a friend</span></div>';
+  matches.forEach((x,i)=>{
+    const c=document.createElement("article");c.className="card friend-card";c.style.animationDelay=(i*0.06)+"s";
+    const sub=sec==="food"?(x.cuisine||"Any"):sec==="parks"?(x.parkType||"Any"):(x.playCategory||"Any");
+    const maps="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(x.name+" "+(x.address||""));
+    c.innerHTML='<span class="rec-badge">&#x1F91D; Friend rec</span>'
+      +'<h3 class="rname" style="padding-right:8px;">'+x.name+'</h3>'
+      +'<div class="meta"><span>'+sub+'</span>'+(x.address?'<span> &middot; '+x.address+'</span>':'')+'</div>'
+      +(x.recommendedBy?'<p class="rec-by">Recommended by '+x.recommendedBy+'</p>':'')
+      +(x.notes?'<p class="card-quote">“'+x.notes+'”</p>':'')
+      +(x.address?'<p class="card-addr">&#x1F4CD; <span>'+x.address+'</span></p>':'')
+      +'<div class="actions">'
+      +'<a class="act" href="'+maps+'" target="_blank" rel="noreferrer" style="background:var(--olive);color:#fff;">&#x1F9AD; Directions</a>'
+      +(x.phone?'<a class="act" href="tel:'+x.phone+'" style="border:1.5px solid var(--line);color:var(--ink);">&#x1F4DE; Call</a>':'')
+      +(x.website?'<a class="act" href="'+x.website+'" target="_blank" rel="noreferrer" style="border:1.5px solid var(--line);color:var(--ink);">&#x1F310; Site</a>':'')
+      +'<button class="btn-remove-custom" data-cid="'+x.id+'" data-csec="'+sec+'">&#215; Remove</button>'
+      +'</div>';
     wrap.appendChild(c);
   });
   container.appendChild(wrap);
 }
 function removeCustom(id,sec){
-  deleteCustom(id);
-  toast("Removed");
-  if(curSec==="saved"){ renderSaved(); return; }
-  var container=document.getElementById(sec+"-results");
-  if(container){ var old=container.querySelector(".friend-section"); if(old) old.remove(); renderFriendRecs(sec); }
+  deleteCustom(id);toast("Removed");
+  if(curSec==="saved"){renderSaved();return;}
+  const container=document.getElementById(sec+"-results");
+  if(container){const old=container.querySelector(".friend-section");if(old)old.remove();renderFriendRecs(sec);}
 }
  
-// ──────────── TASTE PROFILE ────────────
+// ── DISH SEARCH ──
+function loadDishHist(){try{return JSON.parse(localStorage.getItem(DISH_HIST_KEY)||"[]");}catch{return[];}}
+function saveDishHist(arr){localStorage.setItem(DISH_HIST_KEY,JSON.stringify(arr.slice(0,10)));}
+function addDishHist(dish){
+  if(!dish)return;
+  let h=loadDishHist().filter(x=>x.toLowerCase()!==dish.toLowerCase());
+  h.unshift(dish);saveDishHist(h);renderDishHistory();
+}
+function renderDishHistory(){
+  const el=document.getElementById("dish-history");if(!el)return;
+  const h=loadDishHist();el.innerHTML="";
+  h.forEach(d=>{
+    const s=d.replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+    const btn=document.createElement("span");btn.className="dish-chip";
+    btn.innerHTML='<span onclick="useDishHist(&quot;'+s+'&quot;)">&#x1F374; '+d+'</span>'
+      +'<span class="dx" onclick="removeDishHist(&quot;'+s+'&quot;)">&#215;</span>';
+    el.appendChild(btn);
+  });
+}
+function useDishHist(d){document.getElementById("dish-in").value=d;S.food.dish=d;updateDishBadge(d);doSearch("food");}
+function removeDishHist(d){saveDishHist(loadDishHist().filter(x=>x!==d));renderDishHistory();}
+function dishSearch(){
+  const val=(document.getElementById("dish-in").value||"").trim();
+  if(!val){clearDish();return;}
+  S.food.dish=val;updateDishBadge(val);addDishHist(val);doSearch("food");
+}
+function clearDish(){
+  S.food.dish="";document.getElementById("dish-in").value="";
+  document.getElementById("dish-active").style.display="none";
+}
+function updateDishBadge(dish){
+  const b=document.getElementById("dish-active");const l=document.getElementById("dish-active-label");
+  if(!b||!l)return;
+  if(dish){b.style.display="flex";l.textContent=dish;}else{b.style.display="none";}
+}
+document.getElementById("dish-in").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();dishSearch();}});
+ 
+// ── SEARCH HISTORY ──
+function loadSearchHist(){try{return JSON.parse(localStorage.getItem(SEARCH_HIST_KEY)||"[]");}catch{return[];}}
+function saveSearchHist(arr){localStorage.setItem(SEARCH_HIST_KEY,JSON.stringify(arr.slice(0,8)));}
+function addSearchHist(entry){let h=loadSearchHist().filter(x=>x.label!==entry.label);h.unshift(entry);saveSearchHist(h);}
+function renderSearchRecent(){
+  const wrap=document.getElementById("food-recent");const scroll=document.getElementById("food-recent-scroll");
+  if(!wrap||!scroll)return;
+  const h=loadSearchHist();wrap.style.display=h.length?"block":"none";scroll.innerHTML="";
+  h.forEach(entry=>{
+    const c=document.createElement("button");c.className="recent-chip";c.textContent=entry.label;
+    c.onclick=()=>{
+      if(entry.dish){document.getElementById("dish-in").value=entry.dish;S.food.dish=entry.dish;updateDishBadge(entry.dish);}else{clearDish();}
+      if(entry.cuisine){S.food.cuisine=entry.cuisine;const cs=document.getElementById("food-cuisine");if(cs)cs.value=entry.cuisine;}
+      if(entry.meal){S.food.meal=entry.meal;document.querySelectorAll("#food-meals .chip").forEach(b=>b.classList.toggle("on",b.textContent.trim().endsWith(entry.meal)));}
+      doSearch("food");
+    };
+    scroll.appendChild(c);
+  });
+}
+ 
+// ── TASTE PROFILE ──
 function tasteProfile(){
-  const f=loadFavs().filter(x=>x.mode==="food");
-  if(f.length<2) return null;
-  const cuis={}, price={};
-  f.forEach(x=>{ if(x.type) cuis[x.type]=(cuis[x.type]||0)+1; if(x.priceLevel) price[x.priceLevel]=(price[x.priceLevel]||0)+1; });
+  const f=loadFavs().filter(x=>x.mode==="food");if(f.length<2)return null;
+  const cuis={},price={};
+  f.forEach(x=>{if(x.type)cuis[x.type]=(cuis[x.type]||0)+1;if(x.priceLevel)price[x.priceLevel]=(price[x.priceLevel]||0)+1;});
   const topCuis=Object.entries(cuis).sort((a,b)=>b[1]-a[1]).slice(0,3).map(e=>e[0]);
   const topPrice=Object.entries(price).sort((a,b)=>b[1]-a[1])[0];
-  return { count:f.length, cuisineWeights:cuis, topCuisines:topCuis, favPrice:topPrice?+topPrice[0]:null };
+  return{count:f.length,cuisineWeights:cuis,topCuisines:topCuis,favPrice:topPrice?+topPrice[0]:null};
 }
 function tasteBoost(place,prof){
-  if(!prof) return 0;
-  let b=0;
-  for(const c in prof.cuisineWeights){
-    if(place.type&&(place.type.toLowerCase().includes(c.toLowerCase())||c.toLowerCase().includes(place.type.toLowerCase())))
-      b+=0.3*Math.min(3,prof.cuisineWeights[c]);
-  }
-  if(prof.favPrice&&place.priceLevel===prof.favPrice) b+=0.4;
-  return b;
+  if(!prof)return 0;let b=0;
+  for(const c in prof.cuisineWeights){if(place.type&&(place.type.toLowerCase().includes(c.toLowerCase())||c.toLowerCase().includes(place.type.toLowerCase())))b+=0.3*Math.min(3,prof.cuisineWeights[c]);}
+  if(prof.favPrice&&place.priceLevel===prof.favPrice)b+=0.4;return b;
 }
  
-// ──────────── HELPERS ────────────
+// ── HELPERS ──
 function miles(a,b,c,d){const R=3958.8,t=x=>x*Math.PI/180;const dLat=t(c-a),dLon=t(d-b);const h=Math.sin(dLat/2)**2+Math.cos(t(a))*Math.cos(t(c))*Math.sin(dLon/2)**2;return R*2*Math.atan2(Math.sqrt(h),Math.sqrt(1-h));}
 function stars(v){v=Math.max(0,Math.min(5,+v||0));let s="";for(let i=0;i<5;i++){const f=Math.max(0,Math.min(1,v-i));s+=`<span style="position:relative;display:inline-block;width:14px;color:var(--line);">★<span style="position:absolute;left:0;top:0;width:${f*100}%;overflow:hidden;color:var(--gold);">★</span></span>`;}return s;}
-function travelText(d){if(d==null)return "";const walk=Math.round(d/3.1*60),drive=Math.max(1,Math.round(d*1.3/22*60));return d<=1.2?`🚶 ~${walk}min · 🚗 ~${drive}min`:`🚗 ~${drive}min`;}
+function travelText(d){if(d==null)return "";const walk=Math.round(d/3.1*60),drive=Math.max(1,Math.round(d*1.3/22*60));return d<=1.2?`&#x1F6B6; ~${walk}min · &#x1F697; ~${drive}min`:`&#x1F697; ~${drive}min`;}
 function todayHours(arr){if(!arr||!arr.length)return null;const day=DAYS[new Date().getDay()];const line=arr.find(s=>s.toLowerCase().startsWith(day.toLowerCase()));return line?line.replace(day+": ",""):null;}
 function priceStr(n){return n?"$".repeat(Math.max(1,Math.min(4,n))):""}
+function sharePlace(name,url){
+  if(navigator.share){navigator.share({title:name,url}).catch(()=>{});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(url).then(()=>toast("Link copied!"));}
+  else{toast("Copy: "+url);}
+}
 function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("show"),2000);}
 function showErr(sec,msg){const e=document.getElementById(sec+"-err");e.textContent=msg;e.style.display="block";}
 function hideErr(sec){document.getElementById(sec+"-err").style.display="none";}
  
-// ──────────── LOCATION ────────────
-function setupLocation(){
-  document.getElementById("locBtn").onclick=()=>{
-    const hint=document.getElementById("locHint");
-    if(!navigator.geolocation){hint.style.display="flex";hint.style.color="var(--terra-deep)";hint.innerHTML="Location unavailable — type a place instead.";return;}
-    document.getElementById("locIcon").textContent="◍";
-    document.getElementById("locLabel").textContent="Locating…";
-    navigator.geolocation.getCurrentPosition(
-      pos=>{loc.coords={lat:pos.coords.latitude,lng:pos.coords.longitude};loc.status="ok";
-        document.getElementById("place").value="";
-        document.getElementById("locBtn").classList.add("ok");
-        document.getElementById("locIcon").textContent="◉";
-        document.getElementById("locLabel").textContent="Located";
-        hint.style.display="flex";hint.style.color="var(--ink-soft)";
-        hint.innerHTML='<span class="dot"></span>Pinned to your current location.';},
-      ()=>{loc.status="denied";document.getElementById("locIcon").textContent="◎";document.getElementById("locLabel").textContent="My location";
-        hint.style.display="flex";hint.style.color="var(--terra-deep)";hint.textContent="Location access off — type a place above instead.";},
-      {enableHighAccuracy:true,timeout:10000}
-    );
-  };
-  document.getElementById("place").oninput=()=>{if(document.getElementById("place").value.trim()) document.getElementById("locHint").style.display="none";};
-}
+// ── LOCATION ──
+document.getElementById("locBtn").onclick=()=>{
+  const hint=document.getElementById("locHint");
+  if(!navigator.geolocation){hint.style.display="flex";hint.style.color="var(--terra-deep)";hint.innerHTML="Location unavailable — type a place instead.";return;}
+  document.getElementById("locIcon").textContent="◍";document.getElementById("locLabel").textContent="Locating…";
+  navigator.geolocation.getCurrentPosition(
+    pos=>{loc.coords={lat:pos.coords.latitude,lng:pos.coords.longitude};
+      document.getElementById("place").value="";
+      document.getElementById("locBtn").classList.add("ok");document.getElementById("locIcon").textContent="◉";document.getElementById("locLabel").textContent="Located";
+      hint.style.display="flex";hint.style.color="var(--ink-soft)";hint.innerHTML='<span class="dot"></span>Pinned to your current location.';},
+    ()=>{document.getElementById("locIcon").textContent="◎";document.getElementById("locLabel").textContent="My location";hint.style.display="flex";hint.style.color="var(--terra-deep)";hint.textContent="Location access off — type a place instead.";},
+    {enableHighAccuracy:true,timeout:10000}
+  );
+};
+document.getElementById("place").oninput=()=>{if(document.getElementById("place").value.trim())document.getElementById("locHint").style.display="none";};
  
-// ──────────── BUILD CONTROLS ────────────
+// ── BUILD CONTROLS ──
 function buildFoodControls(){
-  // meals
   const me=document.getElementById("food-meals");
   MEALS.forEach(([id,g])=>{const b=document.createElement("button");b.className="chip"+(id===S.food.meal?" on":"");b.innerHTML=g+" "+id;b.onclick=()=>{S.food.meal=id;[...me.children].forEach(c=>c.classList.remove("on"));b.classList.add("on");};me.appendChild(b);});
-  // cuisine
   const cs=document.getElementById("food-cuisine");CUISINES.forEach(c=>{const o=document.createElement("option");o.textContent=c;cs.appendChild(o);});cs.onchange=()=>S.food.cuisine=cs.value;
-  // prices
   const pe=document.getElementById("food-prices");["$","$$","$$$","$$$$"].forEach((p,i)=>{const lvl=i+1;const b=document.createElement("button");b.className="chip olive"+(S.food.prices.includes(lvl)?" on":"");b.textContent=p;b.onclick=()=>{if(S.food.prices.includes(lvl)){S.food.prices=S.food.prices.filter(x=>x!==lvl);b.classList.remove("on");}else{S.food.prices.push(lvl);b.classList.add("on");}};pe.appendChild(b);});
-  // dietary
   const de=document.getElementById("food-dietary");DIETARY.forEach(d=>{const b=document.createElement("button");b.className="chip olive";b.textContent=d;b.onclick=()=>{if(S.food.dietary.includes(d)){S.food.dietary=S.food.dietary.filter(x=>x!==d);b.classList.remove("on");}else{S.food.dietary.push(d);b.classList.add("on");}};de.appendChild(b);});
-  // sorts
   const so=document.getElementById("food-sorts");SORTS.forEach(([id,lbl])=>{const b=document.createElement("button");b.className="chip"+(id===S.food.sort?" on":"");b.textContent=lbl;b.onclick=()=>{S.food.sort=id;[...so.children].forEach(c=>c.classList.remove("on"));b.classList.add("on");if(S.food.results.length)renderList("food");};so.appendChild(b);});
-  // radius
   document.getElementById("food-radius").oninput=e=>{S.food.radius=+e.target.value;document.getElementById("food-rad-label").textContent="within "+S.food.radius+" mi";};
-  // open now
   const ob=document.getElementById("food-open");ob.onclick=()=>{S.food.openNow=!S.food.openNow;ob.classList.toggle("on",S.food.openNow);};
-  // learn toggle
   document.getElementById("food-learn-track").onclick=()=>{S.food.learn=!S.food.learn;document.getElementById("food-learn-track").classList.toggle("on",S.food.learn);if(S.food.results.length)renderList("food");refreshLearnNote();};
-  // more toggle
   document.getElementById("food-more-btn").onclick=()=>{const x=document.getElementById("food-more");const op=x.style.display==="none";x.style.display=op?"block":"none";document.getElementById("food-more-btn").innerHTML=op?"⚙ Fewer options":"⚙ More options";};
-  // go + surprise
   document.getElementById("food-go").onclick=()=>doSearch("food");
   document.getElementById("food-surprise").onclick=surpriseMe;
-  // sub-tabs
   document.getElementById("food-tab-list").onclick=()=>switchView("food","list");
   document.getElementById("food-tab-map").onclick=()=>switchView("food","map");
 }
- 
 function buildParksControls(){
   const te=document.getElementById("parks-types");
   PARK_TYPES.forEach(t=>{const b=document.createElement("button");b.className="chip olive"+(t==="Any"?" on":"");b.textContent=t;b.onclick=()=>{S.parks.type=t;[...te.children].forEach(c=>c.classList.remove("on"));b.classList.add("on");};te.appendChild(b);});
@@ -750,10 +764,9 @@ function buildParksControls(){
   document.getElementById("parks-tab-list").onclick=()=>switchView("parks","list");
   document.getElementById("parks-tab-map").onclick=()=>switchView("parks","map");
 }
- 
 function buildPlayControls(){
   const ce=document.getElementById("play-cats");
-  PLAY_CATS.forEach(c=>{const b=document.createElement("button");b.className="chip"+(c==="Any"?" on":"");b.style.cssText=c==="Any"&&"border-color:var(--terra);background:var(--terra);color:#fff;";b.className="chip"+(c==="Any"?" on":"");b.textContent=c;b.onclick=()=>{S.play.category=c;[...ce.children].forEach(x=>x.classList.remove("on"));b.classList.add("on");};ce.appendChild(b);});
+  PLAY_CATS.forEach(c=>{const b=document.createElement("button");b.className="chip"+(c==="Any"?" on":"");b.textContent=c;b.onclick=()=>{S.play.category=c;[...ce.children].forEach(x=>x.classList.remove("on"));b.classList.add("on");};ce.appendChild(b);});
   const pe=document.getElementById("play-prices");["$","$$","$$$","$$$$"].forEach((p,i)=>{const lvl=i+1;const b=document.createElement("button");b.className="chip"+(S.play.prices.includes(lvl)?" on":"");b.textContent=p;b.onclick=()=>{if(S.play.prices.includes(lvl)){S.play.prices=S.play.prices.filter(x=>x!==lvl);b.classList.remove("on");}else{S.play.prices.push(lvl);b.classList.add("on");}};pe.appendChild(b);});
   document.getElementById("play-radius").oninput=e=>{S.play.radius=+e.target.value;document.getElementById("play-rad-label").textContent="within "+S.play.radius+" mi";};
   const ob=document.getElementById("play-open");ob.onclick=()=>{S.play.openNow=!S.play.openNow;ob.classList.toggle("on",S.play.openNow);};
@@ -764,326 +777,311 @@ function buildPlayControls(){
   document.getElementById("play-tab-map").onclick=()=>switchView("play","map");
 }
  
-// ──────────── SECTION NAV ────────────
+// ── SECTION NAV ──
 function switchSec(name){
   curSec=name;
   document.querySelectorAll(".sec").forEach(s=>s.style.display="none");
   document.getElementById("sec-"+name).style.display="block";
   document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("on",b.id==="nav-"+name));
   window.scrollTo(0,0);
-  if(name==="saved") renderSaved();
+  if(name==="saved")renderSaved();
 }
- 
 function switchView(sec,view){
   S[sec].view=view;
   document.getElementById(sec+"-tab-list").classList.toggle("on",view==="list");
   document.getElementById(sec+"-tab-map").classList.toggle("on",view==="map");
   document.getElementById(sec+"-results").style.display=view==="list"?"block":"none";
   document.getElementById(sec+"-map").style.display=view==="map"?"block":"none";
-  document.getElementById(sec+"-buzz").style.display=view==="list"?"block":"none";
-  if(view==="map") renderMap(sec);
-  else { renderList(sec); refreshLearnNote(); }
+  if(sec+"-buzz") document.getElementById(sec+"-buzz").style.display=view==="list"?"block":"none";
+  if(view==="map")renderMap(sec);
+  else{renderList(sec);refreshLearnNote();}
 }
  
-// ──────────── SEARCH ────────────
-let loadTimers = {};
+// ── SEARCH ──
+let loadTimers={};
 async function doSearch(sec){
   hideErr(sec);
   if(location.protocol!=="http:"&&location.protocol!=="https:"){showErr(sec,"Open the app from your https://…vercel.app URL, not a local file.");return;}
   if(!loc.coords&&!document.getElementById("place").value.trim()){showErr(sec,"Set your location first — tap 'My location' or type a place.");return;}
- 
   const loadEl=document.getElementById(sec+"-loading");
   const tabsEl=document.getElementById(sec+"-tabs");
   document.getElementById(sec+"-results").innerHTML="";
   document.getElementById(sec+"-map").style.display="none";
   document.getElementById(sec+"-buzz").innerHTML="";
-  tabsEl.style.display="none";
-  loadEl.style.display="block";
-  document.getElementById(sec+"-go")||document.getElementById("food-go");
-  const goBtn=document.getElementById(sec+"-go")||document.getElementById("play-go")||document.getElementById("parks-go");
-  if(goBtn) goBtn.disabled=true;
-  const msgs=LOAD_MSGS[sec];
-  let mi=0;document.getElementById(sec+"-load-line").textContent=msgs[0];
+  tabsEl.style.display="none";loadEl.style.display="block";
+  const goBtn=document.getElementById(sec+"-go");if(goBtn)goBtn.disabled=true;
+  const msgs=LOAD_MSGS[sec];let mi=0;
+  document.getElementById(sec+"-load-line").textContent=msgs[0];
   loadTimers[sec]=setInterval(()=>{mi=(mi+1)%msgs.length;document.getElementById(sec+"-load-line").textContent=msgs[mi];},1700);
- 
   try{
     const endpoint=new URL(API,location.origin).href;
     const s=S[sec];
-    const body={
-      mode:sec,
-      lat:loc.coords?.lat, lng:loc.coords?.lng,
-      placeText:document.getElementById("place").value.trim(),
-      radiusMiles:s.radius, openNow:s.openNow,
-    };
-    if(sec==="food"){ body.meal=s.meal; body.cuisine=s.cuisine; body.prices=s.prices; body.dietary=s.dietary; }
-    else if(sec==="parks"){ body.parkType=s.type; }
-    else{ body.playCategory=s.category; body.prices=s.prices; }
- 
+    const body={mode:sec,lat:loc.coords?.lat,lng:loc.coords?.lng,placeText:document.getElementById("place").value.trim(),radiusMiles:s.radius,openNow:s.openNow};
+    if(sec==="food"){body.meal=s.meal;body.cuisine=s.cuisine;body.prices=s.prices;body.dietary=s.dietary;body.dish=s.dish||"";}
+    else if(sec==="parks"){body.parkType=s.type;}
+    else{body.playCategory=s.category;body.prices=s.prices;}
     const res=await fetch(endpoint,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
-    let data; const raw=await res.text();
-    try{ data=JSON.parse(raw); }
-    catch{ throw new Error(res.status===404?"Backend not found (404). Check that api/search.js is deployed and vercel.json is in your repo root.":"Unexpected server response. Try again in a moment."); }
-    if(!res.ok) throw new Error(data.error||"Request failed ("+res.status+").");
- 
-    S[sec].results=(data.results||[]).map(x=>{
-      if(loc.coords&&x.lat&&x.lng) x._d=miles(loc.coords.lat,loc.coords.lng,x.lat,x.lng);
-      x.mode=sec; return x;
-    });
+    let data;const raw=await res.text();
+    try{data=JSON.parse(raw);}
+    catch{throw new Error(res.status===404?"Backend not found (404). Check that api/search.js is deployed and vercel.json is in your repo root.":"Unexpected server response.");}
+    if(!res.ok)throw new Error(data.error||"Request failed ("+res.status+").");
+    S[sec].results=(data.results||[]).map(x=>{if(loc.coords&&x.lat&&x.lng)x._d=miles(loc.coords.lat,loc.coords.lng,x.lat,x.lng);x.mode=sec;return x;});
     S[sec].buzz=data.buzz||[];
- 
-    if(!S[sec].results.length){ document.getElementById(sec+"-results").innerHTML='<p class="foot">No matches — try widening distance or adjusting filters.</p>'; }
-    else{ tabsEl.style.display="flex"; switchView(sec,"list"); }
-    if(S[sec].buzz.length) renderBuzz(sec);
+    if(sec==="food"){
+      const histLabel=(S.food.dish?S.food.dish+(S.food.cuisine!=="Any"?" · "+S.food.cuisine:""):(S.food.cuisine!=="Any"?S.food.cuisine:"Any cuisine"))+" · "+S.food.meal;
+      addSearchHist({label:histLabel,dish:S.food.dish,cuisine:S.food.cuisine,meal:S.food.meal});
+      renderSearchRecent();
+    }
+    if(!S[sec].results.length){document.getElementById(sec+"-results").innerHTML='<p class="foot">No matches — try widening distance or adjusting filters.</p>';}
+    else{tabsEl.style.display="flex";switchView(sec,"list");}
+    if(S[sec].buzz.length)renderBuzz(sec);
   }catch(e){
-    showErr(sec, e.message==="Load failed"||e.message.includes("fetch")
-      ? "Couldn't reach the server. Check your connection."
-      : e.message);
+    showErr(sec,e.message==="Load failed"||e.message.includes("fetch")?"Couldn’t reach the server. Check your connection.":e.message);
   }finally{
-    clearInterval(loadTimers[sec]); loadEl.style.display="none";
-    if(goBtn) goBtn.disabled=false;
+    clearInterval(loadTimers[sec]);loadEl.style.display="none";if(goBtn)goBtn.disabled=false;
   }
 }
  
-// ──────────── RANKING ────────────
+// ── RANKING ──
 function ranked(sec){
-  const s=S[sec]; const prof=sec==="food"?tasteProfile():null;
+  const s=S[sec];const prof=sec==="food"?tasteProfile():null;
   let r=[...s.results];
-  if(s.sort==="rating") r.sort((a,b)=>(b.rating||0)-(a.rating||0));
-  else if(s.sort==="distance") r.sort((a,b)=>(a._d??1e9)-(b._d??1e9));
-  else if(s.sort==="value") r.sort((a,b)=>(b.rating||0)/(b.priceLevel||3)-(a.rating||0)/(a.priceLevel||3));
-  else{
-    r.sort((a,b)=>{
-      const base=x=>(x.rating||0)*Math.log10((x.reviewCount||0)+10);
-      const boost=sec==="food"&&s.learn?tasteBoost:()=>0;
-      return base(b)+boost(b,prof)-(base(a)+boost(a,prof));
-    });
-  }
+  if(s.sort==="rating")r.sort((a,b)=>(b.rating||0)-(a.rating||0));
+  else if(s.sort==="distance")r.sort((a,b)=>(a._d??1e9)-(b._d??1e9));
+  else if(s.sort==="value")r.sort((a,b)=>(b.rating||0)/(b.priceLevel||3)-(a.rating||0)/(a.priceLevel||3));
+  else{r.sort((a,b)=>{const base=x=>(x.rating||0)*Math.log10((x.reviewCount||0)+10);const boost=sec==="food"&&s.learn?tasteBoost:()=>0;return base(b)+boost(b,prof)-(base(a)+boost(a,prof));});}
   return r.slice(0,10);
 }
  
-// ──────────── CARD HTML ────────────
+// ── CARD HTML ──
 function cardHTML(x,i,sec){
   const isFirst=i===0;
   const badgeBg=isFirst?"linear-gradient(180deg,var(--gold),#A8761B)":"linear-gradient(180deg,var(--ink),#222)";
   const maps=x.mapsUri||("https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(x.name+" "+(x.address||"")));
-  const openTag=x.openNow===true?'<span class="pill pill-open">Open now</span>':(x.openNow===false?'<span class="pill pill-closed">Closed</span>':'');
+  const openTag=x.openNow===true?'<span class="pill pill-open">Open now</span>':(x.openNow===false?'<span class="pill pill-closed">Closed</span>':"");
   const th=todayHours(x.hours);
   const fav=isFav(x.id);
-  const modeClass=sec==="parks"?"mode-parks":sec==="play"?"mode-play":"mode-food";
   const buzzMatch=S[sec].buzz.some(b=>x.name&&b.title.toLowerCase().includes(x.name.toLowerCase().split(" ")[0]));
+  const modeClass=sec==="parks"?"mode-parks":sec==="play"?"mode-play":"mode-food";
+  // closing time
+  let closeInfo="";
+  if(th){const cm=th.match(/(\d+:\d+\s*[AP]M)\s*$/i);if(cm)closeInfo='<span class="pill pill-closes">&#x1F555; Closes '+cm[1]+'</span>';}
+  // review with dish highlight
+  let reviewHTML="";
+  if(x.topReview){
+    const dish=sec==="food"?S.food.dish:"";
+    let snippet=x.topReview.length>200?x.topReview.slice(0,200)+"…":x.topReview;
+    if(dish&&x.topReview.toLowerCase().includes(dish.toLowerCase())){
+      try{
+        const di=snippet.toLowerCase().indexOf(dish.toLowerCase());
+        if(di>=0){snippet=snippet.slice(0,di)+'<mark style="background:rgba(200,150,43,.25);border-radius:3px;padding:0 2px;">'+snippet.slice(di,di+dish.length)+'</mark>'+snippet.slice(di+dish.length);}
+      }catch(e){}
+        }
+    reviewHTML='<p class="card-quote">“'+snippet+'”</p>';
+  }
+  const shareName=x.name.replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+  const shareUrl=maps.replace(/'/g,"&#39;");
   return `
     <div class="badge" style="background:${badgeBg};">${isFirst?"★":(i+1)}</div>
+    ${hasVisited(x.id)?'<div class="visited-pill" style="position:absolute;top:-9px;right:56px;">✔ You’ve been here</div>':''}
     <button class="heart${fav?" on":""}" data-id="${x.id}" data-sec="${sec}">${fav?"♥":"♡"}</button>
-    ${buzzMatch?'<span style="position:absolute;top:13px;right:54px;font-size:11px;font-weight:700;color:var(--terra-deep);background:rgba(188,75,43,.1);padding:2px 7px;border-radius:6px;">📣 Reddit buzz</span>':""}
+    ${buzzMatch?'<span style="position:absolute;top:13px;right:54px;font-size:11px;font-weight:700;color:var(--terra-deep);background:rgba(188,75,43,.1);padding:2px 7px;border-radius:6px;">&#x1F4E3; Reddit buzz</span>':""}
     <h3 class="rname">${x.name}</h3>
     <div class="meta">
       ${stars(x.rating)}<span style="font-weight:700;font-size:13px;color:var(--ink);">${(x.rating??0).toFixed(1)}</span>
       ${x.reviewCount?`<span>(${(+x.reviewCount).toLocaleString()})</span>`:""}
-      ${x.priceLevel&&sec!=="parks"?`<span>· ${priceStr(x.priceLevel)}</span>`:""}
-      <span>· ${x.type}</span>
-      ${x._d!=null?`<span>· ${x._d<0.1?"<0.1":x._d.toFixed(1)} mi</span>`:""}
-      ${openTag}
+      ${x.priceLevel&&sec!=="parks"?`<span>&middot; ${priceStr(x.priceLevel)}</span>`:""}
+      <span>&middot; ${x.type}</span>
+      ${x._d!=null?`<span>&middot; ${x._d<0.1?"<0.1":x._d.toFixed(1)} mi</span>`:""}
+      ${openTag}${closeInfo?` ${closeInfo}`:""}
       ${x._d!=null?`<span class="pill pill-travel">${travelText(x._d)}</span>`:""}
     </div>
-    <span class="mode-badge ${modeClass}">${sec==="parks"?"🌳 Park":sec==="play"?"🎮 Entertainment":"🍽️ "+x.type}</span>
+    <span class="mode-badge ${modeClass}">${sec==="parks"?"&#x1F333; Park":sec==="play"?"&#x1F3AE; Entertainment":"&#x1F37D;️ "+x.type}</span>
     ${x.summary?`<p class="card-body">${x.summary}</p>`:""}
-    ${x.topReview?`<p class="card-quote">"${x.topReview.length>180?x.topReview.slice(0,180)+"…":x.topReview}"</p>`:""}
-    ${th?`<p class="card-hours">🕒 Today: ${th}</p>`:""}
-    ${x.address?`<p class="card-addr">📍 <span>${x.address}</span></p>`:""}
+    ${reviewHTML}
+    ${th?`<p class="card-hours">&#x1F552; Today: ${th}</p>`:""}
+    ${x.address?`<p class="card-addr">&#x1F4CD; <span>${x.address}</span></p>`:""}
     <div class="actions">
-      <a class="act" href="${maps}" target="_blank" rel="noreferrer" style="background:var(--terra);color:#fff;">🧭 Directions</a>
-      ${x.phone?`<a class="act" href="tel:${x.phone}" style="border:1.5px solid var(--line);color:var(--ink);">📞 Call</a>`:""}
-      ${x.website?`<a class="act" href="${x.website}" target="_blank" rel="noreferrer" style="border:1.5px solid var(--line);color:var(--ink);">🌐 Site</a>`:""}
-    </div>`;
+      <a class="act" href="${maps}" target="_blank" rel="noreferrer" style="background:var(--terra);color:#fff;">&#x1F9AD; Directions</a>
+      ${x.phone?`<a class="act" href="tel:${x.phone}" style="border:1.5px solid var(--line);color:var(--ink);">&#x1F4DE; Call</a>`:""}
+      ${x.website?`<a class="act" href="${x.website}" target="_blank" rel="noreferrer" style="border:1.5px solid var(--line);color:var(--ink);">&#x1F310; Site</a>`:""}
+      <button class="act act-share" onclick="sharePlace('${shareName}','${shareUrl}')">&#x1F4E4; Share</button>
+      <button class="act visit-btn${hasVisited(x.id)?' logged':''}" data-id="${x.id}">${hasVisited(x.id)?'&#x2714; Visited':'&#x1F37D;&#xFE0F; I went here'}</button>
+    </div>
+    ${reviewPanelHTML(x)}`;
 }
- 
 function wireHearts(container){
   container.querySelectorAll(".heart").forEach(btn=>{
     btn.onclick=()=>{
-      const id=btn.dataset.id; const sec=btn.dataset.sec;
+      const id=btn.dataset.id;const sec=btn.dataset.sec;
       const place=[...S.food.results,...S.parks.results,...S.play.results,...loadFavs()].find(x=>x.id===id);
-      if(place){ toggleFav(place); const on=isFav(id); btn.classList.toggle("on",on); btn.textContent=on?"♥":"♡"; }
+      if(place){toggleFav(place);const on=isFav(id);btn.classList.toggle("on",on);btn.textContent=on?"♥":"♡";}
     };
   });
 }
  
-// ──────────── RENDER LIST ────────────
+// ── RENDER LIST ──
 function renderList(sec){
-  const el=document.getElementById(sec+"-results");
-  const r=ranked(sec);
-  if(!r.length){ el.innerHTML='<p class="foot">No results — try widening your filters.</p>'; return; }
-  el.innerHTML=`<p class="sec-title">Top ${r.length}${sec==="food"?" eats":sec==="parks"?" parks":" picks"} nearby</p>`;
-  r.forEach((x,i)=>{
-    const c=document.createElement("article");
-    c.className="card"; c.style.animationDelay=(i*0.065)+"s";
-    c.innerHTML=cardHTML(x,i,sec);
-    el.appendChild(c);
-  });
-  const note=document.createElement("p"); note.className="foot";
-  note.textContent="Ratings and status live from Google. Hours can change — confirm before you go.";
-  el.appendChild(note);
-  wireHearts(el);
-  renderFriendRecs(sec);
+  const el=document.getElementById(sec+"-results");const r=ranked(sec);
+  if(!r.length){el.innerHTML='<p class="foot">No results — try widening your filters.</p>';return;}
+  const dishLabel=sec==="food"&&S.food.dish?` for "${S.food.dish}"`:"";
+  el.innerHTML=`<p class="sec-title">Top ${r.length}${sec==="food"?" eats":sec==="parks"?" parks":" picks"}${dishLabel} nearby</p>`;
+  r.forEach((x,i)=>{const c=document.createElement("article");c.className="card";c.style.animationDelay=(i*0.065)+"s";c.innerHTML=cardHTML(x,i,sec);el.appendChild(c);});
+  const note=document.createElement("p");note.className="foot";note.textContent="Ratings live from Google. Hours can change — confirm before you go.";el.appendChild(note);
+  wireHearts(el);renderFriendRecs(sec);
 }
  
-// ──────────── RENDER MAP ────────────
+// ── RENDER MAP ──
 function renderMap(sec){
-  const mapEl=document.getElementById(sec+"-map");
-  mapEl.style.display="block";
+  const mapEl=document.getElementById(sec+"-map");mapEl.style.display="block";
   const r=ranked(sec);
- 
-  if(leafletMaps[sec]){
-    leafletMaps[sec].remove();
-    delete leafletMaps[sec];
-    leafletMarkers[sec]=[];
-  }
- 
+  if(leafletMaps[sec]){leafletMaps[sec].remove();delete leafletMaps[sec];}
   const m=L.map(sec+"-map",{scrollWheelZoom:false});
-  L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",{attribution:"© OpenStreetMap contributors, © CARTO",maxZoom:19}).addTo(m);
+  L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",{attribution:"© OpenStreetMap, © CARTO",maxZoom:19}).addTo(m);
   leafletMaps[sec]=m;
-  leafletMarkers[sec]=[];
- 
+  const colors={food:"#9C3A1F",parks:"#6B6A3A",play:"#7b4ab8"};const col=colors[sec]||"#9C3A1F";
   const pts=[];
-  const colors={"food":"#9C3A1F","parks":"#6B6A3A","play":"#7b4ab8"};
-  const col=colors[sec]||"#9C3A1F";
- 
   r.forEach((x,i)=>{
-    if(x.lat==null||x.lng==null) return;
-    const isFirst=i===0;
-    const pinColor=isFirst?"#C8962B":col;
-    const icon=L.divIcon({
-      className:"",
-      html:`<div style="width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:${pinColor};display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(0,0,0,.4);"><span style="transform:rotate(45deg);font-weight:800;font-size:13px;color:#fff;font-family:serif;">${i+1}</span></div>`,
-      iconSize:[30,30],iconAnchor:[15,28]
-    });
+    if(x.lat==null||x.lng==null)return;
+    const pinColor=i===0?"#C8962B":col;
+    const icon=L.divIcon({className:"",html:`<div style="width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:${pinColor};display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(0,0,0,.4);"><span style="transform:rotate(45deg);font-weight:800;font-size:13px;color:#fff;font-family:serif;">${i+1}</span></div>`,iconSize:[30,30],iconAnchor:[15,28]});
     const maps=x.mapsUri||("https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(x.name));
-    const mk=L.marker([x.lat,x.lng],{icon}).addTo(m).bindPopup(
-      `<b style="font-family:sans-serif;font-size:13px;">${i+1}. ${x.name}</b><br/><span style="font-size:12px;">★ ${(x.rating||0).toFixed(1)}${x.priceLevel&&sec!=="parks"?" · "+priceStr(x.priceLevel):""}${x._d!=null?" · "+x._d.toFixed(1)+" mi":""}</span><br/><a href="${maps}" target="_blank" style="font-size:12px;">Directions →</a>`
-    );
-    leafletMarkers[sec].push(mk); pts.push([x.lat,x.lng]);
+    L.marker([x.lat,x.lng],{icon}).addTo(m).bindPopup(`<b style="font-family:sans-serif;font-size:13px;">${i+1}. ${x.name}</b><br/><span style="font-size:12px;">★ ${(x.rating||0).toFixed(1)}${x.priceLevel&&sec!=="parks"?" &middot; "+priceStr(x.priceLevel):""}${x._d!=null?" &middot; "+x._d.toFixed(1)+" mi":""}</span><br/><a href="${maps}" target="_blank" style="font-size:12px;">Directions &rarr;</a>`);
+    pts.push([x.lat,x.lng]);
   });
-  if(loc.coords){
-    const me=L.circleMarker([loc.coords.lat,loc.coords.lng],{radius:8,color:"#6B6A3A",fillColor:"#6B6A3A",fillOpacity:.9}).addTo(m).bindPopup('<span style="font-size:12px;">📍 You are here</span>');
-    leafletMarkers[sec].push(me); pts.push([loc.coords.lat,loc.coords.lng]);
-  }
-  if(pts.length) m.fitBounds(pts,{padding:[40,40],maxZoom:15});
+  if(loc.coords){L.circleMarker([loc.coords.lat,loc.coords.lng],{radius:8,color:"#6B6A3A",fillColor:"#6B6A3A",fillOpacity:.9}).addTo(m).bindPopup('<span style="font-size:12px;">&#x1F4CD; You are here</span>');pts.push([loc.coords.lat,loc.coords.lng]);}
+  if(pts.length)m.fitBounds(pts,{padding:[40,40],maxZoom:15});
   setTimeout(()=>m.invalidateSize(),150);
 }
  
-// ──────────── REDDIT BUZZ ────────────
+// ── REDDIT BUZZ ──
 function renderBuzz(sec){
-  const buzz=S[sec].buzz;
-  if(!buzz||!buzz.length) return;
+  const buzz=S[sec].buzz;if(!buzz||!buzz.length)return;
   const el=document.getElementById(sec+"-buzz");
+  const r=ranked(sec);const names=r.map(x=>x.name.toLowerCase().split(" ")[0]).filter(n=>n.length>3);
   const secLabel=sec==="food"?"restaurants":sec==="parks"?"parks":"entertainment";
-  const r=ranked(sec);
-  const names=r.map(x=>x.name.toLowerCase().split(" ")[0]).filter(n=>n.length>3);
-  el.innerHTML=`<div class="buzz-wrap"><p class="buzz-title">💬 What Reddit is saying about ${secLabel} nearby</p><div class="buzz-scroll" id="${sec}-buzz-scroll"></div></div>`;
+  el.innerHTML=`<div class="buzz-wrap"><p class="buzz-title">&#x1F4AC; What Reddit is saying about ${secLabel} nearby</p><div class="buzz-scroll" id="${sec}-buzz-scroll"></div></div>`;
   const scroll=document.getElementById(sec+"-buzz-scroll");
   buzz.forEach(b=>{
     const matched=names.some(n=>b.title.toLowerCase().includes(n));
-    const a=document.createElement("a");
-    a.className="buzz-card"+(matched?" buzz-matched":"");
-    a.href=b.url; a.target="_blank"; a.rel="noreferrer";
-    a.innerHTML=`<div class="buzz-sub">r/${b.sub}</div><div class="buzz-title-text">${b.title}</div><div class="buzz-score">▲ ${b.score} upvotes${matched?" · 📣 matches your results":""}</div>`;
+    const a=document.createElement("a");a.className="buzz-card"+(matched?" buzz-matched":"");
+    a.href=b.url;a.target="_blank";a.rel="noreferrer";
+    a.innerHTML=`<div class="buzz-sub">r/${b.sub}</div><div class="buzz-title-text">${b.title}</div><div class="buzz-score">▲ ${b.score} upvotes${matched?" · &#x1F4E3; matches your results":""}</div>`;
     scroll.appendChild(a);
   });
 }
  
-// ──────────── LEARN NOTE (food only) ────────────
+// ── LEARN NOTE ──
 function refreshLearnNote(){
-  const note=document.getElementById("food-learn-note"); if(!note) return;
-  note.innerHTML="";
-  const prof=tasteProfile();
+  const note=document.getElementById("food-learn-note");if(!note)return;
+  note.innerHTML="";const prof=tasteProfile();
   const sub=document.getElementById("food-learn-sub");
-  if(sub) sub.textContent=prof?"Learned from "+prof.count+" saved spots":"Save 2+ spots to activate";
+  if(sub)sub.textContent=prof?"Learned from "+prof.count+" saved spots":"Save 2+ spots to activate";
   if(prof&&S.food.learn&&S.food.view==="list"&&S.food.results.length){
-    note.innerHTML=`<div class="taste-card">🧠 <div><b>Tuned to your taste.</b> Leaning toward ${prof.topCuisines.slice(0,2).join(" & ")}${prof.favPrice?" and "+"$".repeat(prof.favPrice):""} from your ${prof.count} saved favorites.</div></div>`;
+    note.innerHTML=`<div class="taste-card">&#x1F9E0; <div><b>Tuned to your taste.</b> Leaning toward ${prof.topCuisines.slice(0,2).join(" & ")}${prof.favPrice?" and "+"$".repeat(prof.favPrice):""} from your ${prof.count} saved favorites.</div></div>`;
   }
 }
  
-// ──────────── SURPRISE ME (food) ────────────
+// ── SURPRISE ME ──
 function surpriseMe(){
-  const prof=tasteProfile();
-  let cuisine, meal=MEALS[Math.floor(Math.random()*MEALS.length)][0];
+  const prof=tasteProfile();let cuisine,meal=MEALS[Math.floor(Math.random()*MEALS.length)][0];
   if(prof&&S.food.learn&&prof.topCuisines.length){
     cuisine=Math.random()<0.7?prof.topCuisines[Math.floor(Math.random()*prof.topCuisines.length)]:CUISINES[1+Math.floor(Math.random()*(CUISINES.length-1))];
-    if(prof.favPrice) S.food.prices=[prof.favPrice,Math.min(4,prof.favPrice+1)];
-  } else { cuisine=CUISINES[1+Math.floor(Math.random()*(CUISINES.length-1))]; }
-  S.food.cuisine=cuisine; S.food.meal=meal;
-  const cs=document.getElementById("food-cuisine"); if(cs) cs.value=CUISINES.includes(cuisine)?cuisine:"Any";
+    if(prof.favPrice)S.food.prices=[prof.favPrice,Math.min(4,prof.favPrice+1)];
+  }else{cuisine=CUISINES[1+Math.floor(Math.random()*(CUISINES.length-1))];}
+  S.food.cuisine=cuisine;S.food.meal=meal;clearDish();
+  const cs=document.getElementById("food-cuisine");if(cs)cs.value=CUISINES.includes(cuisine)?cuisine:"Any";
   document.querySelectorAll("#food-meals .chip").forEach(b=>b.classList.toggle("on",b.textContent.trim().endsWith(meal)));
   document.querySelectorAll("#food-prices .chip").forEach((b,i)=>b.classList.toggle("on",S.food.prices.includes(i+1)));
-  toast("🎲 "+cuisine+" "+meal+"!");
+  toast("&#x1F35A; "+cuisine+" "+meal+"!");
   doSearch("food");
 }
  
-// ------------ RENDER SAVED ------------
+// ── RENDER SAVED ──
 function renderSaved(){
-  var el=document.getElementById("saved-content"); el.innerHTML="";
-  var f=loadFavs(); var prof=tasteProfile(); var custom=loadCustom();
-  var hdr=document.createElement("div");
-  hdr.innerHTML='<p class="sec-title">&#x2665;&#xFE0F; Saved places</p><button class="add-rec-btn" style="margin-bottom:4px;" onclick="openModal(\'food\')">&#x2795; Add a recommendation</button>';
-  el.appendChild(hdr);
-  if(prof){
-    var tc=document.createElement("div"); tc.className="taste-card"; tc.style.marginTop="10px";
-    tc.innerHTML='\ud83e\udde0 <div><b>Your taste profile:</b> Drawn to '+prof.topCuisines.join(", ")+(prof.favPrice?' &middot; usually '+"$".repeat(prof.favPrice):"")+'.<br/><span style="font-size:12px;">Food searches lean this way when &ldquo;Learn from favorites&rdquo; is on.</span></div>';
-    el.appendChild(tc);
+  const el=document.getElementById("saved-content");el.innerHTML="";
+  const f=loadFavs();const prof=tasteProfile();const custom=loadCustom();
+  const visits=loadVisits();
+  if(visits.length){
+    const jWrap=document.createElement("div");
+    jWrap.innerHTML='<p class="sec-title">\u{1F4D3} Your visit journal ('+visits.length+')</p>';
+    const vs=visitTasteSignal();
+    if(vs && vs.lovedDishes.length){
+      const lc=document.createElement("div");lc.className="taste-card";lc.style.marginTop="10px";
+      const uniq=[...new Set(vs.lovedDishes)].slice(0,6);
+      lc.innerHTML='\u{1F9E0} <div><b>Dishes you rated 8+:</b> '+uniq.join(", ")+'.<br/><span style="font-size:12px;">Forage factors your visits and ratings into Best-match suggestions.</span></div>';
+      jWrap.appendChild(lc);
+    }
+    visits.slice(0,12).forEach(function(v){
+      const card=document.createElement("div");card.className="journal-card";
+      const dt=new Date(v.date);
+      const verdictEmoji={loved:"\u2764\uFE0F",good:"\u{1F44D}",meh:"\u{1F610}",no:"\u{1F44E}"}[v.verdict]||"";
+      let dishHtml="";
+      v.dishes.forEach(function(d){ dishHtml+='<div class="journal-dish"><span>'+d.name+'</span><span class="journal-score">'+d.score+'/10</span></div>'; });
+      const maps=v.mapsUri||("https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(v.name+" "+(v.address||"")));
+      card.innerHTML='<div style="display:flex;justify-content:space-between;align-items:baseline;"><h3 style="font-family:Fraunces,serif;font-weight:700;font-size:18px;margin:0;">'+v.name+" "+verdictEmoji+'</h3><span style="font-size:11.5px;color:var(--ink-soft);">'+dt.toLocaleDateString()+'</span></div>'
+        +(v.type?'<div style="font-size:12px;color:var(--ink-soft);margin-top:2px;">'+v.type+'</div>':"")
+        +'<div style="margin-top:8px;">'+(dishHtml||'<span style="font-size:13px;color:var(--ink-soft);">No dishes logged</span>')+'</div>'
+        +'<div style="margin-top:10px;display:flex;gap:7px;"><a class="act" href="'+maps+'" target="_blank" rel="noreferrer" style="background:var(--terra);color:#fff;">\u{1F9ED} Directions</a><button class="act" style="border:1.5px solid var(--line);color:var(--terra-deep);" onclick="deleteVisit('+v.date+')">\u{1F5D1} Delete</button></div>';
+      jWrap.appendChild(card);
+    });
+    el.appendChild(jWrap);
+    const dvd=document.createElement("div");dvd.style.cssText="height:1px;background:var(--line);margin:22px 0;";el.appendChild(dvd);
   }
+  const hdr=document.createElement("div");
+  hdr.innerHTML='<p class="sec-title">♥️ Saved places</p><button class="add-rec-btn" style="margin-bottom:4px;" onclick="openModal(&quot;food&quot;)">&#x2795; Add a recommendation</button>';
+  el.appendChild(hdr);
+  if(prof){const tc=document.createElement("div");tc.className="taste-card";tc.style.marginTop="10px";tc.innerHTML='&#x1F9E0; <div><b>Your taste profile:</b> Drawn to '+prof.topCuisines.join(", ")+(prof.favPrice?' &middot; usually '+"$".repeat(prof.favPrice):"")+'.<br/><span style="font-size:12px;">Food searches lean this way when &ldquo;Learn from favorites&rdquo; is on.</span></div>';el.appendChild(tc);}
   if(custom.length){
-    var fsec=document.createElement("div"); fsec.className="friend-section"; fsec.style.marginTop="18px";
-    fsec.innerHTML='<div class="friend-header"><span style="font-size:18px;">\ud83e\udd1d</span><span class="friend-label">Added by friends ('+custom.length+')</span></div>';
-    custom.slice().reverse().forEach(function(x){
-      var c=document.createElement("article"); c.className="card friend-card";
-      var sub=x.mode==="food"?(x.cuisine||"Any"):x.mode==="parks"?(x.parkType||"Any"):(x.playCategory||"Any");
-      var modeLabel=x.mode==="parks"?"\ud83c\udf33 Park":x.mode==="play"?"\ud83c\udfae Entertainment":"\ud83c\udf7d\ufe0f Food";
-      var modeClass=x.mode==="parks"?"mode-parks":x.mode==="play"?"mode-play":"mode-food";
-      var maps="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(x.name+" "+(x.address||""));
-      c.innerHTML=
-        '<span class="rec-badge">\ud83e\udd1d Friend rec</span>'+
-        '<h3 class="rname" style="padding-right:8px;">'+x.name+'</h3>'+
-        '<div class="meta"><span class="mode-badge '+modeClass+'">'+modeLabel+'</span><span style="margin-left:4px;">&middot; '+sub+'</span></div>'+
-        (x.recommendedBy?'<p class="rec-by">Recommended by '+x.recommendedBy+'</p>':'')+
-        (x.notes?'<p class="card-quote">\u201c'+x.notes+'\u201d</p>':'')+
-        (x.address?'<p class="card-addr">\ud83d\udccd <span>'+x.address+'</span></p>':'')+
-        '<div class="actions" style="flex-wrap:wrap;align-items:center;">'+
-          '<a class="act" href="'+maps+'" target="_blank" rel="noreferrer" style="background:var(--olive);color:#fff;">\ud83e\uddad Directions</a>'+
-          (x.phone?'<a class="act" href="tel:'+x.phone+'" style="border:1.5px solid var(--line);color:var(--ink);">\ud83d\udcde Call</a>':'')+
-          (x.website?'<a class="act" href="'+x.website+'" target="_blank" rel="noreferrer" style="border:1.5px solid var(--line);color:var(--ink);">\ud83c\udf10 Site</a>':'')+
-          '<button class="btn-remove-custom" onclick="removeCustom(\''+x.id+'\',\''+(x.mode||'food')+'\')">&#215; Remove</button>'+
-        '</div>';
+    const fsec=document.createElement("div");fsec.className="friend-section";fsec.style.marginTop="18px";
+    fsec.innerHTML='<div class="friend-header"><span style="font-size:18px;">&#x1F91D;</span><span class="friend-label">Added by friends ('+custom.length+')</span></div>';
+    custom.slice().reverse().forEach(x=>{
+      const c=document.createElement("article");c.className="card friend-card";
+      const sub=x.mode==="food"?(x.cuisine||"Any"):x.mode==="parks"?(x.parkType||"Any"):(x.playCategory||"Any");
+      const modeLabel=x.mode==="parks"?"&#x1F333; Park":x.mode==="play"?"&#x1F3AE; Entertainment":"&#x1F37D;️ Food";
+      const modeClass=x.mode==="parks"?"mode-parks":x.mode==="play"?"mode-play":"mode-food";
+      const maps="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(x.name+" "+(x.address||""));
+      c.innerHTML='<span class="rec-badge">&#x1F91D; Friend rec</span><h3 class="rname" style="padding-right:8px;">'+x.name+'</h3>'
+        +'<div class="meta"><span class="mode-badge '+modeClass+'">'+modeLabel+'</span><span style="margin-left:4px;">&middot; '+sub+'</span></div>'
+        +(x.recommendedBy?'<p class="rec-by">Recommended by '+x.recommendedBy+'</p>':'')
+        +(x.notes?'<p class="card-quote">“'+x.notes+'”</p>':'')
+        +(x.address?'<p class="card-addr">&#x1F4CD; <span>'+x.address+'</span></p>':'')
+        +'<div class="actions">'
+        +'<a class="act" href="'+maps+'" target="_blank" rel="noreferrer" style="background:var(--olive);color:#fff;">&#x1F9AD; Directions</a>'
+        +(x.phone?'<a class="act" href="tel:'+x.phone+'" style="border:1.5px solid var(--line);color:var(--ink);">&#x1F4DE; Call</a>':'')
+        +(x.website?'<a class="act" href="'+x.website+'" target="_blank" rel="noreferrer" style="border:1.5px solid var(--line);color:var(--ink);">&#x1F310; Site</a>':'')
+        +'<button class="btn-remove-custom" data-cid="'+x.id+'" data-csec="'+(x.mode||'food')+'">&#215; Remove</button>'
+        +'</div>';
       fsec.appendChild(c);
     });
     el.appendChild(fsec);
   }
-  var starSec=document.createElement("div"); starSec.style.marginTop="20px";
-  starSec.innerHTML='<div class="friend-header" style="margin-bottom:4px;"><span style="font-size:18px;">\u2605</span><span class="friend-label">Starred favorites ('+f.length+')</span></div>';
-  if(!f.length){var p=document.createElement("p");p.className="foot";p.style.margin="8px 0";p.textContent="Tap \u2661 on any result in Food, Parks, or Play to save it here.";starSec.appendChild(p);}
+  const starSec=document.createElement("div");starSec.style.marginTop="20px";
+  starSec.innerHTML='<div class="friend-header" style="margin-bottom:4px;"><span style="font-size:18px;">★</span><span class="friend-label">Starred favorites ('+f.length+')</span></div>';
+  if(!f.length){const p=document.createElement("p");p.className="foot";p.style.margin="8px 0";p.textContent="Tap ♡ on any result to save it here.";starSec.appendChild(p);}
   else{
-    f.slice().reverse().forEach(function(x){
-      if(loc.coords&&x.lat&&x.lng) x._d=miles(loc.coords.lat,loc.coords.lng,x.lat,x.lng);
-      var c=document.createElement("article"); c.className="card";
-      var maps=x.mapsUri||("https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(x.name+" "+(x.address||"")));
-      var modeClass=x.mode==="parks"?"mode-parks":x.mode==="play"?"mode-play":"mode-food";
-      var modeLabel=x.mode==="parks"?"\ud83c\udf33 Park":x.mode==="play"?"\ud83c\udfae Entertainment":"\ud83c\udf7d\ufe0f Food";
-      var fav=isFav(x.id);
-      c.innerHTML=
-        '<button class="heart'+(fav?" on":"")+'" data-id="'+x.id+'" data-sec="'+(x.mode||"food")+'">'+(fav?"\u2665":"\u2661")+'</button>'+
-        '<h3 class="rname" style="padding-right:40px;">'+x.name+'</h3>'+
-        '<div class="meta">'+
-          stars(x.rating)+'<span style="font-weight:700;font-size:13px;color:var(--ink);">'+(x.rating==null?0:x.rating).toFixed(1)+'</span>'+
-          (x.reviewCount?'<span>('+(+x.reviewCount).toLocaleString()+')</span>':'')+
-          (x.priceLevel&&x.mode!=="parks"?'<span>&middot; '+priceStr(x.priceLevel)+'</span>':'')+
-          '<span>&middot; '+(x.type||"")+'</span>'+
-          (x._d!=null?'<span>&middot; '+(x._d<0.1?"<0.1":x._d.toFixed(1))+' mi</span>':'')+
-        '</div>'+
-        '<span class="mode-badge '+modeClass+'">'+modeLabel+'</span>'+
-        (x.address?'<p class="card-addr">\ud83d\udccd <span>'+x.address+'</span></p>':'')+
-        '<div class="actions">'+
-          '<a class="act" href="'+maps+'" target="_blank" rel="noreferrer" style="background:var(--terra);color:#fff;">\ud83e\uddad Directions</a>'+
-          (x.phone?'<a class="act" href="tel:'+x.phone+'" style="border:1.5px solid var(--line);color:var(--ink);">\ud83d\udcde Call</a>':'')+
-          (x.website?'<a class="act" href="'+x.website+'" target="_blank" rel="noreferrer" style="border:1.5px solid var(--line);color:var(--ink);">\ud83c\udf10 Site</a>':'')+
-        '</div>';
+    f.slice().reverse().forEach(x=>{
+      if(loc.coords&&x.lat&&x.lng)x._d=miles(loc.coords.lat,loc.coords.lng,x.lat,x.lng);
+      const c=document.createElement("article");c.className="card";
+      const maps=x.mapsUri||("https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(x.name+" "+(x.address||"")));
+      const modeClass=x.mode==="parks"?"mode-parks":x.mode==="play"?"mode-play":"mode-food";
+      const modeLabel=x.mode==="parks"?"&#x1F333; Park":x.mode==="play"?"&#x1F3AE; Entertainment":"&#x1F37D;️ Food";
+      const fav=isFav(x.id);
+      c.innerHTML='<button class="heart'+(fav?" on":"")+'" data-id="'+x.id+'" data-sec="'+(x.mode||"food")+'">'+(fav?"♥":"♡")+'</button>'
+        +'<h3 class="rname" style="padding-right:40px;">'+x.name+'</h3>'
+        +'<div class="meta">'+stars(x.rating)+'<span style="font-weight:700;font-size:13px;color:var(--ink);">'+(x.rating??0).toFixed(1)+'</span>'
+        +(x.reviewCount?'<span>('+(+x.reviewCount).toLocaleString()+')</span>':'')
+        +(x.priceLevel&&x.mode!=="parks"?'<span>&middot; '+priceStr(x.priceLevel)+'</span>':'')
+        +'<span>&middot; '+(x.type||"")+'</span>'
+        +(x._d!=null?'<span>&middot; '+(x._d<0.1?"<0.1":x._d.toFixed(1))+' mi</span>':'')
+        +'</div>'
+        +'<span class="mode-badge '+modeClass+'">'+modeLabel+'</span>'
+        +(x.address?'<p class="card-addr">&#x1F4CD; <span>'+x.address+'</span></p>':'')
+        +'<div class="actions">'
+        +'<a class="act" href="'+maps+'" target="_blank" rel="noreferrer" style="background:var(--terra);color:#fff;">&#x1F9AD; Directions</a>'
+        +(x.phone?'<a class="act" href="tel:'+x.phone+'" style="border:1.5px solid var(--line);color:var(--ink);">&#x1F4DE; Call</a>':'')
+        +(x.website?'<a class="act" href="'+x.website+'" target="_blank" rel="noreferrer" style="border:1.5px solid var(--line);color:var(--ink);">&#x1F310; Site</a>':'')
+        +'</div>';
       starSec.appendChild(c);
     });
   }
@@ -1091,13 +1089,214 @@ function renderSaved(){
   wireHearts(el);
 }
  
-// ──────────── INIT ────────────
-setupLocation();
+// ── INIT ──
 buildFoodControls();
 buildParksControls();
 buildPlayControls();
 updateSavedCount();
-if("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js").catch(()=>{});
+renderDishHistory();
+renderSearchRecent();
+refreshSubtype();
+if("serviceWorker" in navigator)navigator.serviceWorker.register("/sw.js").catch(()=>{});
+ 
+// delegated handler for remove-custom buttons
+document.addEventListener('click', function(e) {
+  const btn = e.target.closest('.btn-remove-custom');
+  if (!btn) return;
+  const id = btn.dataset.cid;
+  const sec = btn.dataset.csec || curSec;
+  if (id) removeCustom(id, sec);
+});
+ 
+// ========== VISIT LOG + DISH RATINGS ==========
+function loadVisits(){ try{ return JSON.parse(localStorage.getItem(VISITS_KEY)||"[]"); }catch{ return []; } }
+function saveVisits(a){ localStorage.setItem(VISITS_KEY, JSON.stringify(a)); }
+function visitsFor(id){ return loadVisits().filter(function(v){ return v.placeId===id; }); }
+function hasVisited(id){ return loadVisits().some(function(v){ return v.placeId===id; }); }
+function deleteVisit(date){ saveVisits(loadVisits().filter(function(v){return v.date!==date;})); toast("Visit removed"); renderSaved(); }
+ 
+var _visitCtx = null; // {placeId,name,type,priceLevel,address,lat,lng,mapsUri,phone,mode}
+ 
+function openVisit(id){
+  var p=[].concat(S.food.results,S.parks.results,S.play.results,loadFavs()).find(function(x){return x.id===id;});
+  if(!p){ toast("Couldn't find that place"); return; }
+  _visitCtx={placeId:p.id,name:p.name,type:p.type,priceLevel:p.priceLevel,address:p.address,lat:p.lat,lng:p.lng,mapsUri:p.mapsUri,phone:p.phone,mode:p.mode||"food"};
+  document.getElementById("visit-place-display").textContent=p.name;
+  document.getElementById("visit-other").style.display="none";
+  document.getElementById("visit-search").value="";
+  document.getElementById("visit-results").innerHTML="";
+  document.getElementById("dish-rate-list").innerHTML="";
+  addDishRow();
+  document.querySelectorAll("#visit-verdict .chip").forEach(function(b){b.classList.remove("on");});
+  document.getElementById("visit-overlay").classList.add("show");
+}
+function closeVisit(){ document.getElementById("visit-overlay").classList.remove("show"); }
+document.getElementById("visit-overlay").addEventListener("click",function(e){ if(e.target===this) closeVisit(); });
+ 
+function visitPickOther(){
+  var box=document.getElementById("visit-other");
+  box.style.display = box.style.display==="none" ? "block" : "none";
+  if(box.style.display==="block"){
+    // seed with current results as quick picks
+    var all=[].concat(S.food.results,S.parks.results,S.play.results);
+    var html="";
+    all.slice(0,8).forEach(function(p){
+      html+='<div class="visit-pick-item" data-id="'+p.id+'">'+p.name+'<span style="font-size:12px;color:var(--ink-soft);">'+(p.type||"")+'</span></div>';
+    });
+    document.getElementById("visit-results").innerHTML=html||'<p style="font-size:13px;color:var(--ink-soft);">Type a name and pick from your recent results, or just type it freely below.</p>';
+    wireVisitPicks();
+    document.getElementById("visit-search").focus();
+  }
+}
+function wireVisitPicks(){
+  document.querySelectorAll("#visit-results .visit-pick-item").forEach(function(it){
+    it.onclick=function(){
+      var id=it.dataset.id;
+      var p=[].concat(S.food.results,S.parks.results,S.play.results).find(function(x){return x.id===id;});
+      if(p){ _visitCtx={placeId:p.id,name:p.name,type:p.type,priceLevel:p.priceLevel,address:p.address,lat:p.lat,lng:p.lng,mapsUri:p.mapsUri,phone:p.phone,mode:p.mode||"food"};
+        document.getElementById("visit-place-display").textContent=p.name;
+        document.getElementById("visit-other").style.display="none";
+      }
+    };
+  });
+}
+document.getElementById("visit-search").addEventListener("input",function(e){
+  var q=e.target.value.trim().toLowerCase();
+  var all=[].concat(S.food.results,S.parks.results,S.play.results);
+  var matches=q?all.filter(function(p){return p.name.toLowerCase().includes(q);}):all.slice(0,8);
+  var html="";
+  matches.slice(0,8).forEach(function(p){ html+='<div class="visit-pick-item" data-id="'+p.id+'">'+p.name+'<span style="font-size:12px;color:var(--ink-soft);">'+(p.type||"")+'</span></div>'; });
+  if(q && !matches.length){
+    // allow free-text custom place
+    html='<div class="visit-pick-item sel" data-free="1">Use "'+e.target.value.trim()+'"<span style="font-size:12px;color:var(--olive);">new place</span></div>';
+  }
+  document.getElementById("visit-results").innerHTML=html;
+  document.querySelectorAll("#visit-results .visit-pick-item").forEach(function(it){
+    it.onclick=function(){
+      if(it.dataset.free){
+        var nm=document.getElementById("visit-search").value.trim();
+        _visitCtx={placeId:"freetext_"+Date.now(),name:nm,type:"Restaurant",priceLevel:null,address:"",lat:null,lng:null,mapsUri:null,phone:null,mode:"food"};
+        document.getElementById("visit-place-display").textContent=nm;
+      } else { wireVisitPicks(); it.click(); }
+      document.getElementById("visit-other").style.display="none";
+    };
+  });
+  wireVisitPicks();
+});
+ 
+function addDishRow(name,score){
+  var list=document.getElementById("dish-rate-list");
+  var row=document.createElement("div"); row.className="dish-rate-row";
+  var val=score||7;
+  row.innerHTML='<input class="dname" type="text" placeholder="Dish name (e.g. masala dosa)" value="'+(name?name.replace(/"/g,"&quot;"):"")+'"/>'
+    +'<div class="rate-pick"><input type="range" class="rate-slider" min="1" max="10" step="1" value="'+val+'"/><span class="rate-num">'+val+'</span></div>';
+  var slider=row.querySelector(".rate-slider"), num=row.querySelector(".rate-num");
+  slider.addEventListener("input",function(){ num.textContent=slider.value; });
+  list.appendChild(row);
+}
+ 
+document.querySelectorAll("#visit-verdict .chip").forEach(function(b){
+  b.onclick=function(){ document.querySelectorAll("#visit-verdict .chip").forEach(function(x){x.classList.remove("on");}); b.classList.add("on"); };
+});
+ 
+function saveVisit(){
+  if(!_visitCtx){ toast("Pick a place first"); return; }
+  var dishes=[];
+  document.querySelectorAll("#dish-rate-list .dish-rate-row").forEach(function(r){
+    var nm=r.querySelector(".dname").value.trim();
+    var sc=+r.querySelector(".rate-slider").value;
+    if(nm) dishes.push({name:nm,score:sc});
+  });
+  var verdictBtn=document.querySelector("#visit-verdict .chip.on");
+  var verdict=verdictBtn?verdictBtn.dataset.v:"good";
+  var visit=Object.assign({},_visitCtx,{dishes:dishes,verdict:verdict,date:Date.now()});
+  var all=loadVisits(); all.unshift(visit); saveVisits(all);
+  closeVisit();
+  toast("\u2705 Visit logged \u2014 Forage is learning!");
+  if(curSec==="saved") renderSaved();
+  if(S[_visitCtx.mode] && S[_visitCtx.mode].results.length) renderList(_visitCtx.mode);
+}
+ 
+// ========== VISIT-AWARE TASTE ENGINE ==========
+// Blends saved favorites + logged visits (weighted by dish ratings & verdict).
+function visitTasteSignal(){
+  var visits=loadVisits().filter(function(v){return v.mode==="food";});
+  if(!visits.length) return null;
+  var cuis={}, price={}, lovedDishes=[];
+  var vWeight={loved:2,good:1,meh:-0.5,no:-1.5};
+  visits.forEach(function(v){
+    var avg = v.dishes.length ? v.dishes.reduce(function(s,d){return s+d.score;},0)/v.dishes.length : 6;
+    var w = (vWeight[v.verdict]||1) * (avg/7);
+    if(v.type) cuis[v.type]=(cuis[v.type]||0)+w;
+    if(v.priceLevel) price[v.priceLevel]=(price[v.priceLevel]||0)+w;
+    v.dishes.forEach(function(d){ if(d.score>=8) lovedDishes.push(d.name); });
+  });
+  return {cuis:cuis,price:price,lovedDishes:lovedDishes,count:visits.length};
+}
+// Hook the existing tasteBoost: add visit signal on top of saved-favorites signal.
+var _origTasteBoost = tasteBoost;
+tasteBoost = function(place, prof){
+  var b = _origTasteBoost(place, prof);
+  var vs = visitTasteSignal();
+  if(vs){
+    for(var c in vs.cuis){
+      if(place.type && (place.type.toLowerCase().includes(c.toLowerCase())||c.toLowerCase().includes(place.type.toLowerCase())))
+        b += 0.35 * vs.cuis[c];
+    }
+    if(place.priceLevel && vs.price[place.priceLevel]) b += 0.25 * vs.price[place.priceLevel];
+  }
+  return b;
+};
+// Make tasteProfile also activate from visits alone (so "Learn" works before 2 saves).
+var _origTasteProfile = tasteProfile;
+tasteProfile = function(){
+  var prof = _origTasteProfile();
+  if(prof) return prof;
+  var vs = visitTasteSignal();
+  if(vs && vs.count>=1){
+    var topCuis=Object.entries(vs.cuis).sort(function(a,b){return b[1]-a[1];}).slice(0,3).map(function(e){return e[0];});
+    var topPrice=Object.entries(vs.price).sort(function(a,b){return b[1]-a[1];})[0];
+    return {count:vs.count, cuisineWeights:vs.cuis, topCuisines:topCuis, favPrice:topPrice?+topPrice[0]:null, fromVisits:true};
+  }
+  return null;
+};
+ 
+// ========== MULTI-SOURCE REVIEWS RENDER ==========
+function reviewPanelHTML(x){
+  var g=(x.googleReviews||[]).slice(0,2);
+  var ext=(x.externalReviews||[]);
+  if(!g.length && !ext.length) return "";
+  var rid="rev_"+x.id;
+  var inner="";
+  g.forEach(function(r){
+    inner+='<div class="rev-item"><div class="rev-head"><span class="rev-src src-google">G Google</span>'
+      +(r.rating?'<span class="rev-by">\u2605 '+r.rating+' \xb7 '+r.author+'</span>':'<span class="rev-by">'+r.author+'</span>')
+      +'</div><div class="rev-text">'+escapeHtml(r.text.slice(0,260))+(r.text.length>260?"\u2026":"")+'</div></div>';
+  });
+  ext.forEach(function(r){
+    inner+='<div class="rev-item"><div class="rev-head"><span class="rev-src src-reddit">r/ Reddit</span>'
+      +'<span class="rev-by">r/'+r.sub+' \xb7 \u25b2'+r.score+'</span></div>'
+      +'<div class="rev-text">'+escapeHtml(r.snippet)+'</div>'
+      +'<a class="rev-link" href="'+r.url+'" target="_blank" rel="noreferrer">Read on Reddit \u2192</a></div>';
+  });
+  var srcCount=(g.length?1:0)+(ext.length?1:0);
+  var label = srcCount>1 ? "What people say across Google + Reddit" : (ext.length ? "What people say on Reddit" : "What people say on Google");
+  return '<div class="rev-panel"><button class="rev-toggle" onclick="toggleRev(\''+rid+'\',this)">\ud83d\udcac '+label+' ('+(g.length+ext.length)+') \u25be</button>'
+    +'<div class="rev-list" id="'+rid+'">'+inner+'</div></div>';
+}
+function toggleRev(id,btn){
+  var el=document.getElementById(id); if(!el) return;
+  el.classList.toggle("show");
+  btn.innerHTML=btn.innerHTML.replace(el.classList.contains("show")?"\u25be":"\u25b8","");
+}
+function escapeHtml(s){ return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+ 
+// ========== DELEGATED: visit buttons ==========
+document.addEventListener("click",function(e){
+  var vb=e.target.closest(".visit-btn");
+  if(vb){ openVisit(vb.dataset.id); }
+});
+ 
 </script>
 </body>
 </html>
